@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('darkToggle');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                root.classList.toggle('dark');
+                localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+    });
+})();
+</script>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<section class="hero">
+    <span class="hero-eyebrow">Professional Tools for Windows &amp; macOS</span>
+    <h1>Software that does<br>exactly <em>one thing</em> well.</h1>
+    <p>ProForma Suite builds focused productivity apps. Buy once, own forever — no subscriptions, no bloat.</p>
+    <div class="hero-cta">
+        <a href="store.html" class="btn-primary">Browse Apps</a>
+        <a href="downloads.html" class="btn-outline">Download Portal</a>
+    </div>
+</section>
+
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">Featured Apps</span>
+    <h2>Built for professionals who value their time.</h2>
+    <p class="section-sub">Every app in the suite solves one real problem, cleanly.</p>
+
+    <div class="app-grid">
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">📄</div>
+                <span class="version-badge">v2.1.0</span>
+            </div>
+            <h3>DOCX Optimizer</h3>
+            <p>Batch-clean, reformat, and optimize Word documents in seconds. Perfect for teams managing large document libraries.</p>
+            <div class="card-actions">
+                <a href="docx-optimizer.html" class="btn-card-info">More Info</a>
+                <a href="store.html" class="btn-card-buy">Buy – $29</a>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">📋</div>
+                <span class="version-badge">v1.4.2</span>
+            </div>
+            <h3>ProForm</h3>
+            <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop builder with digital signature support.</p>
+            <div class="card-actions">
+                <a href="proform.html" class="btn-card-info">More Info</a>
+                <a href="store.html" class="btn-card-buy">Buy – $19</a>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">⚙️</div>
+                <span class="version-badge">v1.0.0</span>
+            </div>
+            <h3>App Three</h3>
+            <p>A powerful utility for advanced users. Lightweight, fast, and built to handle complex tasks without getting in your way.</p>
+            <div class="card-actions">
+                <a href="app-three.html" class="btn-card-info">More Info</a>
+                <a href="store.html" class="btn-card-buy">Buy – $9</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">How It Works</span>
+    <h2>Up and running in minutes.</h2>
+    <p class="section-sub">No account required. Buy, receive your key, and download.</p>
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">1</div>
+            <h3>Browse &amp; Buy</h3>
+            <p>Choose the app you need and check out securely via Stripe. One-time payment, no subscription.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <h3>Receive Your Key</h3>
+            <p>Your unique license key is emailed to you instantly after payment is confirmed.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <h3>Download &amp; Install</h3>
+            <p>Enter your key in the <a href="downloads.html">Download Portal</a> to unlock your app and all future updates.</p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite</span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:support@proforma-suite.com">support@proforma-suite.com</a>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Apps – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('darkToggle');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                root.classList.toggle('dark');
+                localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+    });
+})();
+</script>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html" style="color:var(--accent);">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<div class="section">
+    <span class="section-label">All Apps</span>
+    <h2>The full ProForma Suite catalog.</h2>
+    <p class="section-sub">Buy once, own forever. Every app includes free updates for one year.</p>
+
+    <div class="app-grid">
+
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">📄</div>
+                <span class="version-badge">v2.1.0</span>
+            </div>
+            <h3>DOCX Optimizer</h3>
+            <p>Batch-clean, reformat, and optimize Word documents. Removes hidden formatting, fixes styles, and exports clean .docx files at scale.</p>
+            <div class="card-actions">
+                <a href="docx-optimizer.html" class="btn-card-info">More Info</a>
+                <a href="https://buy.stripe.com/test_dRm5kE4on30J9ls3fMc7u00" class="btn-card-buy" target="_blank" rel="noopener">Buy – $29</a>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">📋</div>
+                <span class="version-badge">v1.4.2</span>
+            </div>
+            <h3>ProForm</h3>
+            <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop form builder with digital signature support.</p>
+            <div class="card-actions">
+                <a href="proform.html" class="btn-card-info">More Info</a>
+                <a href="https://buy.stripe.com/test_5kQ28s3kjbxf1T03fMc7u01" class="btn-card-buy" target="_blank" rel="noopener">Buy – $19</a>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">⚙️</div>
+                <span class="version-badge">v1.0.0</span>
+            </div>
+            <h3>App Three</h3>
+            <p>A powerful utility for advanced users. Lightweight, fast, and built to automate complex tasks without getting in your way.</p>
+            <div class="card-actions">
+                <a href="app-three.html" class="btn-card-info">More Info</a>
+                <a href="https://buy.stripe.com/your-app-three-link" class="btn-card-buy" target="_blank" rel="noopener">Buy – $9</a>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">🖥️</div>
+                <span class="version-badge">v0.9.1</span>
+            </div>
+            <h3>App Four</h3>
+            <p>Lightweight and fast command-line helper for power users. Automate repetitive tasks in seconds.</p>
+            <div class="card-actions">
+                <a href="app-four.html" class="btn-card-info">More Info</a>
+                <a href="https://buy.stripe.com/your-app-four-link" class="btn-card-buy" target="_blank" rel="noopener">Buy – $49</a>
+            </div>
+        </div>
+
+        <div class="app-card">
+            <div class="card-top">
+                <div class="app-icon">🛠️</div>
+                <span class="version-badge">v1.2.3</span>
+            </div>
+            <h3>App Five</h3>
+            <p>Update this with your real app description. Two clear sentences on what it does and who it's for.</p>
+            <div class="card-actions">
+                <a href="app-five.html" class="btn-card-info">More Info</a>
+                <a href="https://buy.stripe.com/your-app-five-link" class="btn-card-buy" target="_blank" rel="noopener">Buy – $149</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite</span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:support@proforma-suite.com">support@proforma-suite.com</a>
+    </div>
+</footer>
+
+</body>
+</html>
