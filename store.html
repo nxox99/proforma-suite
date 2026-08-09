@@ -88,7 +88,7 @@
 
 <!-- Sitewide trial banner -->
 <div class="trial-banner">
-    🎁 &nbsp;Try any app free for 90 days — no credit card required. Lite version yours to keep.
+    🎁 &nbsp;Try any app free for 30 days — no credit card required. Lite version yours to keep.
     <a href="terms.html">See terms →</a>
 </div>
 
@@ -106,7 +106,7 @@
 <div class="section" style="padding-bottom:0;">
     <span class="section-label">Apps</span>
     <h2>The ProForma Suite catalogue.</h2>
-    <p class="section-sub">Buy once, own forever. Every app includes a 90-day free trial and a permanent free Lite version.</p>
+    <p class="section-sub">Buy once, own forever. Every app includes a 30-day free trial and a permanent free Lite version.</p>
 </div>
 
 <!-- ===== Available Apps ===== -->
@@ -119,14 +119,12 @@
                 <div class="app-icon"><img src="icons/docx-optimizer-icon.png" alt="DOCX Optimizer icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v2.1.0</span>
             </div>
-            <span class="trial-badge">90-Day Free Trial</span>
+            <span class="trial-badge">30-day free trial</span>
             <h3>DOCX Optimizer</h3>
             <p>Batch-clean, reformat, and optimize Word documents in seconds. Perfect for teams managing large document libraries.</p>
             <div class="card-actions">
-                <button class="btn-card-trial" onclick="window.location.href='trial-signup.html?app=DOCX+Optimizer'">Start Free Trial</button>
-                <button class="btn-card-buy js-buy"
-                    data-app="DOCX Optimizer"
-                    data-href="https://your-payment-link.com/docx-optimizer">Buy – $49</button>
+                <button class="btn-card-trial" onclick="window.location.href='trial-signup.html?app=DOCX+Optimizer'">Free trial</button>
+                <button class="btn-card-buy" onclick="window.location.href='payment.html?app=DOCX+Optimizer&price=49'">Buy – $49</button>
             </div>
         </div>
 
@@ -136,24 +134,22 @@
                 <div class="app-icon"><img src="icons/proform-icon.png" alt="ProForm icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v1.4.2</span>
             </div>
-            <span class="trial-badge">90-Day Free Trial</span>
+            <span class="trial-badge">30-day free trial</span>
             <h3>ProForm</h3>
             <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop builder with digital signature support.</p>
             <div class="card-actions">
-                <button class="btn-card-trial" onclick="window.location.href='trial-signup.html?app=ProForm'">Start Free Trial</button>
-                <button class="btn-card-buy js-buy"
-                    data-app="ProForm"
-                    data-href="https://your-payment-link.com/proform">Buy – $99</button>
+                <button class="btn-card-trial" onclick="window.location.href='trial-signup.html?app=ProForm'">Free trial</button>
+                <button class="btn-card-buy" onclick="window.location.href='payment.html?app=ProForm&price=99'">Buy – $99</button>
             </div>
         </div>
 
         <!-- SynoptIQ -->
         <div class="app-card" id="synoptiq">
             <div class="card-top">
-                <div class="app-icon">🧩</div>
+                <div class="app-icon"><img src="icons/synoptiq-icon.png" alt="SynoptIQ icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v1.0.0</span>
             </div>
-            <span class="trial-badge">90-Day Free Trial</span>
+            <span class="trial-badge">30-day free trial</span>
             <div class="bundle-includes">
                 <span class="bundle-chip">Includes DOCX Optimizer</span>
                 <span class="bundle-chip">Includes ProForm</span>
@@ -161,10 +157,8 @@
             <h3>SynoptIQ</h3>
             <p>The complete ProForma Suite bundle — DOCX Optimizer and ProForm in a single package. One install, one license key, everything in one place.</p>
             <div class="card-actions">
-                <button class="btn-card-trial" onclick="window.location.href='trial-signup.html?app=SynoptIQ'">Start Free Trial</button>
-                <button class="btn-card-buy js-buy"
-                    data-app="SynoptIQ"
-                    data-href="https://your-payment-link.com/synoptiq">Buy – $149</button>
+                <button class="btn-card-trial" onclick="window.location.href='trial-signup.html?app=SynoptIQ'">Free trial</button>
+                <button class="btn-card-buy" onclick="window.location.href='payment.html?app=SynoptIQ&price=149'">Buy – $149</button>
             </div>
         </div>
 
@@ -205,6 +199,19 @@
             </div>
         </div>
 
+        <!-- ProRedactor -->
+        <div class="app-card coming-soon">
+            <div class="card-top">
+                <div class="app-icon">🔏</div>
+                <span class="coming-soon-badge">Beta Coming Soon</span>
+            </div>
+            <h3>ProRedactor</h3>
+            <p>Automatically detects and redacts sensitive content — names, addresses, phone numbers, email addresses, Social Security numbers, financial identifiers, and health-related identifiers. Runs entirely on your machine; no data ever leaves your device.</p>
+            <div class="card-actions" style="margin-top:auto;">
+                <span class="version-badge" style="width:100%;text-align:center;padding:0.55rem 0;">Under Development</span>
+            </div>
+        </div>
+
     </div>
 
     <p style="text-align:center;margin-top:2rem;font-size:0.85rem;color:var(--text-3);line-height:1.6;">
@@ -238,11 +245,11 @@
         <div class="modal-summary">
             <div class="modal-summary-row">
                 <span class="modal-icon">🎁</span>
-                <span><strong>90-day free trial</strong> — full Premium access for <span id="modalAppName">this app</span>. No charge today.</span>
+                <span><strong>30-day free trial</strong> — full Premium access for <span id="modalAppName">this app</span>. No charge today.</span>
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">📦</span>
-                <span><strong>After 90 days</strong>, the app reverts to the free Lite version. Premium features are disabled — your data is untouched.</span>
+                <span><strong>After 30 days</strong>, the app reverts to the free Lite version. Premium features are disabled — your data is untouched.</span>
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">♾️</span>
@@ -260,7 +267,7 @@
 
         <label class="modal-agree">
             <input type="checkbox" id="modalAgree">
-            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 90-day trial, single-machine license, and Lite version conditions.
+            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial, single-machine license, and Lite version conditions.
         </label>
 
         <div class="modal-actions">

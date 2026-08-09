@@ -123,7 +123,7 @@
 <body class="has-banner">
 
 <div class="trial-banner">
-    🎁 &nbsp;Try any app free for 90 days — no credit card required. Lite version yours to keep.
+    🎁 &nbsp;Try any app free for 30 days — no credit card required. Lite version yours to keep.
     <a href="terms.html">See terms →</a>
 </div>
 
@@ -146,56 +146,112 @@
 
     <div class="signup-header">
         <span class="section-label">Free Trial</span>
-        <h1>Start your free 90-day trial of <span id="appNameHeading">ProForma Suite</span></h1>
-        <p>Full Premium access for 90 days, then keep the Lite version free forever.</p>
+        <h1>Start your free 30-day trial of <span id="appNameHeading">ProForma Suite</span></h1>
+        <p>Full Premium access for 30 days, then keep the Lite version free forever.</p>
     </div>
 
     <!-- Form card -->
     <div class="signup-card">
         <form class="contact-form" id="trialForm" novalidate>
 
-            <div class="signup-two-col">
+            <div class="signup-inline-fields">
 
-                <!-- Left column: name fields -->
-                <div class="signup-col-left">
-                    <div class="form-field">
-                        <label class="form-label" for="tf-first">First name</label>
+                <div class="signup-inline-row">
+                    <label class="signup-inline-label" for="tf-first">First name</label>
+                    <div class="signup-inline-input">
                         <input class="form-input" id="tf-first" type="text"
                             placeholder="Jane" autocomplete="given-name" required>
                         <span class="field-error" id="err-first">Please enter your first name.</span>
                     </div>
-                    <div class="form-field">
-                        <label class="form-label" for="tf-last">Last name</label>
+                </div>
+
+                <div class="signup-inline-row">
+                    <label class="signup-inline-label" for="tf-last">Last name</label>
+                    <div class="signup-inline-input">
                         <input class="form-input" id="tf-last" type="text"
                             placeholder="Smith" autocomplete="family-name" required>
                         <span class="field-error" id="err-last">Please enter your last name.</span>
                     </div>
                 </div>
 
-                <!-- Right column: email + submit -->
-                <div class="signup-col-right">
-                    <div class="form-field">
-                        <label class="form-label" for="tf-email">Email address</label>
+                <div class="signup-inline-row">
+                    <label class="signup-inline-label" for="tf-email">Email address</label>
+                    <div class="signup-inline-input">
                         <input class="form-input" id="tf-email" type="email"
                             placeholder="you@example.com" autocomplete="email" required>
                         <span class="field-error" id="err-email">Please enter a valid email address.</span>
                     </div>
-                    <div style="margin-top:auto;padding-top:1.35rem;">
-                        <button type="submit" class="btn-send" id="trialSubmit"
-                            style="width:100%;justify-content:center;">
-                            Start my free trial →
-                        </button>
-                        <p id="formStatus" class="form-status" style="text-align:center;margin-top:0.5rem;"></p>
+                </div>
+
+            </div>
+
+            <!-- Additional fields -->
+            <div class="signup-inline-fields" style="margin-top:1rem;">
+
+                <div class="signup-inline-row">
+                    <label class="signup-inline-label" for="tf-workemail">Work email *</label>
+                    <div class="signup-inline-input">
+                        <input class="form-input" id="tf-workemail" type="email"
+                            placeholder="you@company.com" autocomplete="work email" required>
+                        <span class="field-error" id="err-workemail">Please enter a valid work email address.</span>
                     </div>
                 </div>
 
+                <div class="signup-inline-row">
+                    <label class="signup-inline-label" for="tf-phone">Phone number *</label>
+                    <div class="signup-inline-input">
+                        <input class="form-input" id="tf-phone" type="tel"
+                            placeholder="+1 (555) 000-0000" autocomplete="tel" required>
+                        <span class="field-error" id="err-phone">Please enter a valid phone number.</span>
+                    </div>
+                </div>
+
+                <div class="signup-inline-row">
+                    <label class="signup-inline-label" for="tf-interest">Your interest *</label>
+                    <div class="signup-inline-input">
+                        <div class="form-select-wrap">
+                            <select class="form-select form-input" id="tf-interest" required>
+                                <option value="">Please select</option>
+                                <option value="evaluating">Actively evaluating document management software</option>
+                                <option value="researching">Researching automation options</option>
+                                <option value="exploring">Just exploring</option>
+                            </select>
+                        </div>
+                        <span class="field-error" id="err-interest">Please select an option.</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Consent block -->
+            <div class="signup-consent">
+                <p class="consent-intro">By checking the boxes below, you agree to receive communications from <strong id="consentAppName">ProForma Suite</strong>. You can unsubscribe anytime.</p>
+
+                <label class="consent-check-row">
+                    <input type="checkbox" id="tf-consent-comms">
+                    <span>I agree to receive other communications from ProForma Suite.</span>
+                </label>
+
+                <p class="consent-privacy">
+                    We care about your privacy. Learn how we handle your data in our
+                    <a href="terms.html">Privacy Policy</a>.
+                    To deliver your service, we need your permission to store and process your personal data.
+                </p>
+            </div>
+
+            <div style="margin-top:1.5rem;">
+                <button type="submit" class="btn-send" id="trialSubmit"
+                    style="width:100%;justify-content:center;">
+                    Start my free trial →
+                </button>
+                <p id="formStatus" class="form-status" style="text-align:center;margin-top:0.5rem;"></p>
             </div>
 
             <!-- Assurances -->
             <div class="signup-assurances">
 <div class="assurance-row">
                     <span class="assurance-dot">✓</span>
-                    <span>Full Premium access for 90 days, no limits</span>
+                    <span>Full Premium access for 30 days, no limits</span>
                 </div>
                 <div class="assurance-row">
                     <span class="assurance-dot">✓</span>
@@ -267,13 +323,19 @@
 
     /* Personalise heading */
     document.getElementById('appNameHeading').textContent = appName;
+    /* Update consent block app name */
+    document.querySelectorAll('.consent-app-name').forEach(function(el) {
+        el.textContent = appName;
+    });
+    var consentAppName = document.getElementById('consentAppName');
+    if (consentAppName) consentAppName.textContent = appName;
     document.title = 'Start Free Trial – ' + appName + ' – ProForma Suite';
 
     /* App icon mapping */
     var iconMap = {
         'DOCX Optimizer': { img: 'icons/docx-optimizer-icon.png', emoji: '📄' },
         'ProForm':        { img: 'icons/proform-icon.png',         emoji: '📋' },
-        'SynoptIQ':       { img: null,                              emoji: '🧩' },
+        'SynoptIQ':       { img: 'icons/synoptiq-icon.png',         emoji: '🧩' },
     };
     var iconEl   = document.getElementById('appIcon');
     var emojiEl  = document.getElementById('appEmoji');
@@ -305,25 +367,35 @@
     document.getElementById('trialForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
-        var first = document.getElementById('tf-first').value.trim();
-        var last  = document.getElementById('tf-last').value.trim();
-        var email = document.getElementById('tf-email').value.trim();
+        var first     = document.getElementById('tf-first').value.trim();
+        var last      = document.getElementById('tf-last').value.trim();
+        var email     = document.getElementById('tf-email').value.trim();
+        var workEmail = document.getElementById('tf-workemail').value.trim();
+        var phone     = document.getElementById('tf-phone').value.trim();
+        var interest  = document.getElementById('tf-interest').value;
 
-        var v1 = setError('tf-first', 'err-first', !first);
-        var v2 = setError('tf-last',  'err-last',  !last);
-        var v3 = setError('tf-email', 'err-email', !validateEmail(email));
+        var v1 = setError('tf-first',     'err-first',     !first);
+        var v2 = setError('tf-last',      'err-last',      !last);
+        var v3 = setError('tf-email',     'err-email',     !validateEmail(email));
+        var v4 = setError('tf-workemail', 'err-workemail', !validateEmail(workEmail));
+        var v5 = setError('tf-phone',     'err-phone',     !phone);
+        var v6 = setError('tf-interest',  'err-interest',  !interest);
 
-        if (!v1 || !v2 || !v3) return;
+        if (!v1 || !v2 || !v3 || !v4 || !v5 || !v6) return;
 
         /* Save registration to localStorage */
         var trialStart = new Date();
         var trialEnd   = new Date(trialStart);
-        trialEnd.setDate(trialEnd.getDate() + 90);
+        trialEnd.setDate(trialEnd.getDate() + 30);
 
         var registration = {
             firstName:  first,
             lastName:   last,
             email:      email,
+            workEmail:  workEmail,
+            phone:      phone,
+            interest:   interest,
+            commsConsent: document.getElementById('tf-consent-comms').checked,
             app:        appName,
             startDate:  trialStart.toISOString(),
             endDate:    trialEnd.toISOString()
@@ -348,7 +420,7 @@
     });
 
     /* ── Clear error on input ── */
-    ['tf-first','tf-last','tf-email'].forEach(function(id) {
+    ['tf-first','tf-last','tf-email','tf-workemail','tf-phone','tf-interest'].forEach(function(id) {
         document.getElementById(id).addEventListener('input', function() {
             this.classList.remove('error');
             var errId = 'err-' + id.split('-')[1];
