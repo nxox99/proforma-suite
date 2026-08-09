@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Apps – ProForma Suite</title>
+    <title>Apps – ProForma Suite</title>
     <link rel="stylesheet" href="style.css">
-
 <script>
 (function() {
     const root = document.documentElement;
@@ -14,6 +13,7 @@
         root.classList.add('dark');
     }
     window.addEventListener('DOMContentLoaded', function() {
+        /* Dark toggle */
         var btn = document.getElementById('darkToggle');
         if (btn) {
             btn.addEventListener('click', function() {
@@ -21,94 +21,205 @@
                 localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
             });
         }
+
+        /* --- Purchase modal --- */
+        var overlay    = document.getElementById('purchaseModal');
+        var agreeBox   = document.getElementById('modalAgree');
+        var proceedBtn = document.getElementById('modalProceed');
+        var cancelBtn  = document.getElementById('modalCancel');
+        var closeBtn   = document.getElementById('modalClose');
+        var modalAppName = document.getElementById('modalAppName');
+        var currentHref  = '#';
+
+        function openModal(appName, href) {
+            currentHref = href;
+            modalAppName.textContent = appName;
+            agreeBox.checked = false;
+            proceedBtn.disabled = true;
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('.js-buy').forEach(function(el) {
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(this.dataset.app, this.dataset.href);
+            });
+        });
+
+        agreeBox.addEventListener('change', function() {
+            proceedBtn.disabled = !this.checked;
+        });
+
+        proceedBtn.addEventListener('click', function() {
+            window.open(currentHref, '_blank', 'noopener');
+            var appName  = modalAppName.textContent;
+            var priceMap = { 'DOCX Optimizer': '49', 'ProForm': '99', 'SynoptIQ': '149' };
+            var price    = priceMap[appName] || '';
+            var receiptUrl = 'receipt.html?app=' + encodeURIComponent(appName)
+                           + '&price=' + encodeURIComponent(price);
+            closeModal();
+            setTimeout(function() { window.location.href = receiptUrl; }, 800);
+        });
+
+        cancelBtn.addEventListener('click', closeModal);
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+        /* Clipboard email copy */
+        document.querySelectorAll('.email-copy').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                navigator.clipboard.writeText(this.dataset.email).then(function() {
+                    btn.classList.add('copied');
+                    setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+                });
+            });
+        });
     });
 })();
 </script>
 </head>
-<body>
+<body class="has-banner">
+
+<!-- Sitewide trial banner -->
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 90 days — no credit card required. Lite version yours to keep.
+    <a href="terms.html">See terms →</a>
+</div>
+
 <nav class="navbar">
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
-        <a href="store.html" style="color:var(--accent);">Apps</a>
+        <a href="store.html" class="nav-active">Apps</a>
         <a href="downloads.html">Downloads</a>
         <a href="support.html">Support</a>
         <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
     </div>
 </nav>
 
-<div class="section">
-    <span class="section-label">All Apps</span>
-    <h2>The full ProForma Suite catalog.</h2>
-    <p class="section-sub">Buy once, own forever. Every app includes free updates for one year.</p>
+<!-- Page header -->
+<div class="section" style="padding-bottom:0;">
+    <span class="section-label">Apps</span>
+    <h2>The ProForma Suite catalogue.</h2>
+    <p class="section-sub">Buy once, own forever. Every app includes a 90-day free trial and a permanent free Lite version.</p>
+</div>
 
+<!-- ===== Available Apps ===== -->
+<div class="section" style="padding-top:2rem;" id="available">
     <div class="app-grid">
 
-        <div class="app-card">
+        <!-- DOCX Optimizer -->
+        <div class="app-card" id="docx-optimizer">
             <div class="card-top">
                 <div class="app-icon">📄</div>
                 <span class="version-badge">v2.1.0</span>
             </div>
+            <span class="trial-badge">90-Day Free Trial</span>
             <h3>DOCX Optimizer</h3>
-            <p>Batch-clean, reformat, and optimize Word documents. Removes hidden formatting, fixes styles, and exports clean .docx files at scale.</p>
+            <p>Batch-clean, reformat, and optimize Word documents in seconds. Perfect for teams managing large document libraries.</p>
             <div class="card-actions">
                 <a href="docx-optimizer.html" class="btn-card-info">More Info</a>
-                <a href="https://buy.stripe.com/test_dRm5kE4on30J9ls3fMc7u00" class="btn-card-buy" target="_blank" rel="noopener">Buy – $29</a>
+                <button class="btn-card-trial js-buy"
+                    data-app="DOCX Optimizer"
+                    data-href="https://your-payment-link.com/docx-optimizer-trial">Start Free Trial</button>
+                <button class="btn-card-buy js-buy"
+                    data-app="DOCX Optimizer"
+                    data-href="https://your-payment-link.com/docx-optimizer">Buy – $49</button>
             </div>
         </div>
 
-        <div class="app-card">
+        <!-- ProForm -->
+        <div class="app-card" id="proform">
             <div class="card-top">
-                <div class="app-icon">📋</div>
+                <div class="app-icon"><img src="icons/proform-icon.svg" alt="ProForm icon" width="36" height="36" style="display:block;"></div>
                 <span class="version-badge">v1.4.2</span>
             </div>
+            <span class="trial-badge">90-Day Free Trial</span>
             <h3>ProForm</h3>
-            <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop form builder with digital signature support.</p>
+            <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop builder with digital signature support.</p>
             <div class="card-actions">
                 <a href="proform.html" class="btn-card-info">More Info</a>
-                <a href="https://buy.stripe.com/test_5kQ28s3kjbxf1T03fMc7u01" class="btn-card-buy" target="_blank" rel="noopener">Buy – $19</a>
+                <button class="btn-card-trial js-buy"
+                    data-app="ProForm"
+                    data-href="https://your-payment-link.com/proform-trial">Start Free Trial</button>
+                <button class="btn-card-buy js-buy"
+                    data-app="ProForm"
+                    data-href="https://your-payment-link.com/proform">Buy – $99</button>
             </div>
         </div>
 
-        <div class="app-card">
+        <!-- SynoptIQ -->
+        <div class="app-card" id="synoptiq">
             <div class="card-top">
-                <div class="app-icon">⚙️</div>
+                <div class="app-icon">🧩</div>
                 <span class="version-badge">v1.0.0</span>
             </div>
-            <h3>App Three</h3>
-            <p>A powerful utility for advanced users. Lightweight, fast, and built to automate complex tasks without getting in your way.</p>
+            <span class="trial-badge">90-Day Free Trial</span>
+            <div class="bundle-includes">
+                <span class="bundle-chip">Includes DOCX Optimizer</span>
+                <span class="bundle-chip">Includes ProForm</span>
+            </div>
+            <h3>SynoptIQ</h3>
+            <p>The complete ProForma Suite bundle — DOCX Optimizer and ProForm in a single package. One install, one license key, everything in one place.</p>
             <div class="card-actions">
-                <a href="app-three.html" class="btn-card-info">More Info</a>
-                <a href="https://buy.stripe.com/your-app-three-link" class="btn-card-buy" target="_blank" rel="noopener">Buy – $9</a>
-            </div>
-        </div>
-
-        <div class="app-card">
-            <div class="card-top">
-                <div class="app-icon">🖥️</div>
-                <span class="version-badge">v0.9.1</span>
-            </div>
-            <h3>App Four</h3>
-            <p>Lightweight and fast command-line helper for power users. Automate repetitive tasks in seconds.</p>
-            <div class="card-actions">
-                <a href="app-four.html" class="btn-card-info">More Info</a>
-                <a href="https://buy.stripe.com/your-app-four-link" class="btn-card-buy" target="_blank" rel="noopener">Buy – $49</a>
-            </div>
-        </div>
-
-        <div class="app-card">
-            <div class="card-top">
-                <div class="app-icon">🛠️</div>
-                <span class="version-badge">v1.2.3</span>
-            </div>
-            <h3>App Five</h3>
-            <p>Update this with your real app description. Two clear sentences on what it does and who it's for.</p>
-            <div class="card-actions">
-                <a href="app-five.html" class="btn-card-info">More Info</a>
-                <a href="https://buy.stripe.com/your-app-five-link" class="btn-card-buy" target="_blank" rel="noopener">Buy – $149</a>
+                <a href="synoptiq.html" class="btn-card-info">More Info</a>
+                <button class="btn-card-trial js-buy"
+                    data-app="SynoptIQ"
+                    data-href="https://your-payment-link.com/synoptiq-trial">Start Free Trial</button>
+                <button class="btn-card-buy js-buy"
+                    data-app="SynoptIQ"
+                    data-href="https://your-payment-link.com/synoptiq">Buy – $149</button>
             </div>
         </div>
 
     </div>
+</div>
+
+<!-- ===== In Development ===== -->
+<div class="section-dev" id="in-development">
+    <div class="dev-divider">
+        <span>In Development — Beta Coming Soon</span>
+    </div>
+
+    <div class="app-grid">
+
+        <!-- Desktop File Organizer -->
+        <div class="app-card coming-soon">
+            <div class="card-top">
+                <div class="app-icon">🗂️</div>
+                <span class="coming-soon-badge">Beta Coming Soon</span>
+            </div>
+            <h3>Desktop File Organizer</h3>
+            <p>Automatically sort, rename, and structure files on your desktop and folders using customizable rules. Built for people who need order without the manual effort.</p>
+            <div class="card-actions" style="margin-top:auto;">
+                <span class="version-badge" style="width:100%;text-align:center;padding:0.55rem 0;">Under Development</span>
+            </div>
+        </div>
+
+        <!-- Quiz & MCQ Builder -->
+        <div class="app-card coming-soon">
+            <div class="card-top">
+                <div class="app-icon">🎓</div>
+                <span class="coming-soon-badge">Beta Coming Soon</span>
+            </div>
+            <h3>QuizForge</h3>
+            <p>Create multiple-choice quizzes, auto-grade responses, and track learner progress over time. Designed for educators, trainers, and teams running internal assessments.</p>
+            <div class="card-actions" style="margin-top:auto;">
+                <span class="version-badge" style="width:100%;text-align:center;padding:0.55rem 0;">Under Development</span>
+            </div>
+        </div>
+
+    </div>
+
+    <p style="text-align:center;margin-top:2rem;font-size:0.85rem;color:var(--text-3);line-height:1.6;">
+        These apps are currently in active development. Have a feature request or want to be notified at launch?
+        <br>Reach out via the <a href="support.html#contact" style="color:var(--accent);text-decoration:none;">contact form</a>.
+    </p>
 </div>
 
 <footer class="footer">
@@ -118,9 +229,86 @@
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
         <a href="support.html">Support</a>
-        <a href="mailto:support@proforma-suite.com">support@proforma-suite.com</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
     </div>
 </footer>
 
+<!-- ===== Purchase Modal ===== -->
+<div class="modal-overlay" id="purchaseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <h3 id="modalTitle">Before you continue</h3>
+            <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+        </div>
+
+        <div class="modal-summary">
+            <div class="modal-summary-row">
+                <span class="modal-icon">🎁</span>
+                <span><strong>90-day free trial</strong> — full Premium access for <span id="modalAppName">this app</span>. No charge today.</span>
+            </div>
+            <div class="modal-summary-row">
+                <span class="modal-icon">📦</span>
+                <span><strong>After 90 days</strong>, the app reverts to the free Lite version. Premium features are disabled — your data is untouched.</span>
+            </div>
+            <div class="modal-summary-row">
+                <span class="modal-icon">♾️</span>
+                <span><strong>Lite version is yours to keep</strong> — forever, free, with no expiration.</span>
+            </div>
+            <div class="modal-summary-row">
+                <span class="modal-icon">💳</span>
+                <span><strong>To buy Premium</strong>, a one-time payment unlocks all features permanently. You're redirected to our secure payment page.</span>
+            </div>
+            <div class="modal-summary-row">
+                <span class="modal-icon">↩️</span>
+                <span><strong>14-day refund</strong> on any purchase, no questions asked.</span>
+            </div>
+        </div>
+
+        <label class="modal-agree">
+            <input type="checkbox" id="modalAgree">
+            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 90-day trial, single-machine license, and Lite version conditions.
+        </label>
+
+        <div class="modal-actions">
+            <button class="btn-modal-cancel" id="modalCancel">Cancel</button>
+            <button class="btn-modal-proceed" id="modalProceed" disabled>Continue →</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    var banner = document.getElementById('consentBanner');
+    if (!banner) return;
+    if (localStorage.getItem('pfs-legal-consent') === 'accepted') return;
+    setTimeout(function() { banner.classList.add('visible'); }, 1200);
+    document.getElementById('consentDismiss').addEventListener('click', function() {
+        localStorage.setItem('pfs-legal-consent', 'accepted');
+        banner.classList.remove('visible');
+    });
+    document.getElementById('consentLater').addEventListener('click', function() {
+        banner.classList.remove('visible');
+    });
+})();
+</script>
 </body>
 </html>
