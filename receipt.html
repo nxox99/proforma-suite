@@ -107,7 +107,8 @@
     <div class="nav-links">
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
     </div>
 </nav>
@@ -216,22 +217,17 @@
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <a href="terms.html">Terms of Use</a>
         <a href="eula.html">EULA</a>
         <a href="copyright.html">Copyright</a>
-        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
     </div>
 </footer>
 
 <script>
 /* Clipboard email copy */
-document.querySelectorAll('.email-copy').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        navigator.clipboard.writeText(this.dataset.email).then(function() {
-            btn.classList.add('copied');
-            setTimeout(function() { btn.classList.remove('copied'); }, 2000);
-        });
+
     });
 });
 </script>

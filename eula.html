@@ -38,7 +38,8 @@
     <div class="nav-links">
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
     </div>
 </nav>
@@ -281,7 +282,7 @@
     <!-- 16 -->
     <div class="legal-section" id="s17">
         <h2><span class="l-num">17</span> Contact</h2>
-        <p>For licensing inquiries, license transfer requests, or to report suspected license abuse, contact ProForma Suite via the <a href="support.html#contact">contact form</a> or copy the support address: <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>. We respond within 24–48 hours, Monday to Friday.</p>
+        <p>For licensing inquiries, license transfer requests, or to report suspected license abuse, contact ProForma Suite via the <a href="support.html#contact">contact form</a> or copy the support address: <a href="support.html">contact us</a>. We respond within 24–48 hours, Monday to Friday.</p>
     </div>
 
 </div>
@@ -292,11 +293,11 @@
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <a href="terms.html">Terms of Use</a>
         <a href="eula.html">EULA</a>
         <a href="copyright.html">Copyright</a>
-        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
     </div>
 </footer>
 
@@ -330,12 +331,7 @@ function initConsentBanner() {
     });
 }
 function initClipboard() {
-    document.querySelectorAll('.email-copy').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            navigator.clipboard.writeText(this.dataset.email).then(function() {
-                btn.classList.add('copied');
-                setTimeout(function() { btn.classList.remove('copied'); }, 2000);
-            });
+    
         });
     });
 }

@@ -30,7 +30,8 @@
     <div class="nav-links">
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
     </div>
 </nav>
@@ -85,7 +86,7 @@
         <ul>
             <li>Licenses are sold as a <strong>one-time purchase</strong>. There are no subscription fees.</li>
             <li>Each license covers installation on <strong>one (1) machine</strong> by default.</li>
-            <li>Multi-seat licenses are available upon request — contact <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>.</li>
+            <li>Multi-seat licenses are available upon request — contact <a href="support.html">contact us</a>.</li>
             <li>A Premium license includes all future updates to the licensed major version.</li>
             <li>Payment is processed securely via a third-party payment provider (e.g. Stripe or Gumroad). ProForma Suite does not store payment card data.</li>
             <li>Your license key is delivered to your registered email address upon successful payment.</li>
@@ -94,7 +95,7 @@
 
     <div class="terms-section">
         <h2><span class="t-num">5</span> Refund Policy</h2>
-        <p>We offer a <strong>14-day refund</strong> from the date of purchase if the Software does not function as described. To request a refund, use our <a href="support.html#contact">contact form</a> or email <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button> with your order ID and a brief description of the issue. Refunds are processed within 5–10 business days via the original payment method.</p>
+        <p>We offer a <strong>14-day refund</strong> from the date of purchase if the Software does not function as described. To request a refund, use our <a href="support.html#contact">contact form</a> or email <a href="support.html">contact us</a> with your order ID and a brief description of the issue. Refunds are processed within 5–10 business days via the original payment method.</p>
         <p style="margin-top:0.5rem;">Refunds are not available after 14 days from the purchase date, or for purchases where the license key has been distributed to multiple machines beyond the licensed seat count.</p>
     </div>
 
@@ -166,7 +167,7 @@
 
     <div class="terms-section">
         <h2><span class="t-num">12</span> Contact</h2>
-        <p>Questions about these Terms? Use our <a href="support.html#contact">contact form</a> or copy our email: <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>. We respond within 24–48 hours, Monday to Friday.</p>
+        <p>Questions about these Terms? Use our <a href="support.html#contact">contact form</a> or copy our email: <a href="support.html">contact us</a>. We respond within 24–48 hours, Monday to Friday.</p>
     </div>
 
 </div>
@@ -177,24 +178,18 @@
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <a href="terms.html">Terms of Use</a>
         <a href="eula.html">EULA</a>
         <a href="copyright.html">Copyright</a>
-        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
     </div>
 </footer>
 
 
 <script>
 /* Clipboard email copy */
-document.querySelectorAll('.email-copy').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var email = this.dataset.email;
-        navigator.clipboard.writeText(email).then(function() {
-            btn.classList.add('copied');
-            setTimeout(function() { btn.classList.remove('copied'); }, 2000);
-        });
+
     });
 });
 </script>

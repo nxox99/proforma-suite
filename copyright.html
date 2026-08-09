@@ -38,7 +38,8 @@
     <div class="nav-links">
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
     </div>
 </nav>
@@ -182,7 +183,7 @@
     <div class="legal-section" id="c11">
         <h2><span class="l-num">11</span> Contact</h2>
         <p>For copyright licensing inquiries, permission requests, infringement reports, or any other IP-related matters, contact ProForma Suite via the <a href="support.html#contact">contact form</a> or copy the address below:</p>
-        <p><button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button></p>
+        <p><a href="support.html">contact us</a></p>
         <p>We respond to all intellectual property matters within 2–3 business days.</p>
     </div>
 
@@ -194,11 +195,11 @@
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <a href="terms.html">Terms of Use</a>
         <a href="eula.html">EULA</a>
         <a href="copyright.html">Copyright</a>
-        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
     </div>
 </footer>
 
@@ -232,12 +233,7 @@ function initConsentBanner() {
     });
 }
 function initClipboard() {
-    document.querySelectorAll('.email-copy').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            navigator.clipboard.writeText(this.dataset.email).then(function() {
-                btn.classList.add('copied');
-                setTimeout(function() { btn.classList.remove('copied'); }, 2000);
-            });
+    
         });
     });
 }

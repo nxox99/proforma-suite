@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support – ProForma Suite</title>
+    <title>Contact Us – ProForma Suite</title>
     <link rel="stylesheet" href="style.css">
-
 <script>
 (function() {
     const root = document.documentElement;
@@ -22,26 +21,7 @@
             });
         }
 
-        /* --- Accordion FAQ --- */
-        document.querySelectorAll('.faq-trigger').forEach(function(trigger) {
-            trigger.addEventListener('click', function() {
-                var item = this.closest('.faq-item');
-                var isOpen = item.classList.contains('open');
-                /* close all */
-                document.querySelectorAll('.faq-item.open').forEach(function(el) {
-                    el.classList.remove('open');
-                    el.querySelector('.faq-body').style.maxHeight = null;
-                });
-                /* open clicked if it was closed */
-                if (!isOpen) {
-                    item.classList.add('open');
-                    var body = item.querySelector('.faq-body');
-                    body.style.maxHeight = body.scrollHeight + 'px';
-                }
-            });
-        });
-
-        /* --- Contact form submit (demo) --- */
+        /* Contact form submit */
         var form = document.getElementById('contactForm');
         if (form) {
             form.addEventListener('submit', function(e) {
@@ -50,9 +30,8 @@
                 var status = document.getElementById('formStatus');
                 btn.disabled = true;
                 btn.textContent = 'Sending…';
-                /* Simulate async send */
                 setTimeout(function() {
-                    status.textContent = '✓ Message sent! We'll get back to you within 24–48 hours.';
+                    status.textContent = '✓ Message sent! We\'ll get back to you within 24–48 hours.';
                     status.className = 'form-status result-valid';
                     btn.textContent = 'Send Message';
                     btn.disabled = false;
@@ -60,133 +39,144 @@
                 }, 1200);
             });
         }
+
+        /* Consent banner */
+        if (localStorage.getItem('pfs-legal-consent') !== 'accepted') {
+            var banner = document.getElementById('consentBanner');
+            setTimeout(function() { banner.classList.add('visible'); }, 1200);
+            document.getElementById('consentDismiss').addEventListener('click', function() {
+                localStorage.setItem('pfs-legal-consent', 'accepted');
+                banner.classList.remove('visible');
+            });
+            document.getElementById('consentLater').addEventListener('click', function() {
+                banner.classList.remove('visible');
+            });
+        }
     });
 })();
 </script>
 
 <style>
-/* ---- Accordion overrides ---- */
-.faq-item {
-    cursor: default;
+.contact-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
 }
-.faq-trigger {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 1.25rem 1.5rem;
-    text-align: left;
-    cursor: pointer;
-    gap: 1rem;
-    color: inherit;
-    font: inherit;
+.contact-row {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 3rem;
+    align-items: start;
 }
-.faq-trigger h3 {
-    font-size: 0.97rem;
-    font-weight: 600;
+@media (max-width: 700px) {
+    .contact-row { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+.contact-info h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
     color: var(--text-1);
-    letter-spacing: -0.1px;
-    margin: 0;
-    pointer-events: none;
+    letter-spacing: -0.6px;
+    margin-bottom: 0.75rem;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.15;
 }
-.faq-chevron {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+.contact-info p {
+    font-size: 0.92rem;
+    color: var(--text-2);
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+.contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.88rem;
+    color: var(--text-2);
+    margin-bottom: 0.6rem;
+}
+.contact-detail-icon {
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    box-shadow: var(--neu-btn);
+    background: var(--accent-light);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.25s var(--ease-out), background 0.2s;
-    color: var(--text-3);
-    font-size: 0.65rem;
-    pointer-events: none;
+    font-size: 0.75rem;
+    flex-shrink: 0;
 }
-.faq-item.open .faq-chevron {
-    transform: rotate(180deg);
-    background: var(--accent-light);
+.contact-faq-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
     color: var(--accent);
-    border-color: rgba(0,113,227,0.2);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    transition: opacity 0.15s;
 }
-.faq-item.open .faq-trigger h3 {
-    color: var(--accent);
-}
-.faq-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s var(--ease-out);
-}
-.faq-body-inner {
-    padding: 0 1.5rem 1.25rem;
-    font-size: 0.88rem;
-    color: var(--text-2);
-    line-height: 1.65;
-}
-.faq-body-inner a { color: var(--accent); text-decoration: none; }
-.faq-body-inner a:hover { text-decoration: underline; }
+.contact-faq-link:hover { opacity: 0.75; }
 
-/* ---- Contact form ---- */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-top: 1.5rem;
+/* Form card */
+.contact-form-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
 }
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-@media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
 
-.form-field {
+/* Inline label+input rows — matching intake form */
+.cf-row {
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
-.form-label {
+.cf-label {
     font-size: 0.78rem;
     font-weight: 600;
     color: var(--text-2);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
+    width: 90px;
+    flex-shrink: 0;
+    text-align: right;
 }
-.form-input,
-.form-select,
-.form-textarea {
+.cf-input-wrap {
+    flex: 1;
+}
+.cf-input-wrap .form-input,
+.cf-input-wrap .form-select,
+.cf-input-wrap .form-textarea {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
     background: var(--bg);
     color: var(--text-1);
     border: 1.5px solid var(--border-strong);
     border-radius: var(--radius-sm);
-    padding: 0.7rem 1rem;
-    font-size: 0.92rem;
     font-family: inherit;
     box-shadow: var(--neu-press);
     transition: border-color 0.15s, box-shadow 0.15s;
     appearance: none;
     -webkit-appearance: none;
 }
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
+.cf-input-wrap .form-input:focus,
+.cf-input-wrap .form-select:focus,
+.cf-input-wrap .form-textarea:focus {
     outline: none;
     border-color: var(--accent);
     box-shadow: var(--neu-press), 0 0 0 3px var(--accent-light);
 }
-.form-textarea {
+.cf-input-wrap .form-textarea {
+    min-height: 130px;
     resize: vertical;
-    min-height: 120px;
     line-height: 1.6;
 }
-.form-select-wrap {
-    position: relative;
-}
-.form-select-wrap::after {
+.cf-select-wrap { position: relative; }
+.cf-select-wrap::after {
     content: '▾';
     position: absolute;
     right: 1rem;
@@ -196,77 +186,20 @@
     font-size: 0.8rem;
     pointer-events: none;
 }
-.form-select { width: 100%; padding-right: 2.5rem; cursor: pointer; }
-
-.btn-send {
-    align-self: flex-start;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
-    font-size: 0.92rem;
-    cursor: pointer;
-    box-shadow:
-        5px 5px 14px rgba(0,113,227,0.35),
-        -2px -2px 8px rgba(255,255,255,0.20),
-        inset 0 1px 0 rgba(255,255,255,0.25);
-    transition: background 0.15s, box-shadow 0.2s, transform 0.15s;
-    letter-spacing: -0.1px;
-}
-.btn-send:hover {
-    background: var(--accent-hover);
-    transform: translateY(-2px);
-    box-shadow:
-        8px 10px 22px rgba(0,113,227,0.40),
-        -2px -2px 10px rgba(255,255,255,0.25),
-        inset 0 1px 0 rgba(255,255,255,0.30);
-}
-.btn-send:active { transform: translateY(0); }
-.btn-send:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.cf-select-wrap .form-select { padding-right: 2.5rem; cursor: pointer; }
 
 .form-status {
     font-size: 0.88rem;
     font-weight: 600;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     min-height: 1.2em;
+    text-align: center;
 }
-
-/* ---- nav-active ---- */
-.nav-active { color: var(--accent) !important; }
-
-/* ---- Quick links strip ---- */
-.support-quicklinks {
-    display: flex;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-}
-.quick-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: var(--surface);
-    color: var(--text-2);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 0.4rem 1rem;
-    font-size: 0.82rem;
-    font-weight: 500;
-    text-decoration: none;
-    box-shadow: var(--neu-btn);
-    transition: color 0.15s, box-shadow 0.2s, transform 0.15s;
-}
-.quick-chip:hover {
-    color: var(--accent);
-    box-shadow: var(--neu-btn-hover);
-    transform: translateY(-1px);
-}
+.result-valid { color: var(--accent); }
 </style>
 </head>
 <body class="has-banner">
-<!-- Sitewide trial banner -->
+
 <div class="trial-banner">
     🎁 &nbsp;Try any app free for 30 days — no credit card required. Lite version yours to keep.
     <a href="terms.html">See terms →</a>
@@ -276,288 +209,88 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
+        <a href="trial-signup.html">Free Trial</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html" class="nav-active">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html" class="nav-active">Contact Us</a>
         <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
     </div>
 </nav>
 
-<div class="section-sm">
+<div class="contact-wrap">
 
-    <!-- Page header -->
-    <span class="section-label">Support</span>
-    <h2>How can we help?</h2>
-    <p class="section-sub">Browse common questions or send us a message directly.</p>
+    <span class="section-label">Get in touch</span>
 
-    <!-- Quick-jump chips -->
-    <div class="support-quicklinks">
-        <a href="#faq" class="quick-chip">📋 &nbsp;FAQ</a>
-        <a href="downloads.html" class="quick-chip">⬇️ &nbsp;Download Portal</a>
-        <a href="#contact" class="quick-chip">✉️ &nbsp;Contact Us</a>
-        <button class="quick-chip email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">📧 &nbsp;Copy Email</button>
-    </div>
+    <div class="contact-row">
 
-    <!-- ===== FAQ Accordion ===== -->
-    <span class="section-label" id="faq">Frequently Asked Questions</span>
+        <!-- Left: info -->
+        <div class="contact-info">
+            <h2>How can we help?</h2>
+            <p>Fill in the form and we'll get back to you within 24–48 hours, Monday to Friday. Please include as much detail as possible — app name, version, and operating system where relevant.</p>
 
-    <div class="faq-list" style="margin-top:0.75rem;">
-
-        <!-- ── Trial ── -->
-        <div class="faq-group-label">Free Trial</div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>How does the 30-day free trial work?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    The trial gives you full Premium access to the app for 30 calendar days from the date you register — no credit card required, no obligation. Here's the full process:
-                    <ol style="margin:0.75rem 0 0.25rem 1.1rem;display:flex;flex-direction:column;gap:0.4rem;">
-                        <li>Click <strong>Start Free Trial</strong> on any app page and enter your email address to register.</li>
-                        <li>You receive a trial activation link by email. Click it to confirm your address and start the clock.</li>
-                        <li>Download the app from the <a href="downloads.html">Download Portal</a> using your trial credentials.</li>
-                        <li>Install and use the full Premium version for 30 days — every feature, no nags, no limits.</li>
-                        <li>On day 90, the app automatically transitions to the free Lite version. No action required from you, and no charge is ever made without a separate, explicit purchase on your part.</li>
-                    </ol>
-                    See our <a href="terms.html">Terms of Use</a> and <a href="eula.html">EULA</a> for full details.
-                </div>
+            <div class="contact-detail">
+                <span class="contact-detail-icon">⏱</span>
+                Response within 24–48 hours
             </div>
+            <div class="contact-detail">
+                <span class="contact-detail-icon">📅</span>
+                Monday to Friday
+            </div>
+            <div class="contact-detail">
+                <span class="contact-detail-icon">🔒</span>
+                Your message is private
+            </div>
+
+            <a href="faq.html" class="contact-faq-link">
+                Browse FAQ first →
+            </a>
         </div>
 
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>What happens when my trial ends?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    When the 30-day trial expires, the app automatically reverts to the <strong>Lite version</strong> — a permanent, free tier with no expiration date. Specifically:
-                    <ul style="margin:0.65rem 0 0.25rem 1.1rem;display:flex;flex-direction:column;gap:0.35rem;">
-                        <li><strong>No data loss.</strong> Every file, document, and project you created during the trial is fully preserved and remains accessible.</li>
-                        <li><strong>No action required.</strong> The transition happens automatically. You don't need to uninstall or reinstall anything.</li>
-                        <li><strong>No charge.</strong> The reversion to Lite is silent and free. You will never be billed without completing an explicit purchase.</li>
-                        <li><strong>Premium features are disabled</strong> in the Lite version. Core functionality remains available.</li>
-                    </ul>
-                    You can upgrade to Premium at any time by purchasing a license — your data and settings carry over instantly.
-                </div>
-            </div>
-        </div>
+        <!-- Right: form -->
+        <div class="contact-form-card">
+            <form id="contactForm" novalidate>
 
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>What is the Lite version?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    The Lite version is a <strong>permanent, free tier</strong> of each ProForma Suite app — yours to keep indefinitely with no expiration, no subscription, and no cost. It includes the core functionality of the app; advanced Premium features are disabled but can be re-enabled at any time with a one-time license purchase. The specific features available in each app's Lite version are detailed on each product page.
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Purchase & Keys ── -->
-        <div class="faq-group-label">Purchase &amp; License Keys</div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>How is my license key delivered after purchase?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    Your license key is delivered <strong>automatically by email</strong> as soon as your payment is confirmed — typically within a few minutes. Here's what to expect:
-                    <ol style="margin:0.75rem 0 0.25rem 1.1rem;display:flex;flex-direction:column;gap:0.4rem;">
-                        <li>Complete your purchase on the secure payment page (Stripe or Gumroad). You'll see a confirmation screen immediately.</li>
-                        <li>An email is sent to the address you used at checkout. It contains your <strong>unique license key</strong> — a code in the format <code style="font-family:monospace;font-size:0.85em;background:var(--bg);padding:1px 6px;border-radius:4px;">XXXX-XXXX-XXXX-XXXX</code> — and a link to the Download Portal.</li>
-                        <li>If the email doesn't arrive within 10 minutes, check your <strong>spam or junk folder</strong>. Payment processors sometimes trigger spam filters.</li>
-                        <li>Still nothing? Use the <a href="#contact">contact form</a> with your order ID and we'll resend your key within 24 hours.</li>
-                    </ol>
-                    Your key is tied to your purchase record. Keep the email — it's your permanent proof of license.
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>What happens when I enter my license key?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    When you enter your key in the <a href="downloads.html">Download Portal</a> and activate it within the app, the following happens:
-                    <ul style="margin:0.65rem 0 0.25rem 1.1rem;display:flex;flex-direction:column;gap:0.35rem;">
-                        <li>The app generates a unique <strong>Hardware ID</strong> from your machine's hardware — this happens entirely on your device; nothing sensitive is transmitted.</li>
-                        <li>Your license key is <strong>cryptographically bound</strong> to that Hardware ID. It will only work on this specific machine going forward.</li>
-                        <li>All Premium features <strong>unlock immediately</strong> — no restart required.</li>
-                        <li>After activation, the app works <strong>fully offline</strong>. No internet connection is needed to use any feature.</li>
-                    </ul>
-                    This is a <strong>one-machine license</strong>. Attempting to activate the same key on a second device will fail. See our <a href="eula.html">EULA §3</a> for the full machine-binding policy.
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>How do I download my purchased app?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    Visit the <a href="downloads.html">Download Portal</a> and enter the license key from your purchase email. The Portal validates your key and unlocks the download for your operating system. You'll always receive the latest version — future updates are included and accessed the same way using the same key.
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>I lost my license key — what do I do?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    Check the original confirmation email from your payment processor (Stripe or Gumroad) first — your key and order ID are both in that email. If you can't find it:<br><br>
-                    Use the <a href="#contact">contact form</a> or copy our email address below and send us your <strong>purchase email address</strong> and <strong>order ID</strong>. We'll verify your purchase and resend your key within 24 hours, Monday to Friday. We cannot resend keys without order verification.
-                    <br><br>
-                    <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>Can I upgrade from Lite to Premium later?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    Yes, at any time — no reinstall needed. Purchase a Premium license from the <a href="store.html">Apps page</a>, receive your key by email, then enter it in the <a href="downloads.html">Download Portal</a> to download the full version and activate it within the app. All your existing files, settings, and data carry over automatically. The upgrade is instant.
-                </div>
-            </div>
-        </div>
-
-        <!-- ── Managing Your License ── -->
-        <div class="faq-group-label">Managing Your License</div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>Can I use my license on multiple computers?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    No. Each license is <strong>bound to one machine</strong> at the point of activation — this is enforced by Hardware ID binding built into the app. A single key cannot be activated on a second device; the attempt will be rejected. Each machine requires its own separately purchased license at the standard price — there are no multi-seat discounts. See <a href="eula.html">EULA §3 and §5</a> for the full policy. If you need multiple licenses, each is purchased individually at the standard price.
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>How do I get app updates?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    Updates are available through the <a href="downloads.html">Download Portal</a> — enter your license key to always download the latest version. Updates to your licensed major version are included at no extra charge. Your key never expires.
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>My machine was replaced — can I move my license?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    Yes — a one-time license transfer is available if your Authorized Machine is decommissioned due to hardware failure, loss, or replacement. Contact us via the <a href="#contact">contact form</a> with your order ID and a brief description of the situation. Transfers are reviewed and processed within 2–3 business days. Note that significant hardware modifications (such as a motherboard replacement) may also require re-binding — contact us in the same way.
-                </div>
-            </div>
-        </div>
-
-        <!-- ── App & Technical ── -->
-        <div class="faq-group-label">App &amp; Technical</div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>My app won't open or install.</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    First, confirm your operating system meets the requirements listed on each app's detail page. On <strong>macOS</strong>, navigate to System Settings → Privacy &amp; Security and allow the app if prompted. On <strong>Windows</strong>, you may need to click "More info → Run anyway" on the SmartScreen dialog. Contact support via the <a href="#contact">contact form</a> if the issue persists — include your OS version and the app version number.
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>Does the app require an internet connection?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    No. All ProForma Suite apps run <strong>entirely on your local machine</strong> with no internet connection required after the initial license activation. There are no server-side functions, no cloud processing, and no telemetry. Your documents never leave your device. The only network event is the one-time activation check when you first enter your license key.
-                </div>
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <button class="faq-trigger" aria-expanded="false">
-                <h3>Do you offer refunds?</h3>
-                <span class="faq-chevron">▾</span>
-            </button>
-            <div class="faq-body" role="region">
-                <div class="faq-body-inner">
-                    Yes — we offer a <strong>14-day refund</strong> from the date of purchase if the software doesn't work as described. Use the <a href="#contact">contact form</a> with your order ID and a brief description of the issue. Refunds are processed within 5–10 business days via your original payment method, no questions asked.
-                </div>
-            </div>
-        </div>
-
-    </div>
-    <!-- /faq-list -->
-
-    <!-- ===== Contact Form ===== -->
-    <div class="mt-3" id="contact">
-        <span class="section-label">Contact Us</span>
-        <h2>Send us a message</h2>
-        <p class="section-sub" style="margin-bottom:0;">We respond within 24–48 hours, Monday to Friday.</p>
-
-        <div class="contact-box" style="margin-top:1.5rem;">
-
-            <form class="contact-form" id="contactForm" novalidate>
-                <div class="form-row">
-                    <div class="form-field">
-                        <label class="form-label" for="cf-name">Your Name</label>
-                        <input class="form-input" id="cf-name" type="text" placeholder="Jane Smith" required>
-                    </div>
-                    <div class="form-field">
-                        <label class="form-label" for="cf-email">Email Address</label>
-                        <input class="form-input" id="cf-email" type="email" placeholder="you@example.com" required>
+                <div class="cf-row">
+                    <label class="cf-label" for="cf-name">Name</label>
+                    <div class="cf-input-wrap">
+                        <input class="form-input" id="cf-name" type="text"
+                            placeholder="Jane Smith" autocomplete="name" required>
                     </div>
                 </div>
 
-                <div class="form-row">
-                    <div class="form-field">
-                        <label class="form-label" for="cf-app">App</label>
-                        <div class="form-select-wrap">
-                            <select class="form-select form-input" id="cf-app">
+                <div class="cf-row">
+                    <label class="cf-label" for="cf-email">Email</label>
+                    <div class="cf-input-wrap">
+                        <input class="form-input" id="cf-email" type="email"
+                            placeholder="you@example.com" autocomplete="email" required>
+                    </div>
+                </div>
+
+                <div class="cf-row">
+                    <label class="cf-label" for="cf-app">App</label>
+                    <div class="cf-input-wrap">
+                        <div class="cf-select-wrap">
+                            <select class="form-select" id="cf-app">
                                 <option value="">— Select an app —</option>
                                 <option>DOCX Optimizer</option>
                                 <option>ProForm</option>
-                                <option>App Three</option>
+                                <option>SynoptIQ</option>
                                 <option>Other / General</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-field">
-                        <label class="form-label" for="cf-subject">Subject</label>
-                        <div class="form-select-wrap">
-                            <select class="form-select form-input" id="cf-subject">
+                </div>
+
+                <div class="cf-row">
+                    <label class="cf-label" for="cf-subject">Topic</label>
+                    <div class="cf-input-wrap">
+                        <div class="cf-select-wrap">
+                            <select class="form-select" id="cf-subject">
                                 <option value="">— Select a topic —</option>
                                 <option>Lost license key</option>
                                 <option>Installation issue</option>
                                 <option>Billing / Refund</option>
+                                <option>License transfer</option>
                                 <option>Multi-seat license</option>
                                 <option>Bug report</option>
                                 <option>Other</option>
@@ -566,23 +299,27 @@
                     </div>
                 </div>
 
-                <div class="form-field">
-                    <label class="form-label" for="cf-message">Message</label>
-                    <textarea class="form-textarea" id="cf-message" placeholder="Please describe your issue or question. Include your order ID and OS version if relevant." required></textarea>
+                <div class="cf-row" style="align-items:flex-start;">
+                    <label class="cf-label" for="cf-message" style="padding-top:0.9rem;">Message</label>
+                    <div class="cf-input-wrap">
+                        <textarea class="form-textarea" id="cf-message"
+                            placeholder="Please describe your issue or question. Include your order ID and OS version if relevant."
+                            required></textarea>
+                    </div>
                 </div>
 
-                <div>
-                    <button type="submit" class="btn-send">Send Message</button>
+                <div style="margin-top:0.5rem;padding-left:calc(90px + 1rem);">
+                    <button type="submit" class="btn-send" style="width:100%;justify-content:center;">
+                        Send Message
+                    </button>
                     <p id="formStatus" class="form-status"></p>
                 </div>
+
             </form>
-
         </div>
-    </div>
-    <!-- /contact -->
 
+    </div>
 </div>
-<!-- /section-sm -->
 
 <footer class="footer">
     <span>© 2026 ProForma Suite</span>
@@ -590,27 +327,13 @@
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
         <a href="downloads.html">Downloads</a>
-        <a href="support.html">Support</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
         <a href="terms.html">Terms of Use</a>
         <a href="eula.html">EULA</a>
         <a href="copyright.html">Copyright</a>
-        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
     </div>
 </footer>
-
-
-<script>
-/* Clipboard email copy */
-document.querySelectorAll('.email-copy').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var email = this.dataset.email;
-        navigator.clipboard.writeText(email).then(function() {
-            btn.classList.add('copied');
-            setTimeout(function() { btn.classList.remove('copied'); }, 2000);
-        });
-    });
-});
-</script>
 
 <!-- Legal consent banner -->
 <div class="legal-consent-banner" id="consentBanner">
@@ -627,20 +350,5 @@ document.querySelectorAll('.email-copy').forEach(function(btn) {
     </div>
 </div>
 
-<script>
-(function() {
-    var banner = document.getElementById('consentBanner');
-    if (!banner) return;
-    if (localStorage.getItem('pfs-legal-consent') === 'accepted') return;
-    setTimeout(function() { banner.classList.add('visible'); }, 1200);
-    document.getElementById('consentDismiss').addEventListener('click', function() {
-        localStorage.setItem('pfs-legal-consent', 'accepted');
-        banner.classList.remove('visible');
-    });
-    document.getElementById('consentLater').addEventListener('click', function() {
-        banner.classList.remove('visible');
-    });
-})();
-</script>
 </body>
 </html>
