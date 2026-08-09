@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Free Trial – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+})();
+</script>
+<style>
+.signup-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 4rem 2rem 5rem;
+}
+.signup-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent-light), rgba(94,92,230,0.12));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
+    margin: 0 auto 1.5rem;
+}
+.signup-icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    display: block;
+}
+.signup-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.signup-header h1 {
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.6px;
+    margin-bottom: 0.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.15;
+}
+.signup-header p {
+    font-size: 0.92rem;
+    color: var(--text-2);
+    line-height: 1.65;
+    max-width: 380px;
+    margin: 0 auto;
+}
+.signup-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
+}
+.signup-assurances {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+.assurance-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.82rem;
+    color: var(--text-3);
+    line-height: 1.4;
+}
+.assurance-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.signup-legal {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-3);
+    margin-top: 1.25rem;
+    line-height: 1.6;
+}
+.signup-legal a {
+    color: var(--accent);
+    text-decoration: none;
+}
+.signup-legal a:hover { text-decoration: underline; }
+
+.field-error {
+    font-size: 0.78rem;
+    color: var(--danger);
+    margin-top: 0.25rem;
+    display: none;
+}
+.form-input.error {
+    border-color: var(--danger);
+    box-shadow: var(--neu-press), 0 0 0 3px rgba(255,69,58,0.12);
+}
+</style>
+</head>
+<body class="has-banner">
+
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 90 days — no credit card required. Lite version yours to keep.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<div class="signup-wrap">
+
+    <!-- App icon + header -->
+    <div class="signup-icon" id="appIcon">
+        <span id="appEmoji">🎁</span>
+    </div>
+
+    <div class="signup-header">
+        <span class="section-label">Free Trial</span>
+        <h1>Start your free 90-day trial of <span id="appNameHeading">ProForma Suite</span></h1>
+        <p>No credit card required. Full Premium access for 90 days, then keep the Lite version free forever.</p>
+    </div>
+
+    <!-- Form card -->
+    <div class="signup-card">
+        <form class="contact-form" id="trialForm" novalidate>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label class="form-label" for="tf-first">First Name</label>
+                    <input class="form-input" id="tf-first" type="text"
+                        placeholder="Jane" autocomplete="given-name" required>
+                    <span class="field-error" id="err-first">Please enter your first name.</span>
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="tf-last">Last Name</label>
+                    <input class="form-input" id="tf-last" type="text"
+                        placeholder="Smith" autocomplete="family-name" required>
+                    <span class="field-error" id="err-last">Please enter your last name.</span>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label class="form-label" for="tf-email">Email Address</label>
+                <input class="form-input" id="tf-email" type="email"
+                    placeholder="you@example.com" autocomplete="email" required>
+                <span class="field-error" id="err-email">Please enter a valid email address.</span>
+            </div>
+
+            <div style="margin-top:1.25rem;">
+                <button type="submit" class="btn-send" id="trialSubmit"
+                    style="width:100%;justify-content:center;">
+                    Start My Free Trial →
+                </button>
+                <p id="formStatus" class="form-status" style="text-align:center;margin-top:0.5rem;"></p>
+            </div>
+
+            <!-- Assurances -->
+            <div class="signup-assurances">
+                <div class="assurance-row">
+                    <span class="assurance-dot">✓</span>
+                    <span>No credit card required — ever</span>
+                </div>
+                <div class="assurance-row">
+                    <span class="assurance-dot">✓</span>
+                    <span>Full Premium access for 90 days, no limits</span>
+                </div>
+                <div class="assurance-row">
+                    <span class="assurance-dot">✓</span>
+                    <span>Reverts to free Lite version automatically — no charge</span>
+                </div>
+                <div class="assurance-row">
+                    <span class="assurance-dot">✓</span>
+                    <span>Your data stays on your machine — we never see it</span>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <p class="signup-legal">
+        By registering you agree to our
+        <a href="terms.html">Terms of Use</a>,
+        <a href="eula.html">EULA</a>, and
+        <a href="copyright.html">Copyright Notice</a>.
+        Your email is used solely to manage your trial registration.
+    </p>
+
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite</span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
+    </div>
+</footer>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    /* ── Dark toggle ── */
+    var btn = document.getElementById('darkToggle');
+    if (btn) {
+        btn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('pfs-theme',
+                document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+    }
+
+    /* ── Read URL params ── */
+    var params  = new URLSearchParams(window.location.search);
+    var appName = params.get('app') || 'ProForma Suite';
+
+    /* Personalise heading */
+    document.getElementById('appNameHeading').textContent = appName;
+    document.title = 'Start Free Trial – ' + appName + ' – ProForma Suite';
+
+    /* App icon mapping */
+    var iconMap = {
+        'DOCX Optimizer': { img: 'icons/docx-optimizer-icon.png', emoji: '📄' },
+        'ProForm':        { img: 'icons/proform-icon.png',         emoji: '📋' },
+        'SynoptIQ':       { img: null,                              emoji: '🧩' },
+    };
+    var iconEl   = document.getElementById('appIcon');
+    var emojiEl  = document.getElementById('appEmoji');
+    var iconData = iconMap[appName];
+    if (iconData && iconData.img) {
+        iconEl.innerHTML = '<img src="' + iconData.img + '" alt="' + appName + ' icon" width="48" height="48" style="object-fit:contain;display:block;">';
+    } else if (iconData) {
+        emojiEl.textContent = iconData.emoji;
+    }
+
+    /* ── Validation ── */
+    function validateEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    }
+    function setError(inputId, errId, show) {
+        var input = document.getElementById(inputId);
+        var err   = document.getElementById(errId);
+        if (show) {
+            input.classList.add('error');
+            err.style.display = 'block';
+        } else {
+            input.classList.remove('error');
+            err.style.display = 'none';
+        }
+        return !show;
+    }
+
+    /* ── Form submit ── */
+    document.getElementById('trialForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var first = document.getElementById('tf-first').value.trim();
+        var last  = document.getElementById('tf-last').value.trim();
+        var email = document.getElementById('tf-email').value.trim();
+
+        var v1 = setError('tf-first', 'err-first', !first);
+        var v2 = setError('tf-last',  'err-last',  !last);
+        var v3 = setError('tf-email', 'err-email', !validateEmail(email));
+
+        if (!v1 || !v2 || !v3) return;
+
+        /* Save registration to localStorage */
+        var trialStart = new Date();
+        var trialEnd   = new Date(trialStart);
+        trialEnd.setDate(trialEnd.getDate() + 90);
+
+        var registration = {
+            firstName:  first,
+            lastName:   last,
+            email:      email,
+            app:        appName,
+            startDate:  trialStart.toISOString(),
+            endDate:    trialEnd.toISOString()
+        };
+        localStorage.setItem('pfs-trial-' + appName, JSON.stringify(registration));
+
+        /* Feedback then redirect */
+        var submitBtn = document.getElementById('trialSubmit');
+        var status    = document.getElementById('formStatus');
+        submitBtn.disabled   = true;
+        submitBtn.textContent = 'Registering…';
+
+        setTimeout(function() {
+            var url = 'trial-confirm.html'
+                + '?app='   + encodeURIComponent(appName)
+                + '&name='  + encodeURIComponent(first)
+                + '&email=' + encodeURIComponent(email)
+                + '&end='   + encodeURIComponent(trialEnd.toLocaleDateString('en-US', {
+                                    year: 'numeric', month: 'long', day: 'numeric' }));
+            window.location.href = url;
+        }, 800);
+    });
+
+    /* ── Clear error on input ── */
+    ['tf-first','tf-last','tf-email'].forEach(function(id) {
+        document.getElementById(id).addEventListener('input', function() {
+            this.classList.remove('error');
+            var errId = 'err-' + id.split('-')[1];
+            var err = document.getElementById(errId);
+            if (err) err.style.display = 'none';
+        });
+    });
+
+    /* ── Consent banner ── */
+    var banner = document.getElementById('consentBanner');
+    if (banner && localStorage.getItem('pfs-legal-consent') !== 'accepted') {
+        setTimeout(function() { banner.classList.add('visible'); }, 1200);
+        document.getElementById('consentDismiss').addEventListener('click', function() {
+            localStorage.setItem('pfs-legal-consent', 'accepted');
+            banner.classList.remove('visible');
+        });
+        document.getElementById('consentLater').addEventListener('click', function() {
+            banner.classList.remove('visible');
+        });
+    }
+
+    /* ── Clipboard ── */
+    document.querySelectorAll('.email-copy').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            navigator.clipboard.writeText(this.dataset.email).then(function() {
+                btn.classList.add('copied');
+                setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+            });
+        });
+    });
+})();
+</script>
+
+</body>
+</html>
