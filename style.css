@@ -182,7 +182,7 @@ body {
 .hero {
     position: relative;
     overflow: hidden;
-    padding: 7rem 2rem 5rem;
+    padding: 4rem 2rem 3rem;
     text-align: center;
 }
 
@@ -326,7 +326,7 @@ body {
 .section {
     max-width: 1080px;
     margin: 0 auto;
-    padding: 5rem 2rem;
+    padding: 3rem 2rem;
 }
 
 .section-sm {
@@ -2160,4 +2160,31 @@ body.has-banner .navbar { top: 32px; }
     .signup-wrap {
         padding: 2rem 1.25rem 3rem;
     }
+}
+
+/* ============================================================
+   Trial signup — app name banner inside card
+   ============================================================ */
+.signup-app-banner {
+    background: linear-gradient(135deg, var(--accent-light), rgba(94,92,230,0.08));
+    border: 1px solid rgba(0,113,227,0.18);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+.signup-app-banner-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-3);
+}
+.signup-app-banner-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.3px;
 }

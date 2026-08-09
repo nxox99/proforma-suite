@@ -156,6 +156,10 @@
     <div class="signup-right-col">
     <!-- Form card -->
     <div class="signup-card">
+        <div class="signup-app-banner">
+            <span class="signup-app-banner-label">You are registering a free trial for:</span>
+            <span class="signup-app-banner-name" id="bannerAppName">ProForma Suite</span>
+        </div>
         <form class="contact-form" id="trialForm" novalidate>
 
             <div class="signup-inline-fields">
@@ -192,16 +196,7 @@
             <!-- Additional fields -->
             <div class="signup-inline-fields" style="margin-top:1rem;">
 
-                <div class="signup-inline-row">
-                    <label class="signup-inline-label" for="tf-workemail">Work email *</label>
-                    <div class="signup-inline-input">
-                        <input class="form-input" id="tf-workemail" type="email"
-                            placeholder="you@company.com" autocomplete="work email" required>
-                        <span class="field-error" id="err-workemail">Please enter a valid work email address.</span>
-                    </div>
-                </div>
-
-                <div class="signup-inline-row">
+<div class="signup-inline-row">
                     <label class="signup-inline-label" for="tf-phone">Phone number *</label>
                     <div class="signup-inline-input">
                         <input class="form-input" id="tf-phone" type="tel"
@@ -330,6 +325,8 @@
 
     /* Personalise heading */
     document.getElementById('appNameHeading').textContent = appName;
+    var bannerName = document.getElementById('bannerAppName');
+    if (bannerName) bannerName.textContent = appName;
     /* Update consent block app name */
     document.querySelectorAll('.consent-app-name').forEach(function(el) {
         el.textContent = appName;
@@ -377,18 +374,16 @@
         var first     = document.getElementById('tf-first').value.trim();
         var last      = document.getElementById('tf-last').value.trim();
         var email     = document.getElementById('tf-email').value.trim();
-        var workEmail = document.getElementById('tf-workemail').value.trim();
         var phone     = document.getElementById('tf-phone').value.trim();
         var interest  = document.getElementById('tf-interest').value;
 
         var v1 = setError('tf-first',     'err-first',     !first);
         var v2 = setError('tf-last',      'err-last',      !last);
         var v3 = setError('tf-email',     'err-email',     !validateEmail(email));
-        var v4 = setError('tf-workemail', 'err-workemail', !validateEmail(workEmail));
-        var v5 = setError('tf-phone',     'err-phone',     !phone);
-        var v6 = setError('tf-interest',  'err-interest',  !interest);
+        var v4 = setError('tf-phone',     'err-phone',     !phone);
+        var v5 = setError('tf-interest',  'err-interest',  !interest);
 
-        if (!v1 || !v2 || !v3 || !v4 || !v5 || !v6) return;
+        if (!v1 || !v2 || !v3 || !v4 || !v5) return;
 
         /* Save registration to localStorage */
         var trialStart = new Date();
@@ -399,8 +394,7 @@
             firstName:  first,
             lastName:   last,
             email:      email,
-            workEmail:  workEmail,
-            phone:      phone,
+phone:      phone,
             interest:   interest,
             commsConsent: document.getElementById('tf-consent-comms').checked,
             app:        appName,
@@ -427,7 +421,7 @@
     });
 
     /* ── Clear error on input ── */
-    ['tf-first','tf-last','tf-email','tf-workemail','tf-phone','tf-interest'].forEach(function(id) {
+    ['tf-first','tf-last','tf-email','tf-phone','tf-interest'].forEach(function(id) {
         document.getElementById(id).addEventListener('input', function() {
             this.classList.remove('error');
             var errId = 'err-' + id.split('-')[1];
