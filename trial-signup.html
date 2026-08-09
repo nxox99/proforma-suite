@@ -16,9 +16,9 @@
 </script>
 <style>
 .signup-wrap {
-    max-width: 520px;
+    max-width: 1040px;
     margin: 0 auto;
-    padding: 4rem 2rem 5rem;
+    padding: 2rem 2rem 3rem;
 }
 .signup-icon {
     width: 72px;
@@ -31,7 +31,7 @@
     font-size: 2.2rem;
     box-shadow: var(--neu-raise);
     border: 1px solid var(--border);
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 1rem;
 }
 .signup-icon img {
     width: 48px;
@@ -138,18 +138,22 @@
 </nav>
 
 <div class="signup-wrap">
+    <div class="signup-page-cols">
 
-    <!-- App icon + header -->
-    <div class="signup-icon" id="appIcon">
-        <span id="appEmoji">🎁</span>
+    <!-- Left: icon + header -->
+    <div class="signup-left-col">
+        <div class="signup-icon" id="appIcon">
+            <span id="appEmoji">🎁</span>
+        </div>
+        <div class="signup-header">
+            <span class="section-label">Free Trial</span>
+            <h1>Start your free 30-day trial of <span id="appNameHeading">ProForma Suite</span></h1>
+            <p>Full Premium access for 30 days, then keep the Lite version free forever.</p>
+        </div>
     </div>
 
-    <div class="signup-header">
-        <span class="section-label">Free Trial</span>
-        <h1>Start your free 30-day trial of <span id="appNameHeading">ProForma Suite</span></h1>
-        <p>Full Premium access for 30 days, then keep the Lite version free forever.</p>
-    </div>
-
+    <!-- Right: form -->
+    <div class="signup-right-col">
     <!-- Form card -->
     <div class="signup-card">
         <form class="contact-form" id="trialForm" novalidate>
@@ -265,6 +269,9 @@
 
         </form>
     </div>
+
+    </div><!-- /signup-right-col -->
+    </div><!-- /signup-page-cols -->
 
     <p class="signup-legal">
         By registering you agree to our

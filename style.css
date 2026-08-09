@@ -2113,3 +2113,51 @@ body.has-banner .navbar { top: 32px; }
     text-decoration: none;
 }
 .consent-privacy a:hover { text-decoration: underline; }
+
+/* ============================================================
+   Trial signup — wide two-column page layout
+   ============================================================ */
+.signup-page-cols {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 3rem;
+    align-items: start;
+}
+.signup-left-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 1rem;
+    position: sticky;
+    top: calc(var(--nav-h) + 40px);
+}
+.signup-left-col .signup-header {
+    text-align: left;
+    margin-bottom: 0;
+}
+.signup-left-col .signup-header p {
+    margin: 0;
+    max-width: 100%;
+}
+.signup-left-col .signup-icon {
+    margin: 0 0 1.25rem 0;
+}
+.signup-right-col {
+    min-width: 0;
+}
+@media (max-width: 820px) {
+    .signup-page-cols {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .signup-left-col {
+        position: static;
+        align-items: center;
+    }
+    .signup-left-col .signup-header {
+        text-align: center;
+    }
+    .signup-wrap {
+        padding: 2rem 1.25rem 3rem;
+    }
+}
