@@ -257,7 +257,7 @@
             <span class="os-chip">Windows 10/11</span>
             <span class="os-chip">macOS 12+</span>
         </div>
-        <a href="trial-signup.html?app=DOCX+Optimizer" class="btn-download">⬇️ &nbsp;Download</a>
+        <button class="btn-download locked" id="dl-docx" disabled>🔒 &nbsp;Locked</button>
     </div>
 
     <!-- ProForm -->
@@ -272,7 +272,7 @@
             <span class="os-chip">Windows 10/11</span>
             <span class="os-chip">macOS 12+</span>
         </div>
-        <a href="trial-signup.html?app=ProForm" class="btn-download">⬇️ &nbsp;Download</a>
+        <button class="btn-download locked" id="dl-proform" disabled>🔒 &nbsp;Locked</button>
     </div>
 
     <!-- SynoptIQ -->
@@ -287,7 +287,7 @@
             <span class="os-chip">Windows 10/11</span>
             <span class="os-chip">macOS 12+</span>
         </div>
-        <a href="trial-signup.html?app=SynoptIQ" class="btn-download">⬇️ &nbsp;Download</a>
+        <button class="btn-download locked" id="dl-synoptiq" disabled>🔒 &nbsp;Locked</button>
     </div>
 
 </div>
@@ -347,33 +347,79 @@
         this.value = formatted ? formatted.join('-') : raw;
     });
 
-    /* Key validation (demo) */
+    /* Key prefix → app mapping (demo; replace with real API call in production) */
+    var keyAppMap = {
+        'DO': { app: 'DOCX Optimizer', btnId: 'dl-docx' },
+        'PF': { app: 'ProForm',         btnId: 'dl-proform' },
+        'SQ': { app: 'SynoptIQ',        btnId: 'dl-synoptiq' },
+    };
+
+    function unlockDownload(appName, btnId, key) {
+        /* Lock all first */
+        ['dl-docx','dl-proform','dl-synoptiq'].forEach(function(id) {
+            var b = document.getElementById(id);
+            b.classList.add('locked');
+            b.disabled = true;
+            b.innerHTML = '🔒 &nbsp;Locked';
+        });
+        /* Unlock the matching one */
+        var btn = document.getElementById(btnId);
+        btn.classList.remove('locked');
+        btn.disabled = false;
+        btn.innerHTML = '⬇️ &nbsp;Download ' + appName;
+        btn.onclick = function() {
+            window.location.href = 'purchase-confirm.html'
+                + '?app=' + encodeURIComponent(appName)
+                + '&key=' + encodeURIComponent(key);
+        };
+    }
+
+    /* Key validation */
     document.getElementById('validateKeyBtn').addEventListener('click', function() {
-        var key = keyInput.value.trim();
+        var key    = keyInput.value.trim();
         var status = document.getElementById('keyStatus');
+
         if (key.length < 19) {
             status.style.color = 'var(--danger, #FF453A)';
             status.textContent = 'Please enter a complete license key (XXXX-XXXX-XXXX-XXXX).';
             return;
         }
+
         this.disabled = true;
         this.textContent = 'Checking…';
         var self = this;
+        var key = keyInput.value.trim();
+
         setTimeout(function() {
-            status.style.color = 'var(--accent)';
-            status.textContent = '✓ Key validated. Your Premium download is unlocked above.';
-            self.textContent = '✓ Validated';
+            /* Demo: detect app from first two chars of key */
+            var prefix = key.replace(/-/g,'').slice(0,2).toUpperCase();
+            var match  = keyAppMap[prefix];
+
+            if (match) {
+                status.style.color = 'var(--accent)';
+                status.textContent = '✓ Key validated for ' + match.app + '. Your download is now unlocked.';
+                self.textContent   = '✓ Validated';
+                unlockDownload(match.app, match.btnId, key);
+            } else {
+                /* Default: unlock all three for demo purposes */
+                status.style.color = 'var(--accent)';
+                status.textContent = '✓ Key validated. Your download is now unlocked below.';
+                self.textContent   = '✓ Validated';
+                /* In production, the API returns which app the key belongs to.
+                   For demo, unlock DOCX Optimizer as default. */
+                unlockDownload('DOCX Optimizer', 'dl-docx', key);
+            }
         }, 1000);
     });
 
-    /* Check if arriving from trial confirm page */
+    /* Check if arriving from trial-confirm page */
     var params = new URLSearchParams(window.location.search);
     var app = params.get('app');
     var isTrial = params.get('trial') === '1';
     if (app && isTrial) {
         var status = document.getElementById('keyStatus');
         status.style.color = 'var(--accent)';
-        status.textContent = '✓ Trial registered for ' + app + '. Click Download below to get started.';
+        status.textContent = '✓ Trial registered for ' + app + '. Enter your key above to unlock your download.';
     }
 
     /* Consent banner */

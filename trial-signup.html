@@ -276,8 +276,7 @@
 
             <div style="margin-top:1.5rem;">
                 <button type="submit" class="btn-send" id="trialSubmit"
-                    style="width:100%;justify-content:center;opacity:0.4;cursor:not-allowed;background:var(--text-3);"
-                    disabled>
+                    style="width:100%;justify-content:center;min-height:52px;padding:1.1rem 2rem;font-size:0.95rem;">
                     Start my free trial →
                 </button>
                 <p id="formStatus" class="form-status" style="text-align:center;margin-top:0.5rem;"></p>
@@ -420,7 +419,12 @@
         var v4 = setError('tf-phone',     'err-phone',     !phone);
         var v5 = setError('tf-interest',  'err-interest',  !interest);
 
-        if (!v1 || !v2 || !v3 || !v4 || !v5) return;
+        if (!v1 || !v2 || !v3 || !v4 || !v5) {
+            /* Scroll to first error */
+            var firstErr = document.querySelector('.form-input.error');
+            if (firstErr) firstErr.focus();
+            return;
+        }
 
         /* Save registration to localStorage */
         var trialStart = new Date();
@@ -443,7 +447,7 @@ phone:      phone,
         /* Feedback then redirect */
         var submitBtn = document.getElementById('trialSubmit');
         var status    = document.getElementById('formStatus');
-        submitBtn.disabled   = true;
+        submitBtn.style.opacity = '0.7';
         submitBtn.textContent = 'Registering…';
 
         setTimeout(function() {
@@ -470,15 +474,13 @@ phone:      phone,
         var emailOk  = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         var ready = first && last && emailOk && phone && interest;
         if (ready) {
-            submitBtn.disabled = false;
             submitBtn.style.opacity = '1';
-            submitBtn.style.cursor = 'pointer';
-            submitBtn.style.background = '';
+            submitBtn.style.filter = 'none';
+            submitBtn.dataset.ready = '1';
         } else {
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = '0.4';
-            submitBtn.style.cursor = 'not-allowed';
-            submitBtn.style.background = 'var(--text-3)';
+            submitBtn.style.opacity = '0.55';
+            submitBtn.style.filter = 'grayscale(0.3)';
+            submitBtn.dataset.ready = '0';
         }
     }
 
