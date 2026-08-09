@@ -476,10 +476,14 @@ phone:      phone,
         if (ready) {
             submitBtn.style.opacity = '1';
             submitBtn.style.filter = 'none';
+            submitBtn.style.background = '';
+            submitBtn.style.boxShadow = '';
             submitBtn.dataset.ready = '1';
         } else {
-            submitBtn.style.opacity = '0.55';
-            submitBtn.style.filter = 'grayscale(0.3)';
+            submitBtn.style.opacity = '0.6';
+            submitBtn.style.filter = 'none';
+            submitBtn.style.background = 'var(--accent)';
+            submitBtn.style.boxShadow = 'none';
             submitBtn.dataset.ready = '0';
         }
     }

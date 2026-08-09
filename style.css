@@ -704,7 +704,7 @@ body {
 
 .faq-item {
     background: var(--surface);
-    padding: 1.25rem 1.5rem;
+    padding: 0;
     border-bottom: 1px solid var(--border);
     transition: background 0.15s;
 }
