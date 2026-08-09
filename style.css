@@ -987,26 +987,35 @@ body.has-banner .navbar { top: 32px; }
 .btn-card-trial {
     flex: 1;
     text-align: center;
-    padding: 0.55rem 0.75rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.82rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.92rem;
     font-weight: 700;
     text-decoration: none;
-    background: var(--bg);
-    color: var(--accent);
-    border: 1.5px solid rgba(0,113,227,0.25);
-    box-shadow: var(--neu-btn);
-    transition: color 0.15s, box-shadow 0.2s, transform 0.15s, border-color 0.15s;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    box-shadow:
+        5px 5px 14px rgba(0,113,227,0.35),
+        -2px -2px 8px rgba(255,255,255,0.20),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    transition: background 0.15s, box-shadow 0.2s, transform 0.15s;
     cursor: pointer;
+    letter-spacing: -0.1px;
 }
 .btn-card-trial:hover {
-    border-color: var(--accent);
-    box-shadow: var(--neu-btn-hover);
-    transform: translateY(-1px);
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow:
+        8px 10px 22px rgba(0,113,227,0.40),
+        -2px -2px 10px rgba(255,255,255,0.25),
+        inset 0 1px 0 rgba(255,255,255,0.30);
 }
 .btn-card-trial:active {
-    box-shadow: var(--neu-press);
     transform: translateY(0);
+    box-shadow:
+        2px 2px 6px rgba(0,113,227,0.30),
+        inset 2px 2px 6px rgba(0,0,0,0.15);
 }
 
 /* --- Modal overlay --- */
@@ -1985,4 +1994,28 @@ body.has-banner .navbar { top: 32px; }
 }
 .faq-list .faq-group-label:first-child {
     border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+/* ============================================================
+   Trial signup — two-column form layout
+   ============================================================ */
+.signup-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+.signup-col-left,
+.signup-col-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.signup-col-right {
+    height: 100%;
+}
+@media (max-width: 540px) {
+    .signup-two-col {
+        grid-template-columns: 1fr;
+    }
 }

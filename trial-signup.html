@@ -147,50 +147,53 @@
     <div class="signup-header">
         <span class="section-label">Free Trial</span>
         <h1>Start your free 90-day trial of <span id="appNameHeading">ProForma Suite</span></h1>
-        <p>No credit card required. Full Premium access for 90 days, then keep the Lite version free forever.</p>
+        <p>Full Premium access for 90 days, then keep the Lite version free forever.</p>
     </div>
 
     <!-- Form card -->
     <div class="signup-card">
         <form class="contact-form" id="trialForm" novalidate>
 
-            <div class="form-row">
-                <div class="form-field">
-                    <label class="form-label" for="tf-first">First Name</label>
-                    <input class="form-input" id="tf-first" type="text"
-                        placeholder="Jane" autocomplete="given-name" required>
-                    <span class="field-error" id="err-first">Please enter your first name.</span>
-                </div>
-                <div class="form-field">
-                    <label class="form-label" for="tf-last">Last Name</label>
-                    <input class="form-input" id="tf-last" type="text"
-                        placeholder="Smith" autocomplete="family-name" required>
-                    <span class="field-error" id="err-last">Please enter your last name.</span>
-                </div>
-            </div>
+            <div class="signup-two-col">
 
-            <div class="form-field">
-                <label class="form-label" for="tf-email">Email Address</label>
-                <input class="form-input" id="tf-email" type="email"
-                    placeholder="you@example.com" autocomplete="email" required>
-                <span class="field-error" id="err-email">Please enter a valid email address.</span>
-            </div>
+                <!-- Left column: name fields -->
+                <div class="signup-col-left">
+                    <div class="form-field">
+                        <label class="form-label" for="tf-first">First name</label>
+                        <input class="form-input" id="tf-first" type="text"
+                            placeholder="Jane" autocomplete="given-name" required>
+                        <span class="field-error" id="err-first">Please enter your first name.</span>
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label" for="tf-last">Last name</label>
+                        <input class="form-input" id="tf-last" type="text"
+                            placeholder="Smith" autocomplete="family-name" required>
+                        <span class="field-error" id="err-last">Please enter your last name.</span>
+                    </div>
+                </div>
 
-            <div style="margin-top:1.25rem;">
-                <button type="submit" class="btn-send" id="trialSubmit"
-                    style="width:100%;justify-content:center;">
-                    Start My Free Trial →
-                </button>
-                <p id="formStatus" class="form-status" style="text-align:center;margin-top:0.5rem;"></p>
+                <!-- Right column: email + submit -->
+                <div class="signup-col-right">
+                    <div class="form-field">
+                        <label class="form-label" for="tf-email">Email address</label>
+                        <input class="form-input" id="tf-email" type="email"
+                            placeholder="you@example.com" autocomplete="email" required>
+                        <span class="field-error" id="err-email">Please enter a valid email address.</span>
+                    </div>
+                    <div style="margin-top:auto;padding-top:1.35rem;">
+                        <button type="submit" class="btn-send" id="trialSubmit"
+                            style="width:100%;justify-content:center;">
+                            Start my free trial →
+                        </button>
+                        <p id="formStatus" class="form-status" style="text-align:center;margin-top:0.5rem;"></p>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Assurances -->
             <div class="signup-assurances">
-                <div class="assurance-row">
-                    <span class="assurance-dot">✓</span>
-                    <span>No credit card required — ever</span>
-                </div>
-                <div class="assurance-row">
+<div class="assurance-row">
                     <span class="assurance-dot">✓</span>
                     <span>Full Premium access for 90 days, no limits</span>
                 </div>
