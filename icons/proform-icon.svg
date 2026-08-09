@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img">
+<title>ProForm</title>
+<desc>Stacked documents with form fields and dropdown controls</desc>
+
+<!-- Back document -->
+<g transform="rotate(-8 60 60)">
+  <rect x="14" y="16" width="74" height="92" rx="7" fill="#C8D8F0" stroke="#A8BEE0" stroke-width="0.75"/>
+  <polygon points="74,16 88,16 88,28" fill="#B0C4E4"/>
+  <polygon points="74,16 74,28 88,28" fill="#C0D4EC"/>
+  <rect x="22" y="34" width="46" height="4" rx="2" fill="#A0B8DC" opacity="0.7"/>
+  <rect x="22" y="42" width="36" height="4" rx="2" fill="#A0B8DC" opacity="0.5"/>
+  <rect x="22" y="50" width="42" height="4" rx="2" fill="#A0B8DC" opacity="0.4"/>
+  <rect x="22" y="58" width="30" height="4" rx="2" fill="#A0B8DC" opacity="0.4"/>
+</g>
+
+<!-- Middle document -->
+<g transform="rotate(5 60 60)">
+  <rect x="22" y="10" width="74" height="92" rx="7" fill="#D8E8F8" stroke="#B8CCE8" stroke-width="0.75"/>
+  <polygon points="82,10 96,10 96,22" fill="#B0C4E4"/>
+  <polygon points="82,10 82,22 96,22" fill="#C8DCF0"/>
+  <circle cx="32" cy="34" r="3" fill="#90ACD8" opacity="0.7"/>
+  <rect x="38" y="31" width="38" height="5" rx="2.5" fill="#90ACD8" opacity="0.6"/>
+  <circle cx="32" cy="48" r="3" fill="#90ACD8" opacity="0.55"/>
+  <rect x="38" y="45" width="28" height="5" rx="2.5" fill="#90ACD8" opacity="0.5"/>
+  <circle cx="32" cy="62" r="3" fill="#90ACD8" opacity="0.45"/>
+  <rect x="38" y="59" width="34" height="5" rx="2.5" fill="#90ACD8" opacity="0.45"/>
+</g>
+
+<!-- Front card -->
+<rect x="26" y="8" width="82" height="104" rx="9" fill="#1A6FD4" stroke="#1055A8" stroke-width="1"/>
+<polygon points="90,8 108,8 108,24" fill="#0D4A96"/>
+<polygon points="90,8 90,24 108,24" fill="#155FBB"/>
+
+<!-- Header line -->
+<rect x="34" y="22" width="52" height="6" rx="3" fill="#4A9AFF" opacity="0.7"/>
+<rect x="34" y="32" width="36" height="4" rx="2" fill="#4A9AFF" opacity="0.4"/>
+
+<!-- Field 1 -->
+<rect x="34" y="44" width="26" height="4" rx="2" fill="#90C0FF" opacity="0.6"/>
+<rect x="34" y="51" width="62" height="13" rx="4" fill="#F0F6FF" stroke="#A0C0F0" stroke-width="0.75"/>
+<text x="89" y="61" font-size="7" fill="#3A70C0" text-anchor="middle" font-family="sans-serif">▾</text>
+
+<!-- Field 2 -->
+<rect x="34" y="70" width="32" height="4" rx="2" fill="#90C0FF" opacity="0.6"/>
+<rect x="34" y="77" width="62" height="13" rx="4" fill="#F0F6FF" stroke="#A0C0F0" stroke-width="0.75"/>
+<text x="89" y="87" font-size="7" fill="#3A70C0" text-anchor="middle" font-family="sans-serif">▾</text>
+
+<!-- Submit button -->
+<rect x="52" y="97" width="44" height="10" rx="4" fill="#4A9AFF"/>
+<rect x="52" y="97" width="44" height="10" rx="4" fill="white" opacity="0.15"/>
+</svg>
