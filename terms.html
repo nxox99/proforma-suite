@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('darkToggle');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                root.classList.toggle('dark');
+                localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+    });
+})();
+</script>
+</head>
+<body>
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<div class="terms-hero">
+    <span class="section-label">Legal</span>
+    <h1>Terms of Use</h1>
+    <p>Please read these terms carefully before registering for a trial or purchasing a license.</p>
+</div>
+
+<p class="terms-date">Last updated: July 2026 &nbsp;·&nbsp; Effective immediately</p>
+
+<div class="terms-body">
+
+    <div class="terms-section">
+        <h2><span class="t-num">1</span> Acceptance of Terms</h2>
+        <p>By downloading, installing, registering for a free trial, or purchasing a license for any ProForma Suite application ("Software"), you agree to be bound by these Terms of Use ("Terms"). If you do not agree, do not install or use the Software.</p>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">2</span> Free 90-Day Trial</h2>
+        <p>ProForma Suite offers a <strong>90-day free trial</strong> of the full Premium version of each application. The following conditions apply:</p>
+        <ul>
+            <li>A valid email address is required to register and activate the trial.</li>
+            <li>Each email address is eligible for one trial period per application.</li>
+            <li>The trial period begins on the date of registration and expires after 90 calendar days.</li>
+            <li>No payment information is required to start a trial.</li>
+            <li>All Premium features are fully available during the trial with no functional limitations.</li>
+        </ul>
+        <div class="terms-highlight">
+            ◆ &nbsp;Your 90-day trial is our way of letting you evaluate the full product before committing. No credit card, no obligation.
+        </div>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">3</span> Lite Version — After the Trial</h2>
+        <p>When the 90-day trial period ends and no valid Premium license is active, the Software automatically reverts to the <strong>Lite version</strong>. The following principles govern this transition:</p>
+        <ul>
+            <li><strong>No data loss.</strong> All files, projects, and documents you created during the trial remain fully intact and accessible.</li>
+            <li>The Lite version is yours to keep indefinitely, free of charge, with no expiration date.</li>
+            <li>Premium features will be visibly disabled within the application interface.</li>
+            <li>Core functionality remains available in the Lite version at no cost. <em>[Specific Lite feature limits are defined per-application on each app's detail page — to be published.]</em></li>
+        </ul>
+        <div class="terms-highlight">
+            ◆ &nbsp;You will never lose access to the Software or your data. The Lite version is a permanent, free tier — not a locked-out state.
+        </div>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">4</span> Premium License</h2>
+        <p>A Premium license unlocks all features permanently for the licensed version of the application.</p>
+        <ul>
+            <li>Licenses are sold as a <strong>one-time purchase</strong>. There are no subscription fees.</li>
+            <li>Each license covers installation on <strong>one (1) machine</strong> by default.</li>
+            <li>Multi-seat licenses are available upon request — contact <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>.</li>
+            <li>A Premium license includes all future updates to the licensed major version.</li>
+            <li>Payment is processed securely via a third-party payment provider (e.g. Stripe or Gumroad). ProForma Suite does not store payment card data.</li>
+            <li>Your license key is delivered to your registered email address upon successful payment.</li>
+        </ul>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">5</span> Refund Policy</h2>
+        <p>We offer a <strong>14-day refund</strong> from the date of purchase if the Software does not function as described. To request a refund, use our <a href="support.html#contact">contact form</a> or email <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button> with your order ID and a brief description of the issue. Refunds are processed within 5–10 business days via the original payment method.</p>
+        <p style="margin-top:0.5rem;">Refunds are not available after 14 days from the purchase date, or for purchases where the license key has been distributed to multiple machines beyond the licensed seat count.</p>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">6</span> Permitted Use &amp; Restrictions</h2>
+        <p>You may install and use the Software for your personal or internal business purposes. You may not:</p>
+        <ul>
+            <li>Redistribute, resell, sublicense, or transfer the Software or license key to a third party.</li>
+            <li>Reverse-engineer, decompile, or disassemble the Software.</li>
+            <li>Remove or alter any copyright, trademark, or proprietary notices.</li>
+            <li>Use the Software for any unlawful purpose.</li>
+        </ul>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">7</span> Intellectual Property</h2>
+        <p>The Software, including all code, design, branding, and documentation, is the exclusive property of ProForma Suite and is protected by applicable copyright and intellectual property laws. These Terms grant you a limited, non-exclusive, non-transferable license to use the Software — no ownership rights are transferred.</p>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">8</span> Privacy &amp; Data</h2>
+        <p>ProForma Suite applications are designed to run locally on your device. Your documents and data are never uploaded to ProForma Suite servers. Your email address, collected at trial registration, is used solely to deliver your trial activation and license information. We do not sell or share your personal data with third parties except as required by law or to process your payment via our payment provider.</p>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">8a</span> No Liability for Data Loss</h2>
+        <p>ProForma Suite accepts no liability for loss, corruption, destruction, or inaccessibility of any data, files, or documents arising from use of the Software for any reason whatsoever. The Software operates entirely on your local device. We hold no copy of your data and cannot recover it. You are solely responsible for maintaining adequate independent backups of all data you process using the Software.</p>
+        <div class="terms-highlight">
+            ◆ &nbsp;We provide the tool. You are responsible for your data. Back it up independently — we cannot recover it for you.
+        </div>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">8b</span> Tool Only — No Data Provided or Stored by Us</h2>
+        <p>ProForma Suite provides software tools only. We do not provide, supply, generate, validate, or take any responsibility for any data, content, documents, or information that you create, import, or process using the Software. We have no access to, no copy of, and no knowledge of any data you handle through the Software. There are no cloud functions, no server-side processing, and no data transmission of any kind between the Software and ProForma Suite's systems.</p>
+        <div class="terms-highlight">
+            ◆ &nbsp;We never see your data. We never store it. We never transmit it. Everything stays on your machine.
+        </div>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">8c</span> Government &amp; IT-Restricted Environments</h2>
+        <p>You are solely responsible for determining whether installation and use of the Software is permitted on your device. This includes compliance with:</p>
+        <ul style="list-style:none;margin:0.75rem 0;display:flex;flex-direction:column;gap:0.4rem;">
+            <li style="font-size:0.9rem;color:var(--text-2);">→ &nbsp;Government IT security policies and acceptable-use rules on government-owned or government-managed devices</li>
+            <li style="font-size:0.9rem;color:var(--text-2);">→ &nbsp;Employer or institutional IT department policies that require approval before installing third-party software</li>
+            <li style="font-size:0.9rem;color:var(--text-2);">→ &nbsp;Regulations applicable to your industry or jurisdiction governing software permitted on devices handling regulated data</li>
+        </ul>
+        <p>ProForma Suite accepts no liability for any consequence arising from installation or use of the Software in an environment where such use is prohibited or requires prior approval that has not been obtained. Non-compliance is entirely the user's responsibility.</p>
+        <div class="terms-highlight">
+            ◆ &nbsp;If your IT department, employer, or government agency restricts unapproved software — get approval first. Using the Software without required authorization is your responsibility alone.
+        </div>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">9</span> Disclaimer of Warranties</h2>
+        <p>The Software is provided "as is" without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. ProForma Suite does not warrant that the Software will be error-free or uninterrupted.</p>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">10</span> Limitation of Liability</h2>
+        <p>To the maximum extent permitted by applicable law, ProForma Suite shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the Software, even if advised of the possibility of such damages. Our total liability shall not exceed the amount you paid for the applicable license.</p>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">11</span> Changes to These Terms</h2>
+        <p>We may update these Terms from time to time. When we do, the "Last updated" date at the top of this page will be revised. Continued use of the Software after changes are posted constitutes acceptance of the revised Terms. Material changes will be communicated by email to registered users.</p>
+    </div>
+
+    <div class="terms-section">
+        <h2><span class="t-num">12</span> Contact</h2>
+        <p>Questions about these Terms? Use our <a href="support.html#contact">contact form</a> or copy our email: <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>. We respond within 24–48 hours, Monday to Friday.</p>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite</span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+        <button class="email-copy" data-email="support@proforma-suite.com" data-tip="Copied!">support@proforma-suite.com</button>
+    </div>
+</footer>
+
+
+<script>
+/* Clipboard email copy */
+document.querySelectorAll('.email-copy').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var email = this.dataset.email;
+        navigator.clipboard.writeText(email).then(function() {
+            btn.classList.add('copied');
+            setTimeout(function() { btn.classList.remove('copied'); }, 2000);
+        });
+    });
+});
+</script>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    var banner = document.getElementById('consentBanner');
+    if (!banner) return;
+    if (localStorage.getItem('pfs-legal-consent') === 'accepted') return;
+    setTimeout(function() { banner.classList.add('visible'); }, 1200);
+    document.getElementById('consentDismiss').addEventListener('click', function() {
+        localStorage.setItem('pfs-legal-consent', 'accepted');
+        banner.classList.remove('visible');
+    });
+    document.getElementById('consentLater').addEventListener('click', function() {
+        banner.classList.remove('visible');
+    });
+})();
+</script>
+</body>
+</html>
