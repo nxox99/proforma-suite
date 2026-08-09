@@ -118,6 +118,29 @@
     border-color: var(--danger);
     box-shadow: var(--neu-press), 0 0 0 3px rgba(255,69,58,0.12);
 }
+
+/* Taller input fields for intake form */
+.signup-card .form-input,
+.signup-card .form-select {
+    padding: 1.1rem 1rem;
+    font-size: 0.95rem;
+    min-height: 52px;
+}
+.signup-card .form-select {
+    padding-right: 2.5rem;
+}
+
+/* Required asterisk */
+.req-star {
+    color: var(--accent);
+    font-weight: 700;
+    margin-left: 1px;
+}
+
+/* Row spacing */
+.signup-inline-fields {
+    gap: 1.1rem;
+}
 </style>
 </head>
 <body class="has-banner">
@@ -165,7 +188,7 @@
             <div class="signup-inline-fields">
 
                 <div class="signup-inline-row">
-                    <label class="signup-inline-label" for="tf-first">First name</label>
+                    <label class="signup-inline-label" for="tf-first">First name <span class="req-star">*</span></label>
                     <div class="signup-inline-input">
                         <input class="form-input" id="tf-first" type="text"
                             placeholder="Jane" autocomplete="given-name" required>
@@ -174,7 +197,7 @@
                 </div>
 
                 <div class="signup-inline-row">
-                    <label class="signup-inline-label" for="tf-last">Last name</label>
+                    <label class="signup-inline-label" for="tf-last">Last name <span class="req-star">*</span></label>
                     <div class="signup-inline-input">
                         <input class="form-input" id="tf-last" type="text"
                             placeholder="Smith" autocomplete="family-name" required>
@@ -183,7 +206,7 @@
                 </div>
 
                 <div class="signup-inline-row">
-                    <label class="signup-inline-label" for="tf-email">Email address</label>
+                    <label class="signup-inline-label" for="tf-email">Email address <span class="req-star">*</span></label>
                     <div class="signup-inline-input">
                         <input class="form-input" id="tf-email" type="email"
                             placeholder="you@example.com" autocomplete="email" required>
@@ -197,7 +220,7 @@
             <div class="signup-inline-fields" style="margin-top:1rem;">
 
 <div class="signup-inline-row">
-                    <label class="signup-inline-label" for="tf-phone">Phone number *</label>
+                    <label class="signup-inline-label" for="tf-phone">Phone number <span class="req-star">*</span></label>
                     <div class="signup-inline-input">
                         <input class="form-input" id="tf-phone" type="tel"
                             placeholder="+1 (555) 000-0000" autocomplete="tel" required>
@@ -206,7 +229,7 @@
                 </div>
 
                 <div class="signup-inline-row">
-                    <label class="signup-inline-label" for="tf-interest">Your interest *</label>
+                    <label class="signup-inline-label" for="tf-interest">Your interest <span class="req-star">*</span></label>
                     <div class="signup-inline-input">
                         <div class="form-select-wrap">
                             <select class="form-select form-input" id="tf-interest" required>
