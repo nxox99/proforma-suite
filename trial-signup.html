@@ -280,7 +280,7 @@
 
             <div style="margin-top:1.5rem;">
                 <button type="submit" class="btn-send" id="trialSubmit"
-                    style="width:100%;justify-content:center;min-height:52px;padding:1.1rem 2rem;font-size:0.95rem;background:var(--text-3);box-shadow:none;cursor:not-allowed;opacity:0.55;align-self:stretch;">
+                    style="width:100%;justify-content:center;min-height:52px;padding:1.1rem 2rem;font-size:0.95rem;background:#8e8e93;color:#fff;box-shadow:none;cursor:not-allowed;opacity:0.55;align-self:stretch;border:none;border-radius:10px;font-weight:700;font-family:inherit;">
                     Start my free trial →
                 </button>
                 <p id="formStatus" class="form-status" style="text-align:center;margin-top:0.5rem;"></p>
@@ -479,16 +479,18 @@ phone:      phone,
         var consent = document.getElementById('tf-consent-comms') && document.getElementById('tf-consent-comms').checked;
         var ready = first && last && emailOk && phone && interest && consent;
         if (ready) {
-            submitBtn.style.background    = 'var(--accent)';
+            submitBtn.style.background    = '#0071E3';
             submitBtn.style.boxShadow     = '5px 5px 14px rgba(0,113,227,0.35),-2px -2px 8px rgba(255,255,255,0.20),inset 0 1px 0 rgba(255,255,255,0.25)';
             submitBtn.style.cursor        = 'pointer';
             submitBtn.style.opacity       = '1';
+            submitBtn.style.color         = '#ffffff';
             submitBtn.dataset.ready       = '1';
         } else {
-            submitBtn.style.background    = 'var(--text-3)';
+            submitBtn.style.background    = '#8e8e93';
             submitBtn.style.boxShadow     = 'none';
             submitBtn.style.cursor        = 'not-allowed';
             submitBtn.style.opacity       = '0.55';
+            submitBtn.style.color         = '#ffffff';
             submitBtn.dataset.ready       = '0';
         }
     }
