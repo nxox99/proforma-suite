@@ -58,7 +58,7 @@
         proceedBtn.addEventListener('click', function() {
             window.open(currentHref, '_blank', 'noopener');
             var appName  = modalAppName.textContent;
-            var priceMap = { 'DOCX Optimizer': '49', 'ProForm': '99', 'SynoptIQ': '149' };
+            var priceMap = { 'DOCX Optimizer': '49', 'ProForm': '99', 'Synthetix-CR': '149' };
             var price    = priceMap[appName] || '';
             var receiptUrl = 'receipt.html?app=' + encodeURIComponent(appName)
                            + '&price=' + encodeURIComponent(price);
@@ -140,10 +140,10 @@
             </div>
         </div>
 
-        <!-- SynoptIQ -->
-        <div class="app-card" id="synoptiq" style="cursor:pointer;" onclick="window.location.href='trial-signup.html?app=SynoptIQ'">
+        <!-- Synthetix-CR -->
+        <div class="app-card" id="synoptiq" style="cursor:pointer;" onclick="window.location.href='trial-signup.html?app=Synthetix-CR'">
             <div class="card-top">
-                <div class="app-icon"><img src="icons/synoptiq-icon.png" alt="SynoptIQ icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
+                <div class="app-icon"><img src="icons/synoptiq-icon.png" alt="Synthetix-CR icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v1.0.0</span>
             </div>
             <span class="trial-badge">30-day free trial</span>
@@ -151,11 +151,11 @@
                 <span class="bundle-chip">Includes DOCX Optimizer</span>
                 <span class="bundle-chip">Includes ProForm</span>
             </div>
-            <h3>SynoptIQ</h3>
+            <h3>Synthetix-CR</h3>
             <p>The complete ProForma Suite bundle — DOCX Optimizer and ProForm in a single package. One install, one license key, everything in one place.</p>
             <div class="card-actions">
-                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=SynoptIQ'">Free trial</button>
-                <button class="btn-card-buy" onclick="event.stopPropagation();window.location.href='payment.html?app=SynoptIQ&price=149'">Buy – $149</button>
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=Synthetix-CR'">Free trial</button>
+                <button class="btn-card-buy" onclick="event.stopPropagation();window.location.href='payment.html?app=Synthetix-CR&price=149'">Buy – $149</button>
             </div>
         </div>
 
@@ -218,10 +218,11 @@
 </div>
 
 <footer class="footer">
-    <span>© 2026 ProForma Suite</span>
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Contact Us</a>

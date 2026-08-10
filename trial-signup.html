@@ -154,6 +154,7 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Contact Us</a>
@@ -316,10 +317,11 @@
 </div>
 
 <footer class="footer">
-    <span>© 2026 ProForma Suite</span>
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Contact Us</a>
@@ -376,7 +378,7 @@
     var iconMap = {
         'DOCX Optimizer': { img: 'icons/docx-optimizer-icon.png', emoji: '📄' },
         'ProForm':        { img: 'icons/proform-icon.png',         emoji: '📋' },
-        'SynoptIQ':       { img: 'icons/synoptiq-icon.png',         emoji: '🧩' },
+        'Synthetix-CR':       { img: 'icons/synoptiq-icon.png',         emoji: '🧩' },
     };
     var iconEl   = document.getElementById('appIcon');
     var emojiEl  = document.getElementById('appEmoji');
@@ -405,6 +407,8 @@
     }
 
     /* ── Form submit ── */
+    var submitBtn = document.getElementById('trialSubmit');
+
     document.getElementById('trialForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -446,8 +450,6 @@ phone:      phone,
         localStorage.setItem('pfs-trial-' + appName, JSON.stringify(registration));
 
         /* Feedback then redirect */
-        var submitBtn = document.getElementById('trialSubmit');
-        var status    = document.getElementById('formStatus');
         submitBtn.style.opacity = '0.7';
         submitBtn.textContent = 'Registering…';
 
@@ -462,9 +464,7 @@ phone:      phone,
         }, 800);
     });
 
-    /* ── Clear error on input ── */
-    /* ── Live validity check — enables submit when all fields filled ── */
-    var submitBtn = document.getElementById('trialSubmit');
+    /* ── Live validity check ── */
 
     function checkFormReady() {
         var first    = document.getElementById('tf-first').value.trim();

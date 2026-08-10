@@ -40,6 +40,34 @@
             });
         }
 
+        /* Live validation — enable send button when required fields filled */
+        var contactSubmit = document.getElementById('contactSubmit');
+        function checkContactReady() {
+            var name    = document.getElementById('cf-name').value.trim();
+            var email   = document.getElementById('cf-email').value.trim();
+            var message = document.getElementById('cf-message').value.trim();
+            var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (name && emailOk && message) {
+                contactSubmit.style.background  = 'var(--accent)';
+                contactSubmit.style.boxShadow   = '5px 5px 14px rgba(0,113,227,0.35),inset 0 1px 0 rgba(255,255,255,0.25)';
+                contactSubmit.style.cursor      = 'pointer';
+                contactSubmit.style.opacity     = '1';
+            } else {
+                contactSubmit.style.background  = 'var(--text-3)';
+                contactSubmit.style.boxShadow   = 'none';
+                contactSubmit.style.cursor      = 'not-allowed';
+                contactSubmit.style.opacity     = '0.55';
+            }
+        }
+        ['cf-name','cf-email','cf-message'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', checkContactReady);
+                el.addEventListener('change', checkContactReady);
+            }
+        });
+        checkContactReady();
+
         /* Consent banner */
         if (localStorage.getItem('pfs-legal-consent') !== 'accepted') {
             var banner = document.getElementById('consentBanner');
@@ -209,6 +237,7 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
         <a href="trial-signup.html">Free Trial</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -274,7 +303,7 @@
                                 <option value="">— Select an app —</option>
                                 <option>DOCX Optimizer</option>
                                 <option>ProForm</option>
-                                <option>SynoptIQ</option>
+                                <option>Synthetix-CR</option>
                                 <option>Other / General</option>
                             </select>
                         </div>
@@ -309,8 +338,9 @@
                 </div>
 
                 <div style="margin-top:0.5rem;padding-left:calc(90px + 1rem);">
-                    <button type="submit" class="btn-send" style="width:100%;justify-content:center;">
-                        Send Message
+                    <button type="submit" class="btn-send" id="contactSubmit"
+                        style="width:100%;justify-content:center;background:var(--text-3);box-shadow:none;cursor:not-allowed;opacity:0.55;">
+                        Send message to support@proforma-suite.com
                     </button>
                     <p id="formStatus" class="form-status"></p>
                 </div>
@@ -322,10 +352,11 @@
 </div>
 
 <footer class="footer">
-    <span>© 2026 ProForma Suite</span>
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Contact Us</a>
