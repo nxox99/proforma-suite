@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans &amp; Pricing – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('darkToggle');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                root.classList.toggle('dark');
+                localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+
+        /* ── Billing toggle ── */
+        var radioMonthly = document.getElementById('bill-monthly');
+        var radioAnnual  = document.getElementById('bill-annual');
+
+        var prices = {
+            'docx':  { monthly: '9.99',  annual: '99',  monthlySlug: '9.99',  annualSlug: '99'  },
+            'proform':{ monthly: '29.99', annual: '299', monthlySlug: '29.99', annualSlug: '299' },
+            'scr':   { monthly: '39.99', annual: '399', monthlySlug: '39.99', annualSlug: '399' },
+        };
+
+        function updatePricing(cycle) {
+            Object.keys(prices).forEach(function(key) {
+                var p = prices[key];
+                var priceEl  = document.getElementById('price-' + key);
+                var cycleEl  = document.getElementById('cycle-' + key);
+                var buyBtn   = document.getElementById('buy-' + key);
+                var saveEl   = document.getElementById('save-' + key);
+
+                if (cycle === 'monthly') {
+                    priceEl.textContent  = '$' + p.monthly;
+                    cycleEl.textContent  = '/ month';
+                    buyBtn.href = 'payment.html?app=' + encodeURIComponent(buyBtn.dataset.app)
+                                + '&price=' + p.monthlySlug + '&cycle=monthly';
+                    if (saveEl) saveEl.style.display = 'none';
+                } else {
+                    priceEl.textContent  = '$' + p.annual;
+                    cycleEl.textContent  = '/ year';
+                    buyBtn.href = 'payment.html?app=' + encodeURIComponent(buyBtn.dataset.app)
+                                + '&price=' + p.annualSlug + '&cycle=annual';
+                    if (saveEl) saveEl.style.display = 'inline-flex';
+                }
+            });
+
+            /* Update toggle label styles */
+            document.querySelectorAll('.bill-option').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            document.getElementById('label-' + cycle).classList.add('active');
+        }
+
+        radioMonthly.addEventListener('change', function() { if (this.checked) updatePricing('monthly'); });
+        radioAnnual.addEventListener('change',  function() { if (this.checked) updatePricing('annual');  });
+
+        /* Default: monthly */
+        updatePricing('monthly');
+
+        /* Consent banner */
+        if (localStorage.getItem('pfs-legal-consent') !== 'accepted') {
+            var banner = document.getElementById('consentBanner');
+            if (banner) {
+                setTimeout(function() { banner.classList.add('visible'); }, 1200);
+                document.getElementById('consentDismiss').addEventListener('click', function() {
+                    localStorage.setItem('pfs-legal-consent', 'accepted');
+                    banner.classList.remove('visible');
+                });
+                document.getElementById('consentLater').addEventListener('click', function() {
+                    banner.classList.remove('visible');
+                });
+            }
+        }
+    });
+})();
+</script>
+
+<style>
+.pricing-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+}
+
+/* ── Page header ── */
+.pricing-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.pricing-header h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -1.2px;
+    margin-bottom: 0.4rem;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    line-height: 1.08;
+}
+.pricing-header p {
+    font-size: 1.05rem;
+    color: var(--text-2);
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+/* ── Billing toggle ── */
+.billing-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 2rem auto 3rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    box-shadow: var(--neu-press);
+    padding: 4px;
+    width: fit-content;
+}
+.billing-toggle input[type="radio"] {
+    display: none;
+}
+.bill-option {
+    padding: 0.6rem 1.75rem;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: all 0.2s var(--ease-out);
+    user-select: none;
+    -webkit-user-select: none;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.bill-option.active {
+    background: var(--accent);
+    color: #fff;
+    box-shadow:
+        3px 3px 10px rgba(0,113,227,0.30),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+}
+.bill-save-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    background: rgba(48,209,88,0.2);
+    color: #1a7a35;
+    border-radius: 100px;
+    padding: 1px 7px;
+    letter-spacing: 0.04em;
+}
+.dark .bill-save-tag { color: #30D158; background: rgba(48,209,88,0.15); }
+.bill-option.active .bill-save-tag {
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+}
+
+/* ── Pricing cards grid ── */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
+}
+@media (max-width: 820px) { .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+
+.pricing-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--neu-raise);
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: box-shadow 0.2s, transform 0.2s;
+    position: relative;
+}
+.pricing-card:hover {
+    box-shadow:
+        10px 10px 28px rgba(0,0,0,0.10),
+        -4px -4px 14px rgba(255,255,255,0.68);
+    transform: translateY(-3px);
+}
+.dark .pricing-card:hover {
+    box-shadow:
+        10px 10px 28px rgba(0,0,0,0.50),
+        -4px -4px 14px rgba(80,80,84,0.20);
+}
+
+/* App icon + name */
+.pc-icon {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    display: block;
+    margin-bottom: 1rem;
+}
+.pc-name {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.3px;
+    margin-bottom: 0.25rem;
+}
+.pc-tagline {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    line-height: 1.55;
+    margin-bottom: 1.5rem;
+}
+
+/* Price display */
+.pc-price-block {
+    margin-bottom: 1.75rem;
+}
+.pc-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-bottom: 0.2rem;
+}
+.pc-price {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -1.5px;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+    line-height: 1;
+    transition: color 0.2s;
+}
+.pc-cycle {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-3);
+}
+.pc-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(48,209,88,0.12);
+    color: #1a7a35;
+    border-radius: 100px;
+    padding: 2px 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-top: 0.3rem;
+}
+.dark .pc-save { color: #30D158; background: rgba(48,209,88,0.12); }
+
+/* What's included */
+.pc-includes {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    flex: 1;
+}
+.pc-includes li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.86rem;
+    color: var(--text-2);
+    line-height: 1.5;
+}
+.pc-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.58rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+/* Divider */
+.pc-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 1.25rem;
+}
+
+/* One-line pitch */
+.pc-pitch {
+    font-size: 0.82rem;
+    color: var(--text-3);
+    line-height: 1.55;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+}
+
+/* Buy Now button */
+.btn-buy-now {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow:
+        5px 5px 14px rgba(0,113,227,0.30),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    transition: background 0.15s, box-shadow 0.2s, transform 0.15s;
+    letter-spacing: -0.1px;
+    margin-top: auto;
+}
+.btn-buy-now:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow:
+        7px 8px 20px rgba(0,113,227,0.36),
+        inset 0 1px 0 rgba(255,255,255,0.28);
+}
+.btn-buy-now:active { transform: translateY(0); }
+
+/* Trial note */
+.pricing-trial-note {
+    text-align: center;
+    margin-top: 2.5rem;
+    font-size: 0.88rem;
+    color: var(--text-3);
+    line-height: 1.6;
+}
+.pricing-trial-note a { color: var(--accent); text-decoration: none; }
+.pricing-trial-note a:hover { text-decoration: underline; }
+</style>
+</head>
+<body class="has-banner">
+
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
+        <a href="trial-signup.html">Free Trial</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<div class="pricing-wrap">
+
+    <!-- Header -->
+    <div class="pricing-header">
+        <span class="section-label">Plans &amp; Pricing</span>
+        <h1>Plans and pricing</h1>
+        <p>Choose your plan</p>
+    </div>
+
+    <!-- Billing toggle -->
+    <div class="billing-toggle">
+        <input type="radio" name="billing" id="bill-monthly" checked>
+        <label class="bill-option" id="label-monthly" for="bill-monthly">Billed monthly</label>
+        <input type="radio" name="billing" id="bill-annual">
+        <label class="bill-option" id="label-annual" for="bill-annual">
+            Annual, prepaid
+            <span class="bill-save-tag">Save up to 17%</span>
+        </label>
+    </div>
+
+    <!-- Pricing cards -->
+    <div class="pricing-grid">
+
+        <!-- DOCX Optimizer -->
+        <div class="pricing-card">
+            <img src="icons/docx-optimizer-icon.png" alt="DOCX Optimizer" class="pc-icon">
+            <div class="pc-name">DOCX Optimizer</div>
+            <div class="pc-tagline">Batch-clean, reformat, and optimize Word documents in seconds.</div>
+
+            <div class="pc-price-block">
+                <div class="pc-price-row">
+                    <span class="pc-price" id="price-docx">$9.99</span>
+                    <span class="pc-cycle" id="cycle-docx">/ month</span>
+                </div>
+                <span class="pc-save" id="save-docx" style="display:none;">✓ &nbsp;Best value — 2 months free</span>
+            </div>
+
+            <ul class="pc-includes">
+                <li><span class="pc-check">✓</span> Full Premium access — all features unlocked</li>
+                <li><span class="pc-check">✓</span> Batch processing — unlimited documents</li>
+                <li><span class="pc-check">✓</span> Auto-reformat, clean, and standardize</li>
+                <li><span class="pc-check">✓</span> All future updates included</li>
+                <li><span class="pc-check">✓</span> Single machine license</li>
+                <li><span class="pc-check">✓</span> 100% offline — no cloud, no uploads</li>
+                <li><span class="pc-check">✓</span> 14-day refund if not satisfied</li>
+            </ul>
+
+            <div class="pc-divider"></div>
+            <p class="pc-pitch">Stop reformatting the same documents over and over. Let DOCX Optimizer do it in seconds.</p>
+
+            <a href="#" class="btn-buy-now" id="buy-docx" data-app="DOCX Optimizer">Buy Now</a>
+        </div>
+
+        <!-- ProForm -->
+        <div class="pricing-card">
+            <img src="icons/proform-icon.png" alt="ProForm" class="pc-icon">
+            <div class="pc-name">ProForm</div>
+            <div class="pc-tagline">Build, fill, and export professional PDF forms — no Adobe required.</div>
+
+            <div class="pc-price-block">
+                <div class="pc-price-row">
+                    <span class="pc-price" id="price-proform">$29.99</span>
+                    <span class="pc-cycle" id="cycle-proform">/ month</span>
+                </div>
+                <span class="pc-save" id="save-proform" style="display:none;">✓ &nbsp;Best value — 2 months free</span>
+            </div>
+
+            <ul class="pc-includes">
+                <li><span class="pc-check">✓</span> Full Premium access — all features unlocked</li>
+                <li><span class="pc-check">✓</span> Drag-and-drop form builder</li>
+                <li><span class="pc-check">✓</span> Digital signature support</li>
+                <li><span class="pc-check">✓</span> Export to PDF — no Adobe dependency</li>
+                <li><span class="pc-check">✓</span> All future updates included</li>
+                <li><span class="pc-check">✓</span> Single machine license</li>
+                <li><span class="pc-check">✓</span> 100% offline — no cloud, no uploads</li>
+                <li><span class="pc-check">✓</span> 14-day refund if not satisfied</li>
+            </ul>
+
+            <div class="pc-divider"></div>
+            <p class="pc-pitch">Professional forms created, filled, and exported in minutes — without an Adobe subscription.</p>
+
+            <a href="#" class="btn-buy-now" id="buy-proform" data-app="ProForm">Buy Now</a>
+        </div>
+
+        <!-- Synthetix-CR -->
+        <div class="pricing-card">
+            <img src="icons/synoptiq-icon.png" alt="Synthetix-CR" class="pc-icon">
+            <div class="pc-name">Synthetix-CR</div>
+            <div class="pc-tagline">Transform unstructured reports into structured, consolidated output.</div>
+
+            <div class="pc-price-block">
+                <div class="pc-price-row">
+                    <span class="pc-price" id="price-scr">$39.99</span>
+                    <span class="pc-cycle" id="cycle-scr">/ month</span>
+                </div>
+                <span class="pc-save" id="save-scr" style="display:none;">✓ &nbsp;Best value — 2 months free</span>
+            </div>
+
+            <ul class="pc-includes">
+                <li><span class="pc-check">✓</span> Full Premium access — all features unlocked</li>
+                <li><span class="pc-check">✓</span> Unstructured-to-structured report engine</li>
+                <li><span class="pc-check">✓</span> Flexible template engine — instant format changes</li>
+                <li><span class="pc-check">✓</span> No vendor dependency for format changes</li>
+                <li><span class="pc-check">✓</span> All future updates included</li>
+                <li><span class="pc-check">✓</span> Single machine license</li>
+                <li><span class="pc-check">✓</span> 100% offline — complete data privacy</li>
+                <li><span class="pc-check">✓</span> 14-day refund if not satisfied</li>
+            </ul>
+
+            <div class="pc-divider"></div>
+            <p class="pc-pitch">Stop spending hours extracting and formatting data. Synthetix-CR gives that time back to you.</p>
+
+            <a href="#" class="btn-buy-now" id="buy-scr" data-app="Synthetix-CR">Buy Now</a>
+        </div>
+
+    </div>
+    <!-- /pricing-grid -->
+
+    <!-- Trial note -->
+    <p class="pricing-trial-note">
+        Not ready to subscribe? <a href="trial-signup.html">Start a free 30-day trial</a> — no credit card required.<br>
+        All plans include a <strong>14-day refund</strong> if the software doesn't work as described. <a href="terms.html">See full terms →</a>
+    </p>
+
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+    </div>
+</footer>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+</body>
+</html>

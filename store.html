@@ -83,7 +83,7 @@
 
 <!-- Sitewide trial banner -->
 <div class="trial-banner">
-    🎁 &nbsp;Try any app free for 30 days — no credit card required. Lite version yours to keep.
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
     <a href="terms.html">See terms →</a>
 </div>
 
@@ -103,7 +103,7 @@
 <div class="section" style="padding-bottom:0;">
     <span class="section-label">Apps</span>
     <h2>The ProForma Suite catalogue.</h2>
-    <p class="section-sub">Buy once, own forever. Every app includes a 30-day free trial and a permanent free Lite version.</p>
+    <p class="section-sub">Buy once, own forever. Every app includes a 30-day free trial. Subscribe monthly or annually.</p>
 </div>
 
 <!-- ===== Available Apps ===== -->
@@ -119,17 +119,8 @@
             <span class="trial-badge">30-day free trial</span>
             <h3>DOCX Optimizer</h3>
             <p>Batch-clean, reformat, and optimize Word documents in seconds. Perfect for teams managing large document libraries.</p>
-            <div class="sub-actions" onclick="event.stopPropagation()">
+            <div class="card-actions">
                 <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=DOCX+Optimizer'">Free trial</button>
-                <button class="btn-sub-monthly" onclick="event.stopPropagation();window.location.href='payment.html?app=DOCX+Optimizer&price=9.99&cycle=monthly'">
-                    <span class="sub-btn-label">Monthly</span>
-                    <span class="sub-btn-price">$9.99/mo</span>
-                </button>
-                <button class="btn-sub-annual" onclick="event.stopPropagation();window.location.href='payment.html?app=DOCX+Optimizer&price=99&cycle=annual'">
-                    <span class="sub-btn-label">Annual</span>
-                    <span class="sub-btn-price">$99/yr</span>
-                    <span class="sub-save-chip">Best value</span>
-                </button>
             </div>
         </div>
 
@@ -142,17 +133,8 @@
             <span class="trial-badge">30-day free trial</span>
             <h3>ProForm</h3>
             <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop builder with digital signature support.</p>
-            <div class="sub-actions" onclick="event.stopPropagation()">
+            <div class="card-actions">
                 <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=ProForm'">Free trial</button>
-                <button class="btn-sub-monthly" onclick="event.stopPropagation();window.location.href='payment.html?app=ProForm&price=29.99&cycle=monthly'">
-                    <span class="sub-btn-label">Monthly</span>
-                    <span class="sub-btn-price">$29.99/mo</span>
-                </button>
-                <button class="btn-sub-annual" onclick="event.stopPropagation();window.location.href='payment.html?app=ProForm&price=299&cycle=annual'">
-                    <span class="sub-btn-label">Annual</span>
-                    <span class="sub-btn-price">$299/yr</span>
-                    <span class="sub-save-chip">Best value</span>
-                </button>
             </div>
         </div>
 
@@ -169,21 +151,18 @@
             </div>
             <h3>Synthetix-CR</h3>
             <p>The complete ProForma Suite bundle — DOCX Optimizer and ProForm in a single package. One install, one license key, everything in one place.</p>
-            <div class="sub-actions" onclick="event.stopPropagation()">
+            <div class="card-actions">
                 <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=Synthetix-CR'">Free trial</button>
-                <button class="btn-sub-monthly" onclick="event.stopPropagation();window.location.href='payment.html?app=Synthetix-CR&price=39.99&cycle=monthly'">
-                    <span class="sub-btn-label">Monthly</span>
-                    <span class="sub-btn-price">$39.99/mo</span>
-                </button>
-                <button class="btn-sub-annual" onclick="event.stopPropagation();window.location.href='payment.html?app=Synthetix-CR&price=399&cycle=annual'">
-                    <span class="sub-btn-label">Annual</span>
-                    <span class="sub-btn-price">$399/yr</span>
-                    <span class="sub-save-chip">Best value</span>
-                </button>
             </div>
         </div>
 
+    
+    <div style="text-align:center;margin-top:2.5rem;">
+        <a href="pricing.html" class="btn-primary" style="font-size:1rem;padding:0.85rem 2.5rem;display:inline-block;">
+            See plans and pricing →
+        </a>
     </div>
+</div>
 </div>
 
 <!-- ===== In Development ===== -->
@@ -247,6 +226,7 @@
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
         <a href="synthetix-cr.html">About</a>
+        <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Contact Us</a>
@@ -271,11 +251,11 @@
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">📦</span>
-                <span><strong>After 30 days</strong>, the app reverts to the free Lite version. Premium features are disabled — your data is untouched.</span>
+                <span><strong>After 30 days</strong>, subscribe to keep full access — or your trial simply ends. Your data is always untouched.</span>
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">♾️</span>
-                <span><strong>Lite version is yours to keep</strong> — forever, free, with no expiration.</span>
+                <span><strong>No commitment required</strong> — your trial ends cleanly with no charge if you don't subscribe.</span>
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">💳</span>
@@ -289,7 +269,7 @@
 
         <label class="modal-agree">
             <input type="checkbox" id="modalAgree">
-            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial, single-machine subscription license, and Lite version conditions.
+            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial and single-machine subscription license conditions.
         </label>
 
         <div class="modal-actions">
