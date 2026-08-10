@@ -214,11 +214,11 @@
     <div class="order-pill">
         <div>
             <div class="order-pill-app" id="orderApp">ProForma Suite App</div>
-            <div class="order-pill-note">Lifetime license · One machine · All future updates</div>
+            <div class="order-pill-note" id="cycleNote">Subscription · Cancel anytime · All updates included</div>
         </div>
         <div style="text-align:right;">
             <div class="order-pill-price" id="orderPrice">—</div>
-            <div class="order-pill-note">USD · one-time</div>
+            <div class="order-pill-note" id="cycleType">USD · subscription</div>
         </div>
     </div>
 
@@ -294,7 +294,7 @@
         <a href="terms.html">Terms of Use</a>,
         <a href="eula.html">EULA</a>, and
         <a href="copyright.html">Copyright Notice</a>.
-        Single-machine license. No refunds after 14 days.
+        Subscription license · Single machine · Cancel anytime · 14-day refund policy.
     </p>
 
     <a href="store.html" class="payment-back">← Back to Apps</a>
@@ -347,11 +347,14 @@
     var params  = new URLSearchParams(window.location.search);
     var appName = params.get('app')   || 'ProForma Suite App';
     var price   = params.get('price') || '';
+    var cycle   = params.get('cycle') || 'monthly';
+    var cycleLabel = cycle === 'annual' ? '/yr — billed annually' : '/mo — billed monthly';
+    var priceDisplay = price ? '$' + price + cycleLabel : '—';
 
-    document.getElementById('orderApp').textContent   = appName;
-    document.getElementById('orderPrice').textContent = price ? '$' + price : '—';
+    document.getElementById('orderApp').textContent     = appName;
+    document.getElementById('orderPrice').textContent   = priceDisplay;
     document.getElementById('payBtnAmount').textContent = price ? '$' + price : 'now';
-    document.title = 'Purchase ' + appName + ' – ProForma Suite';
+    document.title = 'Subscribe to ' + appName + ' – ProForma Suite';
 
     /* ── Card number formatting ── */
     var numInput  = document.getElementById('pf-number');

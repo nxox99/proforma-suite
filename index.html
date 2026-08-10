@@ -65,7 +65,7 @@
                redirect back to receipt.html?order=...&app=...&price=...
                This demo redirect simulates that flow. */
             var appName  = modalAppName.textContent;
-            var priceMap = { 'DOCX Optimizer': '49', 'ProForm': '99', 'Synthetix-CR': '149' };
+            var priceMap = { 'DOCX Optimizer': '9.99', 'ProForm': '29.99', 'Synthetix-CR': '39.99' };
             var price    = priceMap[appName] || '';
             var receiptUrl = 'receipt.html?app=' + encodeURIComponent(appName)
                            + '&price=' + encodeURIComponent(price);
@@ -135,9 +135,17 @@
             <span class="trial-badge">30-day free trial</span>
             <h3>DOCX Optimizer</h3>
             <p>Batch-clean, reformat, and optimize Word documents in seconds. Perfect for teams managing large document libraries.</p>
-            <div class="card-actions">
+            <div class="sub-actions" onclick="event.stopPropagation()">
                 <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=DOCX+Optimizer'">Free trial</button>
-                <button class="btn-card-buy" onclick="event.stopPropagation();window.location.href='payment.html?app=DOCX+Optimizer&price=49'">Buy – $49</button>
+                <button class="btn-sub-monthly" onclick="event.stopPropagation();window.location.href='payment.html?app=DOCX+Optimizer&price=9.99&cycle=monthly'">
+                    <span class="sub-btn-label">Monthly</span>
+                    <span class="sub-btn-price">$9.99/mo</span>
+                </button>
+                <button class="btn-sub-annual" onclick="event.stopPropagation();window.location.href='payment.html?app=DOCX+Optimizer&price=99&cycle=annual'">
+                    <span class="sub-btn-label">Annual</span>
+                    <span class="sub-btn-price">$99/yr</span>
+                    <span class="sub-save-chip">Best value</span>
+                </button>
             </div>
         </div>
 
@@ -149,9 +157,17 @@
             <span class="trial-badge">30-day free trial</span>
             <h3>ProForm</h3>
             <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop builder with digital signature support.</p>
-            <div class="card-actions">
+            <div class="sub-actions" onclick="event.stopPropagation()">
                 <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=ProForm'">Free trial</button>
-                <button class="btn-card-buy" onclick="event.stopPropagation();window.location.href='payment.html?app=ProForm&price=99'">Buy – $99</button>
+                <button class="btn-sub-monthly" onclick="event.stopPropagation();window.location.href='payment.html?app=ProForm&price=29.99&cycle=monthly'">
+                    <span class="sub-btn-label">Monthly</span>
+                    <span class="sub-btn-price">$29.99/mo</span>
+                </button>
+                <button class="btn-sub-annual" onclick="event.stopPropagation();window.location.href='payment.html?app=ProForm&price=299&cycle=annual'">
+                    <span class="sub-btn-label">Annual</span>
+                    <span class="sub-btn-price">$299/yr</span>
+                    <span class="sub-save-chip">Best value</span>
+                </button>
             </div>
         </div>
 
@@ -163,9 +179,17 @@
             <span class="trial-badge">30-day free trial</span>
             <h3>Synthetix-CR</h3>
             <p>The complete ProForma Suite bundle — includes DOCX Optimizer and ProForm in a single package. One install, one key, everything in one place.</p>
-            <div class="card-actions">
+            <div class="sub-actions" onclick="event.stopPropagation()">
                 <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=Synthetix-CR'">Free trial</button>
-                <button class="btn-card-buy" onclick="event.stopPropagation();window.location.href='payment.html?app=Synthetix-CR&price=149'">Buy – $149</button>
+                <button class="btn-sub-monthly" onclick="event.stopPropagation();window.location.href='payment.html?app=Synthetix-CR&price=39.99&cycle=monthly'">
+                    <span class="sub-btn-label">Monthly</span>
+                    <span class="sub-btn-price">$39.99/mo</span>
+                </button>
+                <button class="btn-sub-annual" onclick="event.stopPropagation();window.location.href='payment.html?app=Synthetix-CR&price=399&cycle=annual'">
+                    <span class="sub-btn-label">Annual</span>
+                    <span class="sub-btn-price">$399/yr</span>
+                    <span class="sub-save-chip">Best value</span>
+                </button>
             </div>
         </div>
 
@@ -240,7 +264,7 @@
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">💳</span>
-                <span><strong>To buy Premium</strong>, a one-time payment unlocks all features permanently. You're redirected to our secure payment page.</span>
+                <span><strong>To subscribe</strong>, choose monthly or annual billing. You're redirected to our secure payment page.</span>
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">↩️</span>
@@ -250,7 +274,7 @@
 
         <label class="modal-agree">
             <input type="checkbox" id="modalAgree">
-            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial, single-machine license, and Lite version conditions.
+            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial, single-machine subscription license, and Lite version conditions.
         </label>
 
         <div class="modal-actions">
