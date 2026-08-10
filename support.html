@@ -49,14 +49,16 @@
             var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
             if (name && emailOk && message) {
                 contactSubmit.style.background  = 'var(--accent)';
-                contactSubmit.style.boxShadow   = '5px 5px 14px rgba(0,113,227,0.35),inset 0 1px 0 rgba(255,255,255,0.25)';
+                contactSubmit.style.boxShadow   = '5px 5px 14px rgba(0,113,227,0.35),-2px -2px 8px rgba(255,255,255,0.20),inset 0 1px 0 rgba(255,255,255,0.25)';
                 contactSubmit.style.cursor      = 'pointer';
                 contactSubmit.style.opacity     = '1';
+                contactSubmit.style.color       = '#fff';
             } else {
                 contactSubmit.style.background  = 'var(--text-3)';
                 contactSubmit.style.boxShadow   = 'none';
                 contactSubmit.style.cursor      = 'not-allowed';
                 contactSubmit.style.opacity     = '0.55';
+                contactSubmit.style.color       = '#fff';
             }
         }
         ['cf-name','cf-email','cf-message'].forEach(function(id) {
@@ -339,7 +341,7 @@
 
                 <div style="margin-top:0.5rem;padding-left:calc(90px + 1rem);">
                     <button type="submit" class="btn-send" id="contactSubmit"
-                        style="width:100%;justify-content:center;background:var(--text-3);box-shadow:none;cursor:not-allowed;opacity:0.55;">
+                        style="width:100%;justify-content:center;min-height:52px;padding:1.1rem 2rem;font-size:0.92rem;background:var(--text-3);box-shadow:none;cursor:not-allowed;opacity:0.55;">
                         Send message to support@proforma-suite.com
                     </button>
                     <p id="formStatus" class="form-status"></p>
