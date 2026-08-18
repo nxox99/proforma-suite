@@ -208,8 +208,8 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
-        <a href="trial-signup.html">Free Trial</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html" class="nav-active">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -222,19 +222,19 @@
 <div class="download-hero">
     <span class="section-label">Download Portal</span>
     <h1>Download your app</h1>
-    <p>Enter your license key below to unlock your download. Trial users can download directly without a key. All downloads include the latest version.</p>
+    <p>Every download below starts free — a full-featured 30-day trial, no key required. Already purchased? Check your key below before downloading, or just paste it straight into the app once it's open.</p>
 </div>
 
-<!-- License key entry -->
+<!-- License key entry (informational — checks a key is valid and shows
+     which app it's for; downloads below are never gated behind this) -->
 <div style="padding: 0 2rem;">
     <div class="key-entry-card">
-        <h2>Have a license key?</h2>
-        <p>Enter your key to unlock your Premium download. Your key was emailed to you after purchase in the format <code style="font-family:monospace;font-size:0.85em;background:var(--bg);padding:1px 6px;border-radius:4px;">XXXX-XXXX-XXXX-XXXX</code>.</p>
+        <h2>Already have a license key?</h2>
+        <p>You don't need it to download — every app below includes its free trial. This just confirms a key is valid before you go looking for the right download. Your key was emailed to you after purchase and is longer than the older short-format keys used to be — paste the whole thing.</p>
         <div class="key-input-row">
             <input class="form-input" id="licenseKeyInput" type="text"
-                placeholder="XXXX-XXXX-XXXX-XXXX"
-                maxlength="19"
-                style="font-family:monospace;letter-spacing:0.06em;">
+                placeholder="Paste your license key here"
+                style="font-family:monospace;letter-spacing:0.02em;">
             <button class="btn-validate" id="validateKeyBtn">Validate Key</button>
         </div>
         <p id="keyStatus" style="font-size:0.82rem;margin-top:0.5rem;min-height:1.2em;color:var(--text-3);"></p>
@@ -260,7 +260,7 @@
             <span class="os-chip">Windows 10/11</span>
             <span class="os-chip">macOS 12+</span>
         </div>
-        <button class="btn-download locked" id="dl-docx" disabled>🔒 &nbsp;Locked</button>
+        <button class="btn-download" id="dl-docx">⬇️ &nbsp;Download free trial</button>
     </div>
 
     <!-- ProForm -->
@@ -275,7 +275,7 @@
             <span class="os-chip">Windows 10/11</span>
             <span class="os-chip">macOS 12+</span>
         </div>
-        <button class="btn-download locked" id="dl-proform" disabled>🔒 &nbsp;Locked</button>
+        <button class="btn-download" id="dl-proform">⬇️ &nbsp;Download free trial</button>
     </div>
 
     <!-- Synthetix-CR -->
@@ -290,14 +290,14 @@
             <span class="os-chip">Windows 10/11</span>
             <span class="os-chip">macOS 12+</span>
         </div>
-        <button class="btn-download locked" id="dl-synoptiq" disabled>🔒 &nbsp;Locked</button>
+        <button class="btn-download" id="dl-synoptiq">⬇️ &nbsp;Download free trial</button>
     </div>
 
 </div>
 
 <p class="download-note">
     Downloads include a 30-day free trial of the full Premium version.
-    After 30 days your trial ends. Subscribe to keep full access — <a href="pricing.html">see plans and pricing →</a>
+    After 30 days your trial ends. Buy a one-time license to keep full access — <a href="pricing.html">see pricing →</a>
     Need help? Visit <a href="support.html">Support</a> or <a href="support.html#contact">contact us</a>.
 </p>
 
@@ -306,7 +306,7 @@
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
+        <a href="synthetixcr.html">About</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -324,7 +324,7 @@
         <a href="eula.html">EULA</a>,
         <a href="copyright.html">Copyright &amp; IP Notice</a>, and
         <a href="terms.html">Terms of Use</a>.
-        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
     </p>
     <div class="consent-actions">
         <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
@@ -344,77 +344,90 @@
         });
     }
 
-    /* License key formatting */
+    /* Point this at your deployed worker (see backend/SETUP.md). */
+    var API_BASE = 'https://proform-licensing.nauman9.workers.dev';
+
+    /* License key input — no more formatting-as-you-type. Keys are now long
+       signed tokens (v1.<payload>.<signature>), not short hex codes, so
+       forcing uppercase/hyphen-every-4-chars would corrupt a real key
+       instead of tidying it. Paste-and-verify-as-is is the right UX now. */
     var keyInput = document.getElementById('licenseKeyInput');
-    keyInput.addEventListener('input', function() {
-        var raw = this.value.replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 16);
-        var formatted = raw.match(/.{1,4}/g);
-        this.value = formatted ? formatted.join('-') : raw;
+
+    /* ProForm ships as 5 files that must stay together in the same local
+       folder: ProForm.html itself, plus README.html/Manual.html/
+       Tutorial.html/Legal.html, which it opens via relative iframe paths
+       from its in-app Help menu (see openHelpDoc() inside ProForm.html).
+       Downloading ProForm.html alone leaves those Help links broken once
+       the user is offline on their own machine, so "Download" hands out a
+       prebuilt ZIP of the whole bundle instead of the single file. Every
+       download here already includes its own free trial, so downloads are
+       never gated behind a key.
+       Both the ZIP and the loose files it's built from are hosted at
+       /apps/ProForm/ on this same site — change this one path if you host
+       it elsewhere. Note the capitalization matches the actual deployed
+       folder name exactly; URL paths are case-sensitive. */
+    var appFileMap = {
+        'dl-proform': '/apps/ProForm/ProForm-App.zip',
+        // Add the other apps' actual files here as they're hosted.
+    };
+    ['dl-docx', 'dl-proform', 'dl-synoptiq'].forEach(function(id) {
+        var btn = document.getElementById(id);
+        if (!btn || !appFileMap[id]) return;
+        btn.addEventListener('click', function() {
+            var a = document.createElement('a');
+            a.href = appFileMap[id];
+            a.download = appFileMap[id].split('/').pop();
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
     });
 
-    /* Key prefix → app mapping (demo; replace with real API call in production) */
-    var keyAppMap = {
-        'DO': { app: 'DOCX Optimizer', btnId: 'dl-docx' },
-        'PF': { app: 'ProForm',         btnId: 'dl-proform' },
-        'SQ': { app: 'Synthetix-CR',        btnId: 'dl-synoptiq' },
-    };
-
-    function unlockDownload(appName, btnId, key) {
-        /* Lock all first */
-        ['dl-docx','dl-proform','dl-synoptiq'].forEach(function(id) {
-            var b = document.getElementById(id);
-            b.classList.add('locked');
-            b.disabled = true;
-            b.innerHTML = '🔒 &nbsp;Locked';
-        });
-        /* Unlock the matching one */
-        var btn = document.getElementById(btnId);
-        btn.classList.remove('locked');
-        btn.disabled = false;
-        btn.innerHTML = '⬇️ &nbsp;Download ' + appName;
-        btn.onclick = function() {
-            window.location.href = 'purchase-confirm.html'
-                + '?app=' + encodeURIComponent(appName)
-                + '&key=' + encodeURIComponent(key);
-        };
-    }
-
-    /* Key validation */
+    /* Key validation — informational only (downloads aren't gated behind
+       it): confirms a key is genuinely valid and shows which app it's for,
+       via a real call to the licensing worker instead of a hardcoded
+       prefix map. No deviceId is available on this page (that's only known
+       inside the app itself), so this checks the key's signature and
+       product, not that it matches a specific device — that binding check
+       happens for real when the key is entered inside the app. */
     document.getElementById('validateKeyBtn').addEventListener('click', function() {
         var key    = keyInput.value.trim();
         var status = document.getElementById('keyStatus');
 
-        if (key.length < 19) {
+        if (key.length < 20) {
             status.style.color = 'var(--danger, #FF453A)';
-            status.textContent = 'Please enter a complete license key (XXXX-XXXX-XXXX-XXXX).';
+            status.textContent = 'Please paste the complete license key from your purchase email.';
+            return;
+        }
+        if (!API_BASE) {
+            status.style.color = 'var(--danger, #FF453A)';
+            status.textContent = 'Licence verification isn’t configured yet — see backend/SETUP.md.';
             return;
         }
 
         this.disabled = true;
         this.textContent = 'Checking…';
         var self = this;
-        var key = keyInput.value.trim();
 
-        setTimeout(function() {
-            /* Demo: detect app from first two chars of key */
-            var prefix = key.replace(/-/g,'').slice(0,2).toUpperCase();
-            var match  = keyAppMap[prefix];
-
-            if (match) {
-                status.style.color = 'var(--accent)';
-                status.textContent = '✓ Key validated for ' + match.app + '. Your download is now unlocked.';
-                self.textContent   = '✓ Validated';
-                unlockDownload(match.app, match.btnId, key);
-            } else {
-                /* Default: unlock all three for demo purposes */
-                status.style.color = 'var(--accent)';
-                status.textContent = '✓ Key validated. Your download is now unlocked below.';
-                self.textContent   = '✓ Validated';
-                /* In production, the API returns which app the key belongs to.
-                   For demo, unlock DOCX Optimizer as default. */
-                unlockDownload('DOCX Optimizer', 'dl-docx', key);
-            }
-        }, 1000);
+        fetch(API_BASE + '/api/license/verify?key=' + encodeURIComponent(key))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                self.disabled = false;
+                self.textContent = 'Validate Key';
+                if (data.valid) {
+                    status.style.color = 'var(--accent)';
+                    status.textContent = '✓ Valid key for ' + data.payload.p + '. Paste it into the app’s activation dialog once it’s open.';
+                } else {
+                    status.style.color = 'var(--danger, #FF453A)';
+                    status.textContent = 'That key isn’t valid — check you copied the whole thing.';
+                }
+            })
+            .catch(function() {
+                self.disabled = false;
+                self.textContent = 'Validate Key';
+                status.style.color = 'var(--danger, #FF453A)';
+                status.textContent = 'Couldn’t reach the licence server — please try again.';
+            });
     });
 
     /* Check if arriving from trial-confirm page */
@@ -424,7 +437,7 @@
     if (app && isTrial) {
         var status = document.getElementById('keyStatus');
         status.style.color = 'var(--accent)';
-        status.textContent = '✓ Trial registered for ' + app + '. Enter your key above to unlock your download.';
+        status.textContent = '✓ Trial registered for ' + app + ' — download it below whenever you’re ready.';
     }
 
     /* Consent banner */
@@ -440,9 +453,6 @@
         });
     }
 
-    /* Clipboard */
-        });
-    });
 })();
 </script>
 

@@ -7447,11 +7447,10 @@ strong{color:#1e1e2e}
 const pfLicense = (() => {
   const TRIAL_DAYS=30;
   const PRODUCT='proform';
-  // Set this to your deployed worker's URL, e.g. 'https://api.proforma-suite.com'.
-  // Left empty, the app runs exactly as it did before this change (fully
-  // local trial timer, no network calls) — safe default until the backend
-  // in backend/worker.js is deployed and this is pointed at it.
-  const API_BASE='';
+  // Deployed worker URL (backend/worker.js on proform-licensing.workers.dev).
+  // Update this if the worker is later moved to a custom domain
+  // (e.g. api.proforma-suite.com) or redeployed under a different name.
+  const API_BASE='https://proform-licensing.nauman9.workers.dev';
   const ACTIVATION_EMAIL='activate@proform.app';
   const LS_TRIAL='pf_trial_start', LS_TRIAL_CACHE='pf_trial_server_cache';
   const LS_ACT='pf_activation_token', LS_MID='pf_machine_id';

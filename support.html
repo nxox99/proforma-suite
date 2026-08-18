@@ -21,22 +21,62 @@
             });
         }
 
-        /* Contact form submit */
+        /* Point this at your deployed worker (see backend/SETUP.md). Left
+           empty, the form can't actually send — it says so rather than
+           pretending to succeed. */
+        var API_BASE = 'https://proform-licensing.nauman9.workers.dev';
+
+        /* Contact form submit — POSTs to the worker's /api/support/send,
+           which emails the message to the real support inbox via Resend
+           (Reply-To set to the sender) and confirms with a receipt to the
+           sender. No fake success here: a failed send says so. */
         var form = document.getElementById('contactForm');
         if (form) {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 var btn = form.querySelector('.btn-send');
                 var status = document.getElementById('formStatus');
+
+                if (!API_BASE) {
+                    status.textContent = 'Contact form isn’t configured yet — see backend/SETUP.md. In the meantime, email support@proforma-suite.com directly.';
+                    status.className = 'form-status result-invalid';
+                    return;
+                }
+
+                var name    = document.getElementById('cf-name').value.trim();
+                var email   = document.getElementById('cf-email').value.trim();
+                var app     = document.getElementById('cf-app').value;
+                var topic   = document.getElementById('cf-subject').value;
+                var message = document.getElementById('cf-message').value.trim();
+                var subject = [topic, app].filter(Boolean).join(' — ') || 'Support request';
+
                 btn.disabled = true;
                 btn.textContent = 'Sending…';
-                setTimeout(function() {
-                    status.textContent = '✓ Message sent! We\'ll get back to you within 24–48 hours.';
-                    status.className = 'form-status result-valid';
+
+                fetch(API_BASE + '/api/support/send', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, email: email, subject: subject, message: message }),
+                })
+                .then(function(r) { return r.json().then(function(data) { return { ok: r.ok, data: data }; }); })
+                .then(function(res) {
                     btn.textContent = 'Send Message';
                     btn.disabled = false;
-                    form.reset();
-                }, 1200);
+                    if (res.ok && res.data && res.data.ok) {
+                        status.textContent = '✓ Message sent! We\'ll get back to you within 24–48 hours.';
+                        status.className = 'form-status result-valid';
+                        form.reset();
+                    } else {
+                        status.textContent = 'Something went wrong sending your message — please try again, or email support@proforma-suite.com directly.';
+                        status.className = 'form-status result-invalid';
+                    }
+                })
+                .catch(function() {
+                    btn.textContent = 'Send Message';
+                    btn.disabled = false;
+                    status.textContent = 'Couldn’t reach the server — please try again, or email support@proforma-suite.com directly.';
+                    status.className = 'form-status result-invalid';
+                });
             });
         }
 
@@ -239,8 +279,8 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
-        <a href="trial-signup.html">Free Trial</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -359,7 +399,7 @@
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
+        <a href="synthetixcr.html">About</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -377,7 +417,7 @@
         <a href="eula.html">EULA</a>,
         <a href="copyright.html">Copyright &amp; IP Notice</a>, and
         <a href="terms.html">Terms of Use</a>.
-        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
     </p>
     <div class="consent-actions">
         <button class="btn-consent-later" id="consentLater">Remind Me Later</button>

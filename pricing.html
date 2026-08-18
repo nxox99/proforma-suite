@@ -21,51 +21,15 @@
             });
         }
 
-        /* ── Billing toggle ── */
-        var radioMonthly = document.getElementById('bill-monthly');
-        var radioAnnual  = document.getElementById('bill-annual');
-
-        var prices = {
-            'docx':  { monthly: '9.99',  annual: '99',  monthlySlug: '9.99',  annualSlug: '99'  },
-            'proform':{ monthly: '29.99', annual: '299', monthlySlug: '29.99', annualSlug: '299' },
-            'scr':   { monthly: '39.99', annual: '399', monthlySlug: '39.99', annualSlug: '399' },
-        };
-
-        function updatePricing(cycle) {
-            Object.keys(prices).forEach(function(key) {
-                var p = prices[key];
-                var priceEl  = document.getElementById('price-' + key);
-                var cycleEl  = document.getElementById('cycle-' + key);
-                var buyBtn   = document.getElementById('buy-' + key);
-                var saveEl   = document.getElementById('save-' + key);
-
-                if (cycle === 'monthly') {
-                    priceEl.textContent  = '$' + p.monthly;
-                    cycleEl.textContent  = '/ month';
-                    buyBtn.href = 'payment.html?app=' + encodeURIComponent(buyBtn.dataset.app)
-                                + '&price=' + p.monthlySlug + '&cycle=monthly';
-                    if (saveEl) saveEl.style.display = 'none';
-                } else {
-                    priceEl.textContent  = '$' + p.annual;
-                    cycleEl.textContent  = '/ year';
-                    buyBtn.href = 'payment.html?app=' + encodeURIComponent(buyBtn.dataset.app)
-                                + '&price=' + p.annualSlug + '&cycle=annual';
-                    if (saveEl) saveEl.style.display = 'inline-flex';
-                }
-            });
-
-            /* Update toggle label styles */
-            document.querySelectorAll('.bill-option').forEach(function(el) {
-                el.classList.remove('active');
-            });
-            document.getElementById('label-' + cycle).classList.add('active');
-        }
-
-        radioMonthly.addEventListener('change', function() { if (this.checked) updatePricing('monthly'); });
-        radioAnnual.addEventListener('change',  function() { if (this.checked) updatePricing('annual');  });
-
-        /* Default: monthly */
-        updatePricing('monthly');
+        /* One-time purchase prices per app. Buy buttons already carry the
+           right href in the HTML (payment.html?app=...&price=...) — this
+           just fills in the numeric price display from the same source
+           so the two never drift apart. */
+        var prices = { 'docx': '99', 'proform': '299', 'scr': '399' };
+        Object.keys(prices).forEach(function(key) {
+            var priceEl = document.getElementById('price-' + key);
+            if (priceEl) priceEl.textContent = '$' + prices[key];
+        });
 
         /* Consent banner */
         if (localStorage.getItem('pfs-legal-consent') !== 'accepted') {
@@ -363,8 +327,8 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
-        <a href="trial-signup.html">Free Trial</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="pricing.html" class="nav-active">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -378,19 +342,8 @@
     <!-- Header -->
     <div class="pricing-header">
         <span class="section-label">Plans &amp; Pricing</span>
-        <h1>Plans and pricing</h1>
-        <p>Choose your plan</p>
-    </div>
-
-    <!-- Billing toggle -->
-    <div class="billing-toggle">
-        <input type="radio" name="billing" id="bill-monthly" checked>
-        <label class="bill-option" id="label-monthly" for="bill-monthly">Billed monthly</label>
-        <input type="radio" name="billing" id="bill-annual">
-        <label class="bill-option" id="label-annual" for="bill-annual">
-            Annual, prepaid
-            <span class="bill-save-tag">Save up to 17%</span>
-        </label>
+        <h1>Buy once, own it forever</h1>
+        <p>A single payment per app. No subscription, no recurring charges — every purchase includes all future updates.</p>
     </div>
 
     <!-- Pricing cards -->
@@ -404,10 +357,9 @@
 
             <div class="pc-price-block">
                 <div class="pc-price-row">
-                    <span class="pc-price" id="price-docx">$9.99</span>
-                    <span class="pc-cycle" id="cycle-docx">/ month</span>
+                    <span class="pc-price" id="price-docx">$99</span>
+                    <span class="pc-cycle">one-time</span>
                 </div>
-                <span class="pc-save" id="save-docx" style="display:none;">✓ &nbsp;Best value — 2 months free</span>
             </div>
 
             <ul class="pc-includes">
@@ -423,7 +375,7 @@
             <div class="pc-divider"></div>
             <p class="pc-pitch">Stop reformatting the same documents over and over. Let DOCX Optimizer do it in seconds.</p>
 
-            <a href="#" class="btn-buy-now" id="buy-docx" data-app="DOCX Optimizer">Buy Now</a>
+            <a href="payment.html?app=DOCX+Optimizer&amp;price=99" class="btn-buy-now" id="buy-docx" data-app="DOCX Optimizer">Buy Now</a>
         </div>
 
         <!-- ProForm -->
@@ -434,10 +386,9 @@
 
             <div class="pc-price-block">
                 <div class="pc-price-row">
-                    <span class="pc-price" id="price-proform">$29.99</span>
-                    <span class="pc-cycle" id="cycle-proform">/ month</span>
+                    <span class="pc-price" id="price-proform">$299</span>
+                    <span class="pc-cycle">one-time</span>
                 </div>
-                <span class="pc-save" id="save-proform" style="display:none;">✓ &nbsp;Best value — 2 months free</span>
             </div>
 
             <ul class="pc-includes">
@@ -454,7 +405,7 @@
             <div class="pc-divider"></div>
             <p class="pc-pitch">Professional forms created, filled, and exported in minutes — without an Adobe subscription.</p>
 
-            <a href="#" class="btn-buy-now" id="buy-proform" data-app="ProForm">Buy Now</a>
+            <a href="payment.html?app=ProForm&amp;price=299" class="btn-buy-now" id="buy-proform" data-app="ProForm">Buy Now</a>
         </div>
 
         <!-- Synthetix-CR -->
@@ -465,10 +416,9 @@
 
             <div class="pc-price-block">
                 <div class="pc-price-row">
-                    <span class="pc-price" id="price-scr">$39.99</span>
-                    <span class="pc-cycle" id="cycle-scr">/ month</span>
+                    <span class="pc-price" id="price-scr">$399</span>
+                    <span class="pc-cycle">one-time</span>
                 </div>
-                <span class="pc-save" id="save-scr" style="display:none;">✓ &nbsp;Best value — 2 months free</span>
             </div>
 
             <ul class="pc-includes">
@@ -485,7 +435,7 @@
             <div class="pc-divider"></div>
             <p class="pc-pitch">Stop spending hours extracting and formatting data. Synthetix-CR gives that time back to you.</p>
 
-            <a href="#" class="btn-buy-now" id="buy-scr" data-app="Synthetix-CR">Buy Now</a>
+            <a href="payment.html?app=Synthetix-CR&amp;price=399" class="btn-buy-now" id="buy-scr" data-app="Synthetix-CR">Buy Now</a>
         </div>
 
     </div>
@@ -493,8 +443,8 @@
 
     <!-- Trial note -->
     <p class="pricing-trial-note">
-        Not ready to subscribe? <a href="trial-signup.html">Start a free 30-day trial</a> — no credit card required.<br>
-        All plans include a <strong>14-day refund</strong> if the software doesn't work as described. <a href="terms.html">See full terms →</a>
+        Not ready to buy? <a href="trialsignup.html">Start a free 30-day trial</a> — no credit card required.<br>
+        All purchases include a <strong>14-day refund</strong> if the software doesn't work as described. <a href="terms.html">See full terms →</a>
     </p>
 
 </div>
@@ -504,7 +454,7 @@
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
+        <a href="synthetixcr.html">About</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -522,7 +472,7 @@
         <a href="eula.html">EULA</a>,
         <a href="copyright.html">Copyright &amp; IP Notice</a>, and
         <a href="terms.html">Terms of Use</a>.
-        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
     </p>
     <div class="consent-actions">
         <button class="btn-consent-later" id="consentLater">Remind Me Later</button>

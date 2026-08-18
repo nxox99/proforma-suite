@@ -195,7 +195,7 @@
     <div class="nav-links">
         <a href="store.html">Apps</a>
         <a href="synthetix-cr.html">About</a>
-        <a href="trial-signup.html">Free Trial</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="pricing.html" class="nav-active">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -216,56 +216,27 @@
     <div class="order-pill">
         <div>
             <div class="order-pill-app" id="orderApp">ProForma Suite App</div>
-            <div class="order-pill-note" id="cycleNote">Subscription · Cancel anytime · All updates included</div>
+            <div class="order-pill-note" id="cycleNote">One-time payment · Yours to keep · All updates included</div>
         </div>
         <div style="text-align:right;">
             <div class="order-pill-price" id="orderPrice">—</div>
-            <div class="order-pill-note" id="cycleType">USD · subscription</div>
+            <div class="order-pill-note" id="cycleType">USD · one-time</div>
         </div>
     </div>
 
-    <!-- Payment form -->
-    <div class="payment-card">
+    <!-- Device-not-linked notice (shown only if this page was opened without a deviceId,
+         i.e. not via the app's own "Buy ProForm" button) -->
+    <div class="payment-card" id="noDeviceNotice" style="display:none;text-align:center">
+        <p style="font-size:0.92rem;color:var(--text-1);font-weight:700;margin-bottom:0.5rem">Open the app first to buy a licence for it</p>
+        <p style="font-size:0.85rem;color:var(--text-2);line-height:1.6">Your licence key is tied to the specific device it activates on, so purchases start from inside the app itself. Open ProForm, click <strong>Enter licence key → Buy ProForm</strong> in the top bar, and you'll land back here with everything filled in automatically.</p>
+        <p style="margin-top:1rem"><a href="downloads.html" class="payment-back" style="margin-top:0">Don't have ProForm yet? Download it →</a></p>
+    </div>
+
+    <!-- Payment form: collects only what's needed to create a Stripe Checkout
+         session server-side. Card details are entered on Stripe's own hosted
+         page, never on this one — ProForma Suite never sees or stores them. -->
+    <div class="payment-card" id="paymentCard">
         <form id="paymentForm" novalidate>
-
-            <!-- Name on card -->
-            <div class="form-field" style="margin-bottom:1rem;">
-                <label class="form-label" for="pf-name">Name on card</label>
-                <input class="form-input" id="pf-name" type="text"
-                    placeholder="Jane Smith" autocomplete="cc-name" required>
-                <span class="field-error" id="err-name">Please enter the name on your card.</span>
-            </div>
-
-            <!-- Card number -->
-            <div class="form-field" style="margin-bottom:1rem;">
-                <label class="form-label" for="pf-number">Card number</label>
-                <div class="card-number-wrap">
-                    <input class="form-input" id="pf-number" type="text"
-                        placeholder="1234 5678 9012 3456"
-                        maxlength="19" inputmode="numeric"
-                        autocomplete="cc-number" required>
-                    <span class="card-type-icon" id="cardTypeIcon">💳</span>
-                </div>
-                <span class="field-error" id="err-number">Please enter a valid 16-digit card number.</span>
-            </div>
-
-            <!-- Expiry + CVC -->
-            <div class="payment-row-half" style="margin-bottom:1rem;">
-                <div class="form-field">
-                    <label class="form-label" for="pf-expiry">Expiry date</label>
-                    <input class="form-input" id="pf-expiry" type="text"
-                        placeholder="MM / YY" maxlength="7"
-                        inputmode="numeric" autocomplete="cc-exp" required>
-                    <span class="field-error" id="err-expiry">Enter a valid expiry (MM/YY).</span>
-                </div>
-                <div class="form-field">
-                    <label class="form-label" for="pf-cvc">CVC</label>
-                    <input class="form-input" id="pf-cvc" type="text"
-                        placeholder="123" maxlength="4"
-                        inputmode="numeric" autocomplete="cc-csc" required>
-                    <span class="field-error" id="err-cvc">Enter your 3 or 4 digit CVC.</span>
-                </div>
-            </div>
 
             <!-- Email for receipt -->
             <div class="form-field">
@@ -277,7 +248,7 @@
 
             <!-- Pay button -->
             <button type="submit" class="btn-pay" id="payBtn">
-                🔒 &nbsp;Pay <span id="payBtnAmount">now</span>
+                🔒 &nbsp;Continue to secure payment
             </button>
 
             <div class="secure-row">
@@ -285,7 +256,7 @@
                     <rect x="1" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.2"/>
                     <path d="M3 5V3.5a3 3 0 016 0V5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
                 </svg>
-                256-bit SSL encryption · Your card details are never stored by ProForma Suite
+                Payment handled entirely by Stripe on their secure page · Your card details are never seen or stored by ProForma Suite
             </div>
 
         </form>
@@ -296,7 +267,7 @@
         <a href="terms.html">Terms of Use</a>,
         <a href="eula.html">EULA</a>, and
         <a href="copyright.html">Copyright Notice</a>.
-        Subscription license · Single machine · Cancel anytime · 14-day refund policy.
+        One-time purchase · Single machine · 14-day refund policy.
     </p>
 
     <a href="store.html" class="payment-back">← Back to Apps</a>
@@ -326,7 +297,7 @@
         <a href="eula.html">EULA</a>,
         <a href="copyright.html">Copyright &amp; IP Notice</a>, and
         <a href="terms.html">Terms of Use</a>.
-        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
     </p>
     <div class="consent-actions">
         <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
@@ -346,48 +317,31 @@
         });
     }
 
+    /* Point this at your deployed worker (see backend/SETUP.md). Left empty,
+       checkout can't actually run — the form will say so rather than pretend
+       to succeed. */
+    var API_BASE = 'https://proform-licensing.nauman9.workers.dev';
+
     /* ── Read URL params ── */
-    var params  = new URLSearchParams(window.location.search);
-    var appName = params.get('app')   || 'ProForma Suite App';
-    var price   = params.get('price') || '';
-    var cycle   = params.get('cycle') || 'monthly';
-    var cycleLabel = cycle === 'annual' ? '/yr — billed annually' : '/mo — billed monthly';
-    var priceDisplay = price ? '$' + price + cycleLabel : '—';
+    var params   = new URLSearchParams(window.location.search);
+    var appName  = params.get('app')      || 'ProForm';
+    var price    = params.get('price')    || '';
+    var deviceId = params.get('deviceId') || '';
+    var priceDisplay = price ? '$' + price + ' · one-time' : '—';
 
-    document.getElementById('orderApp').textContent     = appName;
-    document.getElementById('orderPrice').textContent   = priceDisplay;
-    document.getElementById('payBtnAmount').textContent = price ? '$' + price : 'now';
-    document.title = 'Subscribe to ' + appName + ' – ProForma Suite';
+    document.getElementById('orderApp').textContent   = appName;
+    document.getElementById('orderPrice').textContent = priceDisplay;
+    document.title = 'Buy ' + appName + ' – ProForma Suite';
 
-    /* ── Card number formatting ── */
-    var numInput  = document.getElementById('pf-number');
-    var cardIcon  = document.getElementById('cardTypeIcon');
-    numInput.addEventListener('input', function() {
-        var raw = this.value.replace(/\D/g, '').slice(0, 16);
-        this.value = raw.replace(/(.{4})/g, '$1 ').trim();
-        // Detect card type from first digit
-        var first = raw[0];
-        if      (first === '4') cardIcon.textContent = '💳'; // Visa placeholder
-        else if (first === '5') cardIcon.textContent = '💳'; // MC placeholder
-        else if (first === '3') cardIcon.textContent = '💳'; // Amex
-        else                    cardIcon.textContent = '💳';
-    });
-
-    /* ── Expiry formatting ── */
-    var expInput = document.getElementById('pf-expiry');
-    expInput.addEventListener('input', function() {
-        var raw = this.value.replace(/\D/g, '').slice(0, 4);
-        if (raw.length >= 3) {
-            this.value = raw.slice(0,2) + ' / ' + raw.slice(2);
-        } else {
-            this.value = raw;
-        }
-    });
-
-    /* ── CVC: digits only ── */
-    document.getElementById('pf-cvc').addEventListener('input', function() {
-        this.value = this.value.replace(/\D/g, '').slice(0, 4);
-    });
+    /* This page only makes sense reached from inside the app (which supplies
+       ?deviceId=... via pfLicense.openPurchasePage()) — the licence being
+       purchased is bound to that device. Without it, point people back to
+       the app instead of collecting an email for a key that couldn't
+       activate anywhere. */
+    if (!deviceId) {
+        document.getElementById('paymentCard').style.display = 'none';
+        document.getElementById('noDeviceNotice').style.display = 'block';
+    }
 
     /* ── Validation helpers ── */
     function setError(inputId, errId, show) {
@@ -398,61 +352,48 @@
         return !show;
     }
     function validateEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-    function validateExpiry(v) {
-        var m = v.replace(/\s/g,'').match(/^(\d{2})\/(\d{2})$/);
-        if (!m) return false;
-        var mon = parseInt(m[1]), yr = parseInt('20' + m[2]);
-        var now = new Date(), nowM = now.getMonth() + 1, nowY = now.getFullYear();
-        return mon >= 1 && mon <= 12 && (yr > nowY || (yr === nowY && mon >= nowM));
-    }
 
-    /* Clear errors on input */
-    [['pf-name','err-name'],['pf-number','err-number'],
-     ['pf-expiry','err-expiry'],['pf-cvc','err-cvc'],['pf-email','err-email']
-    ].forEach(function(pair) {
-        document.getElementById(pair[0]).addEventListener('input', function() {
-            this.classList.remove('error');
-            document.getElementById(pair[1]).style.display = 'none';
-        });
+    document.getElementById('pf-email').addEventListener('input', function() {
+        this.classList.remove('error');
+        document.getElementById('err-email').style.display = 'none';
     });
 
-    /* ── Form submit ── */
+    /* ── Form submit: create a Stripe Checkout session server-side, then
+       redirect to Stripe's own hosted payment page. Card details never
+       touch this site. ── */
     document.getElementById('paymentForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        var email = document.getElementById('pf-email').value.trim();
+        if (!setError('pf-email', 'err-email', !validateEmail(email))) return;
 
-        var name   = document.getElementById('pf-name').value.trim();
-        var number = document.getElementById('pf-number').value.replace(/\s/g,'');
-        var expiry = document.getElementById('pf-expiry').value.trim();
-        var cvc    = document.getElementById('pf-cvc').value.trim();
-        var email  = document.getElementById('pf-email').value.trim();
-
-        var v1 = setError('pf-name',   'err-name',   !name);
-        var v2 = setError('pf-number', 'err-number', number.length < 16);
-        var v3 = setError('pf-expiry', 'err-expiry', !validateExpiry(expiry));
-        var v4 = setError('pf-cvc',    'err-cvc',    cvc.length < 3);
-        var v5 = setError('pf-email',  'err-email',  !validateEmail(email));
-
-        if (!v1 || !v2 || !v3 || !v4 || !v5) return;
-
-        /* Simulate processing — in production replace with Stripe.js */
         var payBtn = document.getElementById('payBtn');
+        if (!API_BASE) {
+            payBtn.textContent = 'Checkout isn’t configured yet — see backend/SETUP.md';
+            return;
+        }
         payBtn.disabled = true;
-        payBtn.innerHTML = '⏳ &nbsp;Processing…';
+        payBtn.innerHTML = '⏳ &nbsp;Redirecting to secure payment…';
 
-        setTimeout(function() {
-            /* Generate demo order ID */
-            var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-            var orderId = 'PFS-';
-            for (var i = 0; i < 3; i++) {
-                for (var j = 0; j < 4; j++) orderId += chars[Math.floor(Math.random() * chars.length)];
-                if (i < 2) orderId += '-';
+        fetch(API_BASE + '/api/checkout/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ deviceId: deviceId, email: email })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data && data.url) {
+                window.location.href = data.url; // Stripe-hosted checkout
+            } else {
+                throw new Error(data && data.error || 'checkout_failed');
             }
-            window.location.href = 'receipt.html'
-                + '?app='   + encodeURIComponent(appName)
-                + '&price=' + encodeURIComponent(price)
-                + '&order=' + encodeURIComponent(orderId)
-                + '&email=' + encodeURIComponent(email);
-        }, 1600);
+        })
+        .catch(function() {
+            payBtn.disabled = false;
+            payBtn.innerHTML = '🔒 &nbsp;Continue to secure payment';
+            var err = document.getElementById('err-email');
+            err.textContent = 'Something went wrong starting checkout — please try again.';
+            err.style.display = 'block';
+        });
     });
 
     /* ── Consent banner ── */
@@ -467,10 +408,6 @@
             banner.classList.remove('visible');
         });
     }
-
-    /* ── Clipboard ── */
-        });
-    });
 })();
 </script>
 

@@ -20,8 +20,6 @@
                 localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
             });
         }
-        initConsentBanner();
-        initClipboard();
     });
 })();
 </script>
@@ -37,8 +35,8 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
-        <a href="trial-signup.html">Free Trial</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -105,7 +103,7 @@
             <li><strong>Unauthorized Distribution.</strong> Distributing, selling, reselling, sublicensing, renting, lending, or otherwise making the Software or any portion thereof available to any third party, whether for commercial gain or otherwise.</li>
             <li><strong>Reverse Engineering.</strong> Disassembling, decompiling, reverse engineering, or otherwise attempting to derive the source code, architecture, or trade secrets of the Software by any means.</li>
             <li><strong>Modification &amp; Derivative Works.</strong> Modifying, adapting, translating, or creating derivative works based upon the Software or any portion of the Works without express written permission from Licensor.</li>
-            <li><strong>Circumvention of Protection Measures.</strong> Removing, disabling, defeating, or circumventing any technical protection measure, license enforcement mechanism, digital rights management system, or Hardware ID binding incorporated into the Software.</li>
+            <li><strong>Circumvention of Protection Measures.</strong> Removing, disabling, defeating, or circumventing any technical protection measure, license enforcement mechanism, digital rights management system, or device-binding mechanism incorporated into the Software.</li>
             <li><strong>Key Generation &amp; Cracking.</strong> Creating, distributing, or using key generators, license cracks, patches, loaders, or any other tool designed to bypass the Software's activation or license verification system.</li>
             <li><strong>Unauthorized Redistribution of Keys.</strong> Distributing, publishing, or sharing valid license keys beyond the single Authorized Machine for which they were activated.</li>
             <li><strong>Misrepresentation of Origin.</strong> Falsely representing the origin of the Software, removing or altering copyright notices or attribution within the Software or its documentation, or claiming authorship of any portion of the Works.</li>
@@ -121,7 +119,7 @@
         <h2><span class="l-num">4</span> Copyright Infringement — Consequences</h2>
         <p>ProForma Suite takes copyright infringement seriously and actively monitors for unauthorized use, distribution, and circumvention of its Software. Upon discovery of infringement, Licensor may, at its sole discretion and without limitation:</p>
         <ul>
-            <li>Immediately and remotely terminate and invalidate all License keys associated with the infringing user or organization;</li>
+            <li>Terminate the License(s) associated with the infringing user or organization under the EULA, and decline to provide re-activation, support, or updates for them;</li>
             <li>Pursue civil litigation for copyright infringement, including claims for actual damages, statutory damages (which in certain jurisdictions may be up to USD $150,000 per work infringed for willful infringement), lost profits, and attorneys' fees;</li>
             <li>Refer the matter to relevant law enforcement authorities for investigation and criminal prosecution under applicable computer crime and copyright statutes;</li>
             <li>Seek emergency injunctive relief to prevent continued or threatened infringement;</li>
@@ -197,7 +195,7 @@
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
+        <a href="synthetixcr.html">About</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -215,7 +213,7 @@
         <a href="eula.html">EULA</a>,
         <a href="copyright.html">Copyright &amp; IP Notice</a>, and
         <a href="terms.html">Terms of Use</a>.
-        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
     </p>
     <div class="consent-actions">
         <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
@@ -237,13 +235,7 @@ function initConsentBanner() {
         banner.classList.remove('visible');
     });
 }
-function initClipboard() {
-    
-        });
-    });
-}
 initConsentBanner();
-initClipboard();
 </script>
 
 </body>

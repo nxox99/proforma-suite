@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>End User License Agreement – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('darkToggle');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                root.classList.toggle('dark');
+                localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+    });
+})();
+</script>
+</head>
+<body class="has-banner">
+
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<div class="legal-hero">
+    <span class="section-label">Legal</span>
+    <h1>End User License Agreement</h1>
+    <p>This Agreement governs your right to install and use any ProForma Suite application. By installing or using the Software you accept these terms in full.</p>
+</div>
+
+<p class="legal-date">Effective Date: July 2026 &nbsp;·&nbsp; Version 1.0 &nbsp;·&nbsp; Also see: <a href="copyright.html" style="color:var(--accent);text-decoration:none;">Copyright &amp; IP Notice</a> · <a href="terms.html" style="color:var(--accent);text-decoration:none;">Terms of Use</a></p>
+
+<div class="legal-body">
+
+    <!-- Table of Contents -->
+    <div class="legal-toc">
+        <h3>Contents</h3>
+        <ol>
+            <li><a href="#s1">Definitions</a></li>
+            <li><a href="#s2">Grant of License</a></li>
+            <li><a href="#s3">Device-Specific Binding &amp; Device Identification</a></li>
+            <li><a href="#s4">Restrictions on Use</a></li>
+            <li><a href="#s5">No Multi-User Discount; No License Sharing</a></li>
+            <li><a href="#s6">Local Execution; Privacy &amp; No Server Dependencies</a></li>
+            <li><a href="#s7">Anti-Piracy &amp; Anti-Circumvention</a></li>
+            <li><a href="#s8">Intellectual Property</a></li>
+            <li><a href="#s9">Trial Period</a></li>
+            <li><a href="#s10">Updates &amp; Upgrades</a></li>
+            <li><a href="#s11">Termination</a></li>
+            <li><a href="#s12">Disclaimer of Warranties</a></li>
+            <li><a href="#s13">Limitation of Liability</a></li>
+            <li><a href="#s14">Government &amp; Restricted IT Environment Use</a></li>
+            <li><a href="#s15">Governing Law &amp; Dispute Resolution</a></li>
+            <li><a href="#s16">Entire Agreement; Severability</a></li>
+            <li><a href="#s21">Contact</a></li>
+            <li><a href="#s18">Zero-Data Architecture &amp; Privacy Policy</a></li>
+            <li><a href="#s19">IT-Friendly Deployment &amp; Institutional Use</a></li>
+            <li><a href="#s20">User Content; No Proprietary Templates; Content License Warranty</a></li>
+        </ol>
+    </div>
+
+    <!-- 1 -->
+    <div class="legal-section" id="s1">
+        <h2><span class="l-num">1</span> Definitions</h2>
+        <p>As used in this End User License Agreement ("Agreement" or "EULA"), the following terms have the meanings set forth below:</p>
+        <ul>
+            <li><strong>"Licensor"</strong> means ProForma Suite, the developer and owner of the Software.</li>
+            <li><strong>"Software"</strong> means any ProForma Suite application, including DOCX Optimizer, ProForm, Synthetix-CR, and any future applications, together with all associated documentation, updates, and supplementary materials provided by Licensor.</li>
+            <li><strong>"License"</strong> means the non-exclusive, non-transferable right granted under this Agreement to install and use the Software on a single Authorized Machine, subject to termination as set out in Section 11.</li>
+            <li><strong>"Authorized Machine"</strong> means the single computing device identified by its Device ID at the time of license activation.</li>
+            <li><strong>"Device ID"</strong> means the browser-based device fingerprint generated by the Software at the time of activation, derived from characteristics of the browser and device such as screen configuration, timezone, and browser/rendering environment. It does not read or derive from processor, motherboard, or network hardware identifiers.</li>
+            <li><strong>"Licensee"</strong> or <strong>"You"</strong> means the natural person or legal entity that has accepted this Agreement and holds a valid License.</li>
+            <li><strong>"Premium License"</strong> means a paid, perpetual license key that activates full functionality of the Software on the Authorized Machine.</li>
+<li><strong>"Trial Period"</strong> means the thirty (30) calendar day period commencing on first launch of the Software during which the full Premium functionality is available at no charge.</li>
+        </ul>
+    </div>
+
+    <!-- 2 -->
+    <div class="legal-section" id="s2">
+        <h2><span class="l-num">2</span> Grant of License</h2>
+        <p>Subject to the terms and conditions of this Agreement, Licensor hereby grants to Licensee a limited, personal, non-exclusive, non-transferable, non-sublicensable, revocable license to:</p>
+        <ol>
+            <li>Install one (1) copy of the Software on one (1) Authorized Machine owned or controlled by Licensee;</li>
+            <li>Use the Software solely for Licensee's personal or internal business purposes on that single Authorized Machine;</li>
+            <li>Make one (1) archival backup copy of the Software solely for disaster-recovery purposes, provided that such copy is not installed or operated on any machine other than the Authorized Machine.</li>
+        </ol>
+        <p>No rights are granted except as expressly set forth herein. All rights not expressly granted are reserved by Licensor.</p>
+        <div class="legal-highlight">
+            This is a single-user, single-device license. One purchase authorizes installation and use on exactly one browser/device, identified at activation time by its Device ID.
+        </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="legal-section" id="s3">
+        <h2><span class="l-num">3</span> Device-Specific Binding &amp; Device Identification</h2>
+        <p>Upon activation, the Software generates a Device ID computed locally in your browser (see the definition in Section 1 — this is a browser fingerprint, not a hardware serial number). The License key is cryptographically bound to this Device ID at the time of first activation. The following conditions apply:</p>
+        <ul>
+            <li>The Software will not function in Premium mode on any browser/device whose Device ID does not match the Device ID recorded at the time of license activation.</li>
+            <li>Attempting to activate the Software on a second machine or browser using the same License key will fail. A separate License must be purchased for each additional device.</li>
+            <li>If the Authorized Machine is replaced, lost, or its Device ID otherwise changes (for example, after a browser reset), Licensee may contact Licensor to request re-activation on the new device. Such requests are handled case by case at Licensor's discretion.</li>
+            <li>The Device ID computation occurs entirely in Licensee's browser and is not derived from processor, motherboard, or network hardware identifiers. See Section 6 for the full privacy and local-execution declaration, including what limited information (Device ID and a timestamp) is sent to Licensor's server to activate and periodically re-confirm the License.</li>
+        </ul>
+        <div class="legal-warning">
+            ⚠ &nbsp;Sharing, transferring, or attempting to circumvent device-specific binding constitutes a material breach of this Agreement and may result in immediate License termination.
+        </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="legal-section" id="s4">
+        <h2><span class="l-num">4</span> Restrictions on Use</h2>
+        <p>Licensee shall not, and shall not permit any third party to, directly or indirectly:</p>
+        <ol>
+            <li>Copy, reproduce, or duplicate the Software except for the single archival backup expressly permitted in Section 2;</li>
+            <li>Distribute, publish, sublicense, rent, lease, lend, sell, resell, transfer, or otherwise make the Software or any License key available to any third party;</li>
+            <li>Reverse engineer, disassemble, decompile, decode, adapt, or otherwise attempt to derive or gain access to the source code of the Software, in whole or in part;</li>
+            <li>Modify, translate, adapt, or create derivative works based upon the Software;</li>
+            <li>Remove, alter, obscure, or circumvent any proprietary notice (including copyright and trademark notices), license enforcement mechanism, or technical protection measure embedded in or applied to the Software;</li>
+            <li>Use the Software for any unlawful purpose or in violation of any applicable local, national, or international law or regulation;</li>
+            <li>Use the Software on behalf of any third party in a time-sharing, service bureau, or hosted-service arrangement;</li>
+            <li>Use the Software in any manner that could damage, disable, overburden, or impair Licensor's systems or interfere with any other party's use of any ProForma Suite product.</li>
+        </ol>
+    </div>
+
+    <!-- 5 -->
+    <div class="legal-section" id="s5">
+        <h2><span class="l-num">5</span> No Multi-User Discount; No License Sharing</h2>
+        <p>ProForma Suite does not offer volume discounts, institutional pricing, site licenses, or any reduced per-unit pricing for the purchase of multiple licenses. The published license price applies uniformly to every individual license regardless of the quantity purchased. Specifically:</p>
+        <ul>
+            <li>Each user who requires access to the Software must hold a separate, individually purchased License activated on their own Authorized Machine.</li>
+            <li>The purchase of two (2) or more licenses by a single individual, organization, or entity does not entitle the purchaser to any price reduction, rebate, or preferential terms.</li>
+            <li>License keys may not be shared, pooled, or rotated among multiple users or machines under any circumstances, including within a household, business, or educational institution.</li>
+            <li>Organizations wishing to deploy the Software across multiple machines must purchase one (1) License for each machine on which the Software will be installed and activated.</li>
+        </ul>
+        <div class="legal-highlight">
+            There are no discounts for multiple purchases. Every machine requires its own license at the standard published price.
+        </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="legal-section" id="s6">
+        <h2><span class="l-num">6</span> Local Execution; Privacy &amp; No Server Dependencies</h2>
+        <p>ProForma Suite applications are architected as fully self-contained, locally executed software. The following declarations apply to all Software covered by this Agreement:</p>
+        <ul>
+            <li><strong>No server-side document processing.</strong> All computation, document processing, form generation, and data transformation performed by the Software occurs exclusively on the Authorized Machine. No document content, file metadata, or processing output is ever transmitted to Licensor's servers or any third-party server, at any time.</li>
+            <li><strong>Fully usable offline.</strong> Every feature of the Software works without an internet connection. Features do not degrade or become unavailable in offline environments.</li>
+            <li><strong>No telemetry or analytics.</strong> The Software does not collect, transmit, or report usage analytics, crash diagnostics, behavioral data, or any other telemetry to Licensor or any third party.</li>
+            <li><strong>No cloud storage integration.</strong> The Software does not connect to, read from, or write to any remote storage service.</li>
+            <li><strong>Licence verification.</strong> The Software's licensing system contacts Licensor's server in two circumstances: (a) when Licensee activates a License key, and (b) periodically thereafter, when an internet connection is available, to re-confirm trial or license status. Each such call transmits only the Device ID and a timestamp — never document content, file names, or personal data beyond what is necessary to confirm license validity. This check-in exists specifically so that trial status cannot be falsified by altering the local system clock, and it does not block offline use: if no connection is available, the Software falls back to a locally-tracked estimate rather than denying access.</li>
+            <li><strong>Document privacy.</strong> Because all document operations are local, Licensor has no access to and no knowledge of any documents, files, or document content processed using the Software.</li>
+        </ul>
+        <div class="legal-highlight">
+            Your documents never leave your machine. The only data that ever reaches Licensor's server is what's needed to activate and verify your license — a Device ID and a timestamp, never your files.
+        </div>
+        <p style="margin-top:0.85rem;"><strong>Tool-Only Declaration.</strong> ProForma Suite provides a software tool only. Licensor does not provide, supply, generate, verify, validate, or take any responsibility for any data, content, documents, or information that Licensee creates, processes, or manages using the Software. Licensor has no access to, no copy of, and no knowledge of any document data processed through the Software at any time. All such data is the sole responsibility of the Licensee.</p>
+        <p><strong>No Document Upload or Transmission.</strong> The Software contains no functionality — active or dormant — that uploads, syncs, mirrors, or transmits user documents or file contents to any server, cloud platform, or third-party service operated by Licensor or any affiliate. Only the minimal licence-verification data described above is ever transmitted, and it never includes document content.</p>
+    </div>
+
+    <!-- 7 -->
+    <div class="legal-section" id="s7">
+        <h2><span class="l-num">7</span> Anti-Piracy &amp; Anti-Circumvention</h2>
+        <p>The Software incorporates technical protection measures designed to enforce the terms of this single-user, machine-specific license. Licensee acknowledges and agrees that:</p>
+        <ul>
+            <li>Any attempt to bypass, defeat, disable, remove, or circumvent any license enforcement mechanism, Device ID binding, activation check, or technical protection measure embedded in the Software is strictly prohibited and constitutes a material breach of this Agreement.</li>
+            <li>Distributing, publishing, or making available any tool, method, patch, crack, keygen, or other means designed to circumvent the Software's license enforcement is prohibited and may constitute a violation of applicable law, including without limitation the Digital Millennium Copyright Act (DMCA) and equivalent legislation in other jurisdictions.</li>
+            <li>Using a license key obtained through unauthorized means — including key generators, leaked keys, purchased keys from unauthorized resellers, or keys distributed in excess of their licensed seat count — constitutes copyright infringement and a breach of this Agreement.</li>
+            <li>A License found to have been obtained or used in breach of this Agreement is subject to termination under Section 11, and Licensor may decline to provide re-activation, support, or updates for it.</li>
+            <li>Licensor may pursue all available civil and criminal remedies against individuals or entities engaged in Software piracy, license circumvention, or unauthorized distribution.</li>
+        </ul>
+        <div class="legal-warning">
+            ⚠ &nbsp;Piracy and license circumvention are violations of this Agreement and applicable copyright law. Licensor actively monitors for unauthorized use and will pursue legal remedies where appropriate.
+        </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="legal-section" id="s8">
+        <h2><span class="l-num">8</span> Intellectual Property</h2>
+        <p>The Software, including but not limited to its source code, object code, architecture, user interface, visual design, algorithms, documentation, trade names, trademarks, and all copies thereof, is and shall remain the exclusive intellectual property of Licensor, protected under applicable copyright, trademark, trade secret, and other intellectual property laws.</p>
+        <p>This Agreement does not convey to Licensee any ownership interest in the Software or any intellectual property rights therein. Licensee acquires only the limited right of use expressly set forth in Section 2. All rights not expressly granted are reserved by Licensor.</p>
+        <p>For full details of copyright ownership and prohibited acts, see the <a href="copyright.html">Copyright &amp; IP Notice</a>.</p>
+    </div>
+
+    <!-- 9 -->
+    <div class="legal-section" id="s9">
+        <h2><span class="l-num">9</span> Trial Period</h2>
+        <p>Licensor offers a thirty (30) day Trial Period of full Premium functionality subject to the conditions described in the <a href="terms.html">Terms of Use</a>, incorporated herein by reference. The Trial Period commences on first launch of the Software. At the conclusion of the Trial Period, full access terminates unless Licensee has purchased and activated a valid Premium License. All user data and documents created during the Trial Period remain fully accessible after the Trial Period ends. Licensor does not charge Licensee for the Trial Period, and no payment is ever collected without Licensee's explicit action to purchase a License.</p>
+    </div>
+
+    <!-- 10 -->
+    <div class="legal-section" id="s10">
+        <h2><span class="l-num">10</span> Updates &amp; Upgrades</h2>
+        <p>A valid Premium License entitles Licensee to receive all updates and minor version upgrades (e.g., v2.1.x to v2.2.x) released by Licensor during the life of the licensed major version at no additional charge, accessible via the Download Portal using the existing License key. Major version upgrades (e.g., v2.x to v3.x), if and when released, may require the purchase of a new License at Licensor's discretion. Licensor is under no obligation to release updates, upgrades, or new features.</p>
+    </div>
+
+    <!-- 11 -->
+    <div class="legal-section" id="s11">
+        <h2><span class="l-num">11</span> Termination</h2>
+        <p>This Agreement and the License granted herein are effective until terminated. Licensor may terminate this Agreement immediately and without notice if Licensee breaches any provision hereof. Upon termination:</p>
+        <ul>
+            <li>All rights granted under this Agreement cease immediately;</li>
+            <li>Licensee must cease all use of the Software and destroy all copies, including the archival backup, in Licensee's possession or control;</li>
+            <li>Licensor may decline to provide continued support, updates, or re-activation assistance for the terminated License;</li>
+            <li>Termination does not entitle Licensee to a refund of any amounts paid, except as provided in the refund policy set out in the Terms of Use.</li>
+        </ul>
+        <p>Sections 4, 7, 8, 12, 13, and 14 shall survive termination of this Agreement.</p>
+    </div>
+
+    <!-- 12 -->
+    <div class="legal-section" id="s12">
+        <h2><span class="l-num">12</span> Disclaimer of Warranties</h2>
+        <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. LICENSOR EXPRESSLY DISCLAIMS ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. LICENSOR DOES NOT WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED, ERROR-FREE, VIRUS-FREE, OR THAT DEFECTS WILL BE CORRECTED. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE IS WITH LICENSEE.</p>
+        <p>Some jurisdictions do not allow the exclusion of implied warranties, in which case the above exclusion applies to the fullest extent permitted by law.</p>
+        <p><strong>DATA LOSS DISCLAIMER.</strong> LICENSOR EXPRESSLY DISCLAIMS ALL LIABILITY FOR ANY LOSS, CORRUPTION, DESTRUCTION, OR INACCESSIBILITY OF DATA, DOCUMENTS, FILES, OR OTHER INFORMATION ARISING OUT OF OR IN CONNECTION WITH THE USE OF, OR INABILITY TO USE, THE SOFTWARE, REGARDLESS OF CAUSE, INCLUDING BUT NOT LIMITED TO SOFTWARE DEFECTS, HARDWARE FAILURE, OPERATING SYSTEM INCOMPATIBILITY, OR USER ERROR. LICENSEE IS SOLELY RESPONSIBLE FOR MAINTAINING ADEQUATE BACKUPS OF ALL DATA PROCESSED USING THE SOFTWARE. LICENSOR DOES NOT BACK UP, STORE, OR RETAIN ANY COPY OF LICENSEE'S DATA AND THEREFORE CANNOT RECOVER LOST DATA ON LICENSEE'S BEHALF.</p>
+        <div class="legal-warning">
+            ⚠ &nbsp;Licensor accepts no liability for data loss of any kind. The Software is a local tool only. Back up your data independently. Licensor holds no copy of your data and cannot restore it.
+        </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="legal-section" id="s13">
+        <h2><span class="l-num">13</span> Limitation of Liability</h2>
+        <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES OF ANY KIND (INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOSS OF PROFITS, REVENUE, DATA, BUSINESS, OR GOODWILL) ARISING OUT OF OR RELATED TO THIS AGREEMENT OR THE USE OR INABILITY TO USE THE SOFTWARE, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+        <p>IN NO EVENT SHALL LICENSOR'S TOTAL CUMULATIVE LIABILITY TO LICENSEE FOR ALL CLAIMS ARISING OUT OF OR RELATED TO THIS AGREEMENT EXCEED THE AMOUNT ACTUALLY PAID BY LICENSEE FOR THE APPLICABLE LICENSE IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.</p>
+        <p>Some jurisdictions do not allow the limitation or exclusion of liability for incidental or consequential damages, in which case the above limitation applies to the fullest extent permitted by law.</p>
+        <p><strong>Data Loss.</strong> Without limiting the foregoing, Licensor's liability for any loss, corruption, or destruction of data shall be zero (USD $0.00). Because the Software operates entirely on Licensee's local machine and Licensor retains no copy of Licensee's data, Licensor is structurally incapable of causing data loss through server-side action and assumes no liability for data loss arising from any cause whatsoever.</p>
+    </div>
+
+    <!-- 14 -->
+    <div class="legal-section" id="s14">
+        <h2><span class="l-num">14</span> Government &amp; Restricted IT Environment Use</h2>
+        <p>Licensor provides the Software as a general-purpose productivity tool for use by individual end users on their own equipment. It is the sole and exclusive responsibility of the Licensee to determine whether installation and use of the Software is permissible in the Licensee's operating environment. In particular:</p>
+        <ul>
+            <li><strong>Government Computers &amp; Networks.</strong> Many government agencies, public-sector organizations, and regulated entities maintain policies that prohibit or restrict the installation of unapproved third-party software on government-owned or government-managed computing equipment or networks. Licensee must obtain all necessary approvals, clearances, and authorizations from the relevant IT security authority, information assurance officer, or equivalent authority before installing or using the Software on any such device or network. Licensor makes no representation that the Software is approved for use on any government system and accepts no responsibility for any breach of government IT policy arising from Licensee's use of the Software.</li>
+            <li><strong>IT Department Policies.</strong> Organizations — whether private, public, academic, or otherwise — commonly maintain acceptable-use policies, software approval registers, or endpoint security standards that restrict or prohibit the installation of software that has not been reviewed and approved by the organization's IT department. It is Licensee's sole responsibility to comply with all such policies applicable to Licensee's computing environment before installing the Software. Licensor is not responsible for, and expressly disclaims all liability arising from, any violation of an employer's, institution's, or organization's IT policy resulting from Licensee's installation or use of the Software.</li>
+            <li><strong>Regulated Industries.</strong> Certain regulated industries (including healthcare, financial services, legal, and defense) may impose additional requirements governing the software permitted to operate on devices that handle regulated data. Licensee is solely responsible for ensuring that use of the Software complies with all applicable industry regulations, compliance frameworks, and data governance obligations.</li>
+            <li><strong>Export Controls.</strong> Licensee agrees to comply with all applicable export control laws and regulations in connection with the Software and shall not export or re-export the Software to any country, entity, or individual in violation of such laws.</li>
+        </ul>
+        <div class="legal-warning">
+            ⚠ &nbsp;Do not install or use this Software on government-owned computers, organizational devices, or any system where IT department approval for third-party software is required, unless you have obtained that approval. Non-compliance is entirely the Licensee's responsibility. Licensor accepts no liability whatsoever for any consequences arising from unauthorized installation in a restricted environment.
+        </div>
+        <p style="margin-top:0.85rem;">By installing the Software, Licensee represents and warrants that (a) Licensee has the authority to install software on the device in question; (b) installation does not violate any applicable IT policy, government regulation, or organizational rule; and (c) Licensee accepts full and sole responsibility for any consequences arising from installation in a non-compliant environment.</p>
+    </div>
+
+    <div class="legal-section" id="s15">
+        <h2><span class="l-num">15</span> Governing Law &amp; Dispute Resolution</h2>
+        <p>This Agreement shall be governed by and construed in accordance with the laws of the jurisdiction in which Licensor is incorporated, without regard to its conflict of law principles. [Jurisdiction to be specified upon business registration.] Any dispute arising out of or in connection with this Agreement that cannot be resolved through good-faith negotiation shall be submitted to binding arbitration under the rules of a mutually agreed arbitration body, with proceedings conducted in the English language. Notwithstanding the foregoing, Licensor reserves the right to seek injunctive or other equitable relief in any court of competent jurisdiction to protect its intellectual property rights.</p>
+    </div>
+
+    <!-- 15 -->
+    <div class="legal-section" id="s16">
+        <h2><span class="l-num">16</span> Entire Agreement; Severability; Waiver</h2>
+        <p>This Agreement, together with the <a href="terms.html">Terms of Use</a> and <a href="copyright.html">Copyright &amp; IP Notice</a>, constitutes the entire agreement between Licensor and Licensee with respect to the Software and supersedes all prior and contemporaneous understandings, agreements, representations, and warranties. If any provision of this Agreement is held invalid, illegal, or unenforceable, the remaining provisions shall continue in full force and effect. Licensor's failure to enforce any right or provision of this Agreement shall not constitute a waiver of that right or provision.</p>
+    </div>
+
+
+    <!-- 18 -->
+    <div class="legal-section" id="s18">
+        <h2><span class="l-num">18</span> Zero-Data Architecture &amp; Privacy Policy</h2>
+        <p>ProForma Suite applications operate under a strict <strong>Zero-Data, Zero-Cloud</strong> architectural model. The following declarations apply to all Software covered by this Agreement and constitute binding representations by Licensor regarding the privacy-by-design nature of the Software:</p>
+        <ul>
+            <li><strong>Local Execution Only.</strong> The Software runs entirely as local files within the Licensee's browser sandbox or native operating environment. No component of the Software transmits, uploads, routes, or otherwise communicates any user-generated content, document text, private data, confidential information, or identifying metadata to any server, cloud platform, or network endpoint operated by Licensor or any third party.</li>
+            <li><strong>Absolute Data Residency.</strong> All content created, processed, imported, or formatted through the Software remains exclusively on the Licensee's local machine at all times. Licensor has no technical capability to access, retrieve, view, or process any such content.</li>
+            <li><strong>Regulatory Compliance by Architecture.</strong> Because no data transmission of any kind occurs, the Software's design is inherently consistent with data privacy obligations under applicable regulations including, without limitation, the General Data Protection Regulation (GDPR), the Health Insurance Portability and Accountability Act (HIPAA), and equivalent national and regional data protection frameworks. Licensee remains solely responsible for ensuring compliance with applicable regulations in their specific jurisdiction and use context.</li>
+            <li><strong>No Analytics or Telemetry.</strong> The Software does not collect, transmit, or report usage analytics, behavioral data, crash diagnostics, or any other telemetry to Licensor or any third party. No tracking of any kind is embedded in the Software.</li>
+        </ul>
+        <div class="legal-highlight">
+            ◆ &nbsp;ProForma Suite's Zero-Data, Zero-Cloud model is an architectural guarantee, not merely a policy commitment. The Software is technically incapable of transmitting your data because no such functionality exists within it.
+        </div>
+    </div>
+
+    <!-- 19 -->
+    <div class="legal-section" id="s19">
+        <h2><span class="l-num">19</span> IT-Friendly Deployment &amp; Institutional Use</h2>
+        <p>The Software is engineered for frictionless deployment in environments with strict IT governance requirements. Licensor makes the following representations regarding the technical deployment characteristics of the Software:</p>
+        <ul>
+            <li><strong>No Installation Required.</strong> The Software is distributed as a self-contained archive. Licensee extracts the archive and launches the Software directly — no installation process, no system registry modifications, and no operating system-level changes are performed.</li>
+            <li><strong>No Administrative Privileges Required.</strong> The Software does not require elevated permissions, administrator access, or root privileges to operate.</li>
+            <li><strong>No Firewall Exemptions Required.</strong> Because the Software operates entirely offline after initial activation, no firewall rules, network exceptions, or proxy configurations are required for any functional operation.</li>
+            <li><strong>Complete Network Decoupling.</strong> The Software is fully decoupled from external networks during all operational use. This characteristic makes it suitable for air-gapped environments, secure institutional networks, and deployments subject to strict data egress controls.</li>
+        </ul>
+        <p>Notwithstanding the foregoing technical characteristics, <strong>Licensee bears sole and exclusive responsibility</strong> for determining whether installation and use of the Software complies with the Licensee's institutional IT policies, acceptable-use agreements, software approval requirements, and applicable regulatory obligations before deploying the Software in any institutional, organizational, or regulated environment. The technical characteristics described in this section are provided for informational purposes and do not constitute authorization to deploy the Software in contravention of any applicable institutional policy. See also Section 14 (Government &amp; Restricted IT Environment Use).</p>
+        <div class="legal-warning">
+            ⚠ &nbsp;ProForma Suite's deployment characteristics are designed to be IT-friendly and privacy-safe. However, Licensee must independently verify compliance with their institution's IT policies before use. Licensor accepts no liability for policy violations arising from deployment in restricted environments.
+        </div>
+    </div>
+
+    <!-- 20 -->
+    <div class="legal-section" id="s20">
+        <h2><span class="l-num">20</span> User Content; No Proprietary Templates; Content License Warranty</h2>
+        <p>ProForma Suite applications are general-purpose structural markup, text-parsing, and document-formatting utilities. Licensor makes the following representations and imposes the following obligations with respect to content processed through the Software:</p>
+        <ul>
+            <li><strong>Generic Utility; No Pre-Built Templates.</strong> The Software does not provide, host, distribute, embed, or make available any pre-built protocols, proprietary templates, copyrighted forms, or licensed content of any kind in any professional field, including without limitation legal, medical, financial, or regulatory domains. The Software is a formatting and structuring tool only.</li>
+            <li><strong>User-Supplied Content.</strong> All content, templates, protocols, documents, and data imported into or processed by the Software is supplied exclusively by Licensee. Licensor exercises no control over, and assumes no responsibility for, any content that Licensee introduces into the Software.</li>
+            <li><strong>Content License Warranty.</strong> By utilizing the Software's text-parsing, formatting, or template engine to import, process, or format any content, Licensee explicitly represents and warrants that: (a) Licensee possesses all legal rights, institutional authorizations, individual licenses, or other permissions required to use, reproduce, and format such content; (b) such use does not infringe the intellectual property rights, contractual rights, or proprietary interests of any third party; and (c) Licensee's use of such content complies with all applicable laws, regulations, and professional conduct obligations.</li>
+            <li><strong>Organizational Copyright Compliance.</strong> Where Licensee imports or processes content subject to organizational, institutional, or third-party copyright — including but not limited to proprietary forms, licensed protocols, regulated templates, or confidential internal documents — Licensee is solely responsible for ensuring that such use is authorized under the applicable copyright framework, institutional policy, or license agreement governing that content.</li>
+            <li><strong>Indemnification.</strong> Licensee agrees to indemnify, defend, and hold harmless Licensor from and against any and all claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to: (a) any content Licensee processes using the Software; (b) any breach of the Content License Warranty set forth in this Section; or (c) any infringement of third-party intellectual property rights resulting from Licensee's use of the Software.</li>
+        </ul>
+        <div class="legal-highlight">
+            ◆ &nbsp;ProForma Suite provides the tool. The content you process through it is entirely your responsibility. Ensure you have the legal right to use any template, protocol, or document you import into the Software.
+        </div>
+    </div>
+
+    <!-- 21 -->
+    <div class="legal-section" id="s21">
+        <h2><span class="l-num">21</span> Contact</h2>
+        <p>For licensing inquiries, license transfer requests, or to report suspected license abuse, contact ProForma Suite via the <a href="support.html#contact">contact form</a> or copy the support address: <a href="support.html">contact us</a>. We respond within 24–48 hours, Monday to Friday.</p>
+    </div>
+
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+    </div>
+</footer>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+function initConsentBanner() {
+    var banner = document.getElementById('consentBanner');
+    if (!banner) return;
+    if (localStorage.getItem('pfs-legal-consent') === 'accepted') return;
+    setTimeout(function() { banner.classList.add('visible'); }, 1200);
+    document.getElementById('consentDismiss').addEventListener('click', function() {
+        localStorage.setItem('pfs-legal-consent', 'accepted');
+        banner.classList.remove('visible');
+    });
+    document.getElementById('consentLater').addEventListener('click', function() {
+        banner.classList.remove('visible');
+    });
+}
+initConsentBanner();
+</script>
+
+</body>
+</html>

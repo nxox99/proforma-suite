@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apps – ProForma Suite</title>
+    <title>Home – ProForma Suite</title>
     <link rel="stylesheet" href="style.css">
+
 <script>
 (function() {
     const root = document.documentElement;
@@ -23,13 +24,13 @@
         }
 
         /* --- Purchase modal --- */
-        var overlay    = document.getElementById('purchaseModal');
-        var agreeBox   = document.getElementById('modalAgree');
+        var overlay  = document.getElementById('purchaseModal');
+        var agreeBox = document.getElementById('modalAgree');
         var proceedBtn = document.getElementById('modalProceed');
         var cancelBtn  = document.getElementById('modalCancel');
         var closeBtn   = document.getElementById('modalClose');
         var modalAppName = document.getElementById('modalAppName');
-        var currentHref  = '#';
+        var currentHref = '#';
 
         function openModal(appName, href) {
             currentHref = href;
@@ -44,6 +45,7 @@
             document.body.style.overflow = '';
         }
 
+        /* Wire buy buttons */
         document.querySelectorAll('.js-buy').forEach(function(el) {
             el.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -54,21 +56,23 @@
         agreeBox.addEventListener('change', function() {
             proceedBtn.disabled = !this.checked;
         });
-
         proceedBtn.addEventListener('click', function() {
             /* Navigate to the real checkout page in the same tab — do not
                assume payment succeeded. payment.html itself explains that a
-               ProForm purchase must start from inside the app (the license
-               is bound to that device), and creates the actual Stripe
-               Checkout session for anything it can process directly. */
+               purchase must start from inside the app (the license is bound
+               to that device), and creates the actual Stripe Checkout
+               session for anything it can process directly. */
             closeModal();
             window.location.href = currentHref;
         });
-
         cancelBtn.addEventListener('click', closeModal);
         closeBtn.addEventListener('click', closeModal);
-        overlay.addEventListener('click', function(e) { if (e.target === overlay) closeModal(); });
-        document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
     });
 })();
 </script>
@@ -84,7 +88,7 @@
 <nav class="navbar">
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
-        <a href="store.html" class="nav-active">Apps</a>
+        <a href="store.html">Apps</a>
         <a href="synthetixcr.html">About</a>
         <a href="trialsignup.html">Free Trial</a>
         <a href="pricing.html">Pricing</a>
@@ -95,19 +99,27 @@
     </div>
 </nav>
 
-<!-- Page header -->
-<div class="section" style="padding-bottom:0;">
-    <span class="section-label">Apps</span>
-    <h2>The ProForma Suite catalogue.</h2>
-    <p class="section-sub">Buy once, own forever. Every app includes a 30-day free trial — one payment, no subscription.</p>
-</div>
+<section class="hero">
+    <span class="hero-eyebrow">Professional tools for professionals</span>
+    <h1>Small apps with<br><em>mega results.</em></h1>
+    <p>ProForma Suite builds focused productivity apps. Try free for 30 days, then buy once and own it forever — no subscription.</p>
+    <div class="hero-cta">
+        <a href="store.html" class="btn-primary">Browse Apps</a>
+        <a href="trialsignup.html" class="btn-trial">Start Free Trial</a>
+        <a href="downloads.html" class="btn-outline">Download Portal</a>
+    </div>
+</section>
 
-<!-- ===== Available Apps ===== -->
-<div class="section" style="padding-top:2rem;" id="available">
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">Featured Apps</span>
+    <h2>Built for professionals who value their time.</h2>
+    <p class="section-sub">Every app in the suite solves one real problem, cleanly. Try any of them free for 30 days.</p>
+
     <div class="app-grid">
 
-        <!-- DOCX Optimizer -->
-        <div class="app-card" id="docx-optimizer" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=DOCX+Optimizer'">
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=DOCX+Optimizer'">
             <div class="card-top">
                 <div class="app-icon"><img src="icons/docx-optimizer-icon.png" alt="DOCX Optimizer icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v2.1.0</span>
@@ -121,8 +133,7 @@
             </div>
         </div>
 
-        <!-- ProForm -->
-        <div class="app-card" id="proform" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=ProForm'">
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=ProForm'">
             <div class="card-top">
                 <div class="app-icon"><img src="icons/proform-icon.png" alt="ProForm icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v1.4.2</span>
@@ -136,85 +147,58 @@
             </div>
         </div>
 
-        <!-- Synthetix-CR -->
-        <div class="app-card" id="synoptiq" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=Synthetix-CR'">
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=Synthetix-CR'">
             <div class="card-top">
                 <div class="app-icon"><img src="icons/synoptiq-icon.png" alt="Synthetix-CR icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v1.0.0</span>
             </div>
             <span class="trial-badge">30-day free trial</span>
             <h3>Synthetix-CR</h3>
-            <p>Transforms complex, unstructured information into structured Consolidated Reports. Flexible template engine adapts instantly as reporting requirements change — no vendor dependency.</p>
+            <p>Transforms complex, unstructured information into structured Consolidated Reports. Flexible template engine adapts instantly as reporting requirements change.</p>
             <div class="card-actions">
                 <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=Synthetix-CR'">Free trial</button>
                 <button class="btn-card-trial js-buy" data-app="Synthetix-CR" data-href="payment.html?app=Synthetix-CR&amp;price=399" onclick="event.stopPropagation();">Buy · $399</button>
             </div>
         </div>
 
-    
+    </div>
 
+
+
+    <p style="text-align:center;margin-top:1rem;font-size:0.88rem;color:var(--text-3);">
+        More apps in development — <a href="store.html" style="color:var(--accent);text-decoration:none;">see what's coming →</a>
+    </p>
 </div>
-</div>
+
 
 <div style="padding:2.5rem 0 1rem;text-align:center;">
     <a href="pricing.html" class="btn-primary" style="font-size:1rem;padding:0.85rem 2.5rem;display:inline-block;">
         See plans and pricing →
     </a>
 </div>
+<hr class="divider">
 
-<!-- ===== In Development ===== -->
-<div class="section-dev" id="in-development">
-    <div class="dev-divider">
-        <span>In Development — Beta Coming Soon</span>
+<div class="section">
+    <span class="section-label">How It Works</span>
+    <h2>Up and running in minutes.</h2>
+    <p class="section-sub">Download, open the app, and your trial starts automatically — then decide.</p>
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">1</div>
+            <h3>Start Your Free Trial</h3>
+            <p>Download any app and open it — no registration, no credit card. You get 30 days of full Premium access, immediately.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <h3>Use the Full App</h3>
+            <p>Every Premium feature is unlocked during your trial. No artificial limits, no reminders every 5 minutes.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <h3>Buy Once &amp; Keep It</h3>
+            <p>After your trial, buy a one-time license to keep full access — no subscription, no recurring charges. <a href="pricing.html">See pricing →</a></p>
+        </div>
     </div>
-
-    <div class="app-grid">
-
-        <!-- Desktop File Organizer -->
-        <div class="app-card coming-soon">
-            <div class="card-top">
-                <div class="app-icon">🗂️</div>
-                <span class="coming-soon-badge">Beta Coming Soon</span>
-            </div>
-            <h3>Desktop File Organizer</h3>
-            <p>Automatically sort, rename, and structure files on your desktop and folders using customizable rules. Built for people who need order without the manual effort.</p>
-            <div class="card-actions" style="margin-top:auto;">
-                <span class="version-badge" style="width:100%;text-align:center;padding:0.55rem 0;">Under Development</span>
-            </div>
-        </div>
-
-        <!-- Quiz & MCQ Builder -->
-        <div class="app-card coming-soon">
-            <div class="card-top">
-                <div class="app-icon">🎓</div>
-                <span class="coming-soon-badge">Beta Coming Soon</span>
-            </div>
-            <h3>QuizForge</h3>
-            <p>Create multiple-choice quizzes, auto-grade responses, and track learner progress over time. Designed for educators, trainers, and teams running internal assessments.</p>
-            <div class="card-actions" style="margin-top:auto;">
-                <span class="version-badge" style="width:100%;text-align:center;padding:0.55rem 0;">Under Development</span>
-            </div>
-        </div>
-
-        <!-- ProRedactor -->
-        <div class="app-card coming-soon">
-            <div class="card-top">
-                <div class="app-icon">🔏</div>
-                <span class="coming-soon-badge">Beta Coming Soon</span>
-            </div>
-            <h3>ProRedactor</h3>
-            <p>Automatically detects and redacts sensitive content — names, addresses, phone numbers, email addresses, Social Security numbers, financial identifiers, and health-related identifiers. Runs entirely on your machine; no data ever leaves your device.</p>
-            <div class="card-actions" style="margin-top:auto;">
-                <span class="version-badge" style="width:100%;text-align:center;padding:0.55rem 0;">Under Development</span>
-            </div>
-        </div>
-
-    </div>
-
-    <p style="text-align:center;margin-top:2rem;font-size:0.85rem;color:var(--text-3);line-height:1.6;">
-        These apps are currently in active development. Have a feature request or want to be notified at launch?
-        <br>Reach out via the <a href="support.html#contact" style="color:var(--accent);text-decoration:none;">contact form</a>.
-    </p>
 </div>
 
 <footer class="footer">
@@ -223,7 +207,7 @@
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
         <a href="synthetixcr.html">About</a>
-        <a href="pricing.html">Pricing</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Contact Us</a>
@@ -271,6 +255,7 @@
         </div>
     </div>
 </div>
+
 
 
 <!-- Legal consent banner -->
