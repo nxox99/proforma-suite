@@ -57,22 +57,13 @@
             proceedBtn.disabled = !this.checked;
         });
         proceedBtn.addEventListener('click', function() {
-            /* Open the external payment link in a new tab */
-            window.open(currentHref, '_blank', 'noopener');
-
-            /* After a short delay, redirect current tab to receipt page.
-               In production, your payment provider (Stripe/Gumroad) should
-               redirect back to receipt.html?order=...&app=...&price=...
-               This demo redirect simulates that flow. */
-            var appName  = modalAppName.textContent;
-            var priceMap = { 'DOCX Optimizer': '9.99', 'ProForm': '29.99', 'Synthetix-CR': '39.99' };
-            var price    = priceMap[appName] || '';
-            var receiptUrl = 'receipt.html?app=' + encodeURIComponent(appName)
-                           + '&price=' + encodeURIComponent(price);
+            /* Navigate to the real checkout page in the same tab — do not
+               assume payment succeeded. payment.html itself explains that a
+               purchase must start from inside the app (the license is bound
+               to that device), and creates the actual Stripe Checkout
+               session for anything it can process directly. */
             closeModal();
-            setTimeout(function() {
-                window.location.href = receiptUrl;
-            }, 800);
+            window.location.href = currentHref;
         });
         cancelBtn.addEventListener('click', closeModal);
         closeBtn.addEventListener('click', closeModal);
@@ -98,8 +89,8 @@
     <a href="index.html" class="logo">ProForma<span>Suite</span></a>
     <div class="nav-links">
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
-        <a href="trial-signup.html">Free Trial</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="pricing.html">Pricing</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
@@ -111,10 +102,10 @@
 <section class="hero">
     <span class="hero-eyebrow">Professional tools for professionals</span>
     <h1>Small apps with<br><em>mega results.</em></h1>
-    <p>ProForma Suite builds focused productivity apps. Try free for 30 days, then subscribe monthly or annually. Cancel anytime.</p>
+    <p>ProForma Suite builds focused productivity apps. Try free for 30 days, then buy once and own it forever — no subscription.</p>
     <div class="hero-cta">
         <a href="store.html" class="btn-primary">Browse Apps</a>
-        <a href="trial-signup.html" class="btn-trial">Start Free Trial</a>
+        <a href="trialsignup.html" class="btn-trial">Start Free Trial</a>
         <a href="downloads.html" class="btn-outline">Download Portal</a>
     </div>
 </section>
@@ -128,7 +119,7 @@
 
     <div class="app-grid">
 
-        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trial-signup.html?app=DOCX+Optimizer'">
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=DOCX+Optimizer'">
             <div class="card-top">
                 <div class="app-icon"><img src="icons/docx-optimizer-icon.png" alt="DOCX Optimizer icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v2.1.0</span>
@@ -137,11 +128,12 @@
             <h3>DOCX Optimizer</h3>
             <p>Batch-clean, reformat, and optimize Word documents in seconds. Perfect for teams managing large document libraries.</p>
             <div class="card-actions">
-                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=DOCX+Optimizer'">Free trial</button>
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=DOCX+Optimizer'">Free trial</button>
+                <button class="btn-card-trial js-buy" data-app="DOCX Optimizer" data-href="payment.html?app=DOCX+Optimizer&amp;price=99" onclick="event.stopPropagation();">Buy · $99</button>
             </div>
         </div>
 
-        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trial-signup.html?app=ProForm'">
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=ProForm'">
             <div class="card-top">
                 <div class="app-icon"><img src="icons/proform-icon.png" alt="ProForm icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v1.4.2</span>
@@ -150,20 +142,22 @@
             <h3>ProForm</h3>
             <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop builder with digital signature support.</p>
             <div class="card-actions">
-                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=ProForm'">Free trial</button>
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=ProForm'">Free trial</button>
+                <button class="btn-card-trial js-buy" data-app="ProForm" data-href="payment.html?app=ProForm&amp;price=299" onclick="event.stopPropagation();">Buy · $299</button>
             </div>
         </div>
 
-        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trial-signup.html?app=Synthetix-CR'">
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=Synthetix-CR'">
             <div class="card-top">
                 <div class="app-icon"><img src="icons/synoptiq-icon.png" alt="Synthetix-CR icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
                 <span class="version-badge">v1.0.0</span>
             </div>
             <span class="trial-badge">30-day free trial</span>
             <h3>Synthetix-CR</h3>
-            <p>The complete ProForma Suite bundle — includes DOCX Optimizer and ProForm in a single package. One install, one key, everything in one place.</p>
+            <p>Transforms complex, unstructured information into structured Consolidated Reports. Flexible template engine adapts instantly as reporting requirements change.</p>
             <div class="card-actions">
-                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trial-signup.html?app=Synthetix-CR'">Free trial</button>
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=Synthetix-CR'">Free trial</button>
+                <button class="btn-card-trial js-buy" data-app="Synthetix-CR" data-href="payment.html?app=Synthetix-CR&amp;price=399" onclick="event.stopPropagation();">Buy · $399</button>
             </div>
         </div>
 
@@ -187,12 +181,12 @@
 <div class="section">
     <span class="section-label">How It Works</span>
     <h2>Up and running in minutes.</h2>
-    <p class="section-sub">Register with your email, try the full app free for 30 days, then decide.</p>
+    <p class="section-sub">Download, open the app, and your trial starts automatically — then decide.</p>
     <div class="steps">
         <div class="step">
             <div class="step-num">1</div>
             <h3>Start Your Free Trial</h3>
-            <p>Register with your email — no credit card needed. You get 30 days of full Premium access, immediately.</p>
+            <p>Download any app and open it — no registration, no credit card. You get 30 days of full Premium access, immediately.</p>
         </div>
         <div class="step">
             <div class="step-num">2</div>
@@ -201,8 +195,8 @@
         </div>
         <div class="step">
             <div class="step-num">3</div>
-            <h3>Subscribe &amp; Get Started</h3>
-            <p>After your trial, choose a monthly or annual plan to keep full access. Cancel anytime. <a href="pricing.html">See plans →</a></p>
+            <h3>Buy Once &amp; Keep It</h3>
+            <p>After your trial, buy a one-time license to keep full access — no subscription, no recurring charges. <a href="pricing.html">See pricing →</a></p>
         </div>
     </div>
 </div>
@@ -212,8 +206,8 @@
     <div class="footer-links">
         <a href="index.html">Home</a>
         <a href="store.html">Apps</a>
-        <a href="synthetix-cr.html">About</a>
-        <a href="trial-signup.html">Free Trial</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
         <a href="downloads.html">Downloads</a>
         <a href="faq.html">FAQ</a>
         <a href="support.html">Contact Us</a>
@@ -233,20 +227,16 @@
 
         <div class="modal-summary">
             <div class="modal-summary-row">
-                <span class="modal-icon">🎁</span>
-                <span><strong>30-day free trial</strong> — full Premium access for <span id="modalAppName">this app</span>. No charge today.</span>
-            </div>
-            <div class="modal-summary-row">
-                <span class="modal-icon">📦</span>
-                <span><strong>After 30 days</strong>, subscribe to keep full access — or your trial simply ends. Your data is always untouched.</span>
+                <span class="modal-icon">💳</span>
+                <span><strong>One-time payment</strong> for <span id="modalAppName">this app</span> — no subscription, no recurring charges.</span>
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">♾️</span>
-                <span><strong>No commitment required</strong> — your trial ends cleanly with no charge if you don't subscribe.</span>
+                <span><strong>Yours to keep</strong> — the license is perpetual and includes all future updates.</span>
             </div>
             <div class="modal-summary-row">
-                <span class="modal-icon">💳</span>
-                <span><strong>To subscribe</strong>, choose monthly or annual billing. You're redirected to our secure payment page.</span>
+                <span class="modal-icon">🔒</span>
+                <span><strong>Single machine</strong> — the license activates on the one device you buy it for. Purchases are started from inside the app itself.</span>
             </div>
             <div class="modal-summary-row">
                 <span class="modal-icon">↩️</span>
@@ -256,7 +246,7 @@
 
         <label class="modal-agree">
             <input type="checkbox" id="modalAgree">
-            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial and single-machine subscription license conditions.
+            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial and single-machine license conditions.
         </label>
 
         <div class="modal-actions">
@@ -267,12 +257,6 @@
 </div>
 
 
-<script>
-/* Clipboard email copy */
-
-    });
-});
-</script>
 
 <!-- Legal consent banner -->
 <div class="legal-consent-banner" id="consentBanner">
@@ -281,7 +265,7 @@
         <a href="eula.html">EULA</a>,
         <a href="copyright.html">Copyright &amp; IP Notice</a>, and
         <a href="terms.html">Terms of Use</a>.
-        ProForma Suite apps run entirely on your device — no data is ever sent to our servers.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
     </p>
     <div class="consent-actions">
         <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
