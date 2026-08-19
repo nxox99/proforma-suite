@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Free Trial – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+})();
+</script>
+<style>
+.trial-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 5rem;
+}
+.trial-hero {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.trial-hero h1 {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.8px;
+    margin-bottom: 0.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+}
+.trial-hero p {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    line-height: 1.65;
+    max-width: 460px;
+    margin: 0 auto;
+}
+.trial-form-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
+}
+.tf-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.tf-row-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.tf-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-2);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    width: 90px;
+    flex-shrink: 0;
+    text-align: right;
+}
+.tf-input-wrap { flex: 1; }
+.tf-form-group label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-2);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}
+.tf-input-wrap .form-input,
+.tf-input-wrap .form-select,
+.tf-form-group .form-input,
+.tf-form-group .form-select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+    background: var(--bg);
+    color: var(--text-1);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    font-family: inherit;
+    box-shadow: var(--neu-press);
+    transition: border-color 0.15s, box-shadow 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+}
+.tf-input-wrap .form-input:focus,
+.tf-input-wrap .form-select:focus,
+.tf-form-group .form-input:focus,
+.tf-form-group .form-select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: var(--neu-press), 0 0 0 3px var(--accent-light);
+}
+.tf-select-wrap { position: relative; }
+.tf-select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-3);
+    font-size: 0.8rem;
+    pointer-events: none;
+}
+.tf-select-wrap select { padding-right: 2.5rem; cursor: pointer; }
+.tf-form-group { margin-bottom: 1.1rem; }
+.tf-error {
+    font-size: 0.78rem;
+    color: var(--danger, #FF453A);
+    margin-top: 0.3rem;
+    display: none;
+}
+.form-input.error { border-color: var(--danger, #FF453A); }
+
+.btn-trial-submit {
+    width: 100%;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    box-shadow:
+        5px 5px 14px rgba(0,113,227,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    transition: background 0.15s, box-shadow 0.2s, transform 0.15s, opacity 0.15s;
+    margin-top: 0.5rem;
+}
+.btn-trial-submit:hover:not(:disabled) {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+.btn-trial-submit:active:not(:disabled) { transform: translateY(0); }
+.btn-trial-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.trial-form-status {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    min-height: 1.2em;
+    text-align: center;
+}
+.trial-skip {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-3);
+    line-height: 1.6;
+}
+.trial-skip a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.trial-skip a:hover { text-decoration: underline; }
+
+.trial-reassure {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: var(--accent-light);
+    border: 1px solid rgba(0,113,227,0.18);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.75rem;
+    font-size: 0.85rem;
+    color: var(--text-2);
+    line-height: 1.55;
+}
+.trial-reassure strong { color: var(--text-1); }
+</style>
+</head>
+<body class="has-banner">
+
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html" class="nav-active">Free Trial</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<div class="trial-wrap">
+
+    <div class="trial-hero">
+        <span class="section-label">Free Trial</span>
+        <h1>Start your 30-day free trial</h1>
+        <p>Your trial actually begins the moment you open a downloaded app — no key, no sign-in. This form is optional: leave your email and we'll send a reminder before your trial ends, and let you know when it's ready.</p>
+    </div>
+
+    <div class="trial-reassure">
+        <span>💡</span>
+        <span><strong>Nothing here is required.</strong> Every app already includes its free trial — you can skip straight to the <a href="downloads.html" style="color:var(--accent);text-decoration:none;font-weight:600;">Download Portal</a> and start using it right now.</span>
+    </div>
+
+    <div class="trial-form-card">
+        <form id="trialForm" novalidate>
+
+            <div class="tf-row-split">
+                <div class="tf-form-group">
+                    <label for="tf-first">First name</label>
+                    <input class="form-input" id="tf-first" type="text" placeholder="Jane" autocomplete="given-name">
+                </div>
+                <div class="tf-form-group">
+                    <label for="tf-last">Last name</label>
+                    <input class="form-input" id="tf-last" type="text" placeholder="Smith" autocomplete="family-name">
+                </div>
+            </div>
+
+            <div class="tf-form-group">
+                <label for="tf-email">Email <span style="opacity:0.6;font-weight:500;text-transform:none;">(required)</span></label>
+                <input class="form-input" id="tf-email" type="email" placeholder="you@example.com" autocomplete="email" required>
+                <span class="tf-error" id="err-tf-email">Please enter a valid email address.</span>
+            </div>
+
+            <div class="tf-form-group">
+                <label for="tf-phone">Phone <span style="opacity:0.6;font-weight:500;text-transform:none;">(optional)</span></label>
+                <input class="form-input" id="tf-phone" type="tel" placeholder="(555) 555-5555" autocomplete="tel">
+            </div>
+
+            <div class="tf-form-group">
+                <label for="tf-app">Which app are you trying?</label>
+                <div class="tf-select-wrap">
+                    <select class="form-select" id="tf-app">
+                        <option value="">— Select an app —</option>
+                        <option>DOCX Optimizer</option>
+                        <option>ProForm Form Manager</option>
+                        <option>Synthetix-CR</option>
+                        <option>ProRedactor</option>
+                        <option>Not sure yet</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="tf-form-group">
+                <label for="tf-interest">How do you plan to use it?</label>
+                <div class="tf-select-wrap">
+                    <select class="form-select" id="tf-interest">
+                        <option value="">— Optional —</option>
+                        <option>Personal use</option>
+                        <option>Small business</option>
+                        <option>Team / organization</option>
+                        <option>Just evaluating</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-trial-submit" id="trialSubmitBtn">Start My Free Trial</button>
+            <p id="trialFormStatus" class="trial-form-status"></p>
+
+        </form>
+    </div>
+
+    <p class="trial-skip">
+        Prefer to just get started? <a href="downloads.html">Skip to the Download Portal →</a>
+    </p>
+
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+    </div>
+</footer>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    /* Dark toggle */
+    var btn = document.getElementById('darkToggle');
+    if (btn) {
+        btn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('pfs-theme',
+                document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+    }
+
+    /* Point this at your deployed worker (see backend/SETUP.md). */
+    var API_BASE = 'https://proform-licensing.nauman9.workers.dev';
+
+    /* Pre-fill the app dropdown from ?app=... (used by every "Free trial"
+       link across the site, e.g. trialsignup.html?app=ProForm+Form+Manager). */
+    var params = new URLSearchParams(window.location.search);
+    var appParam = params.get('app');
+    if (appParam) {
+        var appSelect = document.getElementById('tf-app');
+        for (var i = 0; i < appSelect.options.length; i++) {
+            if (appSelect.options[i].value === appParam) { appSelect.selectedIndex = i; break; }
+        }
+    }
+
+    function validateEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+    document.getElementById('tf-email').addEventListener('input', function() {
+        this.classList.remove('error');
+        document.getElementById('err-tf-email').style.display = 'none';
+    });
+
+    /* Submit — this is an OPTIONAL marketing lead capture, independent of
+       the app's own per-device trial (which starts automatically on first
+       launch, server-anchored via /api/trial/check inside the app itself —
+       see backend/worker.js). This form just POSTs to /api/trial/lead so a
+       reminder email can be sent and so the signup actually reaches the
+       business instead of only ever writing to localStorage. Downloads are
+       never gated behind submitting this. */
+    document.getElementById('trialForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var email = document.getElementById('tf-email').value.trim();
+        if (!validateEmail(email)) {
+            document.getElementById('tf-email').classList.add('error');
+            document.getElementById('err-tf-email').style.display = 'block';
+            return;
+        }
+
+        var firstName = document.getElementById('tf-first').value.trim();
+        var lastName  = document.getElementById('tf-last').value.trim();
+        var phone     = document.getElementById('tf-phone').value.trim();
+        var app       = document.getElementById('tf-app').value;
+        var interest  = document.getElementById('tf-interest').value;
+
+        var submitBtn = document.getElementById('trialSubmitBtn');
+        var status    = document.getElementById('trialFormStatus');
+
+        if (!API_BASE) {
+            status.style.color = 'var(--danger, #FF453A)';
+            status.textContent = 'Trial signup isn’t configured yet — see backend/SETUP.md. You can still download directly below.';
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting…';
+        status.style.color = 'var(--text-3)';
+        status.textContent = '';
+
+        fetch(API_BASE + '/api/trial/lead', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ firstName: firstName, lastName: lastName, email: email, phone: phone, interest: interest, app: app || undefined }),
+        })
+        .then(function(r) { return r.json().then(function(data) { return { ok: r.ok, data: data }; }); })
+        .then(function(res) {
+            if (res.ok && res.data && res.data.ok) {
+                var end = new Date();
+                end.setDate(end.getDate() + 30);
+                var endStr = end.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                var qs = new URLSearchParams({
+                    app: app || 'ProForma Suite',
+                    name: firstName || 'there',
+                    email: email,
+                    end: endStr,
+                });
+                window.location.href = 'trialconfirm.html?' + qs.toString();
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Start My Free Trial';
+                status.style.color = 'var(--danger, #FF453A)';
+                status.textContent = 'Something went wrong — please try again, or just download directly below.';
+            }
+        })
+        .catch(function() {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Start My Free Trial';
+            status.style.color = 'var(--danger, #FF453A)';
+            status.textContent = 'Couldn’t reach the server — please try again, or just download directly below.';
+        });
+    });
+
+    /* Consent banner */
+    var banner = document.getElementById('consentBanner');
+    if (banner && localStorage.getItem('pfs-legal-consent') !== 'accepted') {
+        setTimeout(function() { banner.classList.add('visible'); }, 1200);
+        document.getElementById('consentDismiss').addEventListener('click', function() {
+            localStorage.setItem('pfs-legal-consent', 'accepted');
+            banner.classList.remove('visible');
+        });
+        document.getElementById('consentLater').addEventListener('click', function() {
+            banner.classList.remove('visible');
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

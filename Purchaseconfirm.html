@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Ready – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+})();
+</script>
+<style>
+.pc-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4rem 2rem 5rem;
+}
+.pc-check {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1A6FD4, #1055A8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: #fff;
+    box-shadow:
+        0 8px 24px rgba(0,113,227,0.35),
+        0 2px 8px rgba(0,113,227,0.20),
+        inset 0 1px 0 rgba(255,255,255,0.30);
+    margin: 0 auto 1.5rem;
+    animation: receipt-pop 0.45s cubic-bezier(0.25,0.46,0.45,0.94) both;
+}
+.pc-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.pc-header h1 {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.7px;
+    margin-bottom: 0.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+}
+.pc-header p {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    line-height: 1.65;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* Summary card */
+.pc-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+.pc-card-header {
+    background: linear-gradient(135deg, #1A6FD4 0%, #1055A8 100%);
+    padding: 1rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pc-card-header .pc-logo {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+.pc-card-header .pc-logo em { font-style: normal; font-weight: 400; opacity: 0.8; }
+.pc-card-header span {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.pc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.75rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+}
+.pc-row:last-child { border-bottom: none; }
+.pc-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.pc-value {
+    color: var(--text-1);
+    font-weight: 500;
+    text-align: right;
+}
+.pc-value.accent { color: var(--accent); font-weight: 700; }
+
+/* Steps */
+.pc-next {
+    background: var(--surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.75rem;
+}
+.pc-next h3 {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-1);
+    margin-bottom: 1rem;
+}
+.pc-steps { display: flex; flex-direction: column; gap: 0.85rem; }
+.pc-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.88rem;
+    color: var(--text-2);
+    line-height: 1.55;
+}
+.pc-step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+/* Download button */
+.btn-pc-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 1rem 2rem;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow:
+        5px 5px 14px rgba(0,113,227,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.25);
+    transition: background 0.15s, box-shadow 0.2s, transform 0.15s;
+    margin-bottom: 0.85rem;
+}
+.btn-pc-download:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+.btn-pc-download:active { transform: translateY(0); }
+
+.pc-back {
+    display: block;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-3);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+.pc-back:hover { color: var(--accent); }
+</style>
+</head>
+<body class="has-banner">
+
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html" class="nav-active">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<div class="pc-wrap">
+
+    <div class="pc-check">⬇️</div>
+
+    <div class="pc-header">
+        <span class="section-label">Subscription Active</span>
+        <h1>Your download is ready</h1>
+        <p>Your subscription is active and your license key has been issued. Click the button below to download <strong id="pcAppName">your app</strong> and activate it.</p>
+    </div>
+
+    <!-- License summary -->
+    <div class="pc-card">
+        <div class="pc-card-header">
+            <span class="pc-logo">ProForma<em>Suite</em></span>
+            <span>Subscription</span>
+        </div>
+        <div class="pc-row">
+            <span class="pc-label">App</span>
+            <span class="pc-value accent" id="pc-app">—</span>
+        </div>
+        <div class="pc-row">
+            <span class="pc-label">License Key</span>
+            <span class="pc-value" id="pc-key" style="font-family:monospace;font-size:0.85rem;letter-spacing:1px;color:var(--accent);">—</span>
+        </div>
+        <div class="pc-row">
+            <span class="pc-label">License Type</span>
+            <span class="pc-value">Monthly Subscription — single machine</span>
+        </div>
+        <div class="pc-row">
+            <span class="pc-label">Billing</span>
+            <span class="pc-value">Renews monthly · Cancel anytime</span>
+        </div>
+        <div class="pc-row">
+            <span class="pc-label">Updates</span>
+            <span class="pc-value">All future updates included while subscribed</span>
+        </div>
+    </div>
+
+    <!-- What's next -->
+    <div class="pc-next">
+        <h3>Installation steps</h3>
+        <div class="pc-steps">
+            <div class="pc-step">
+                <span class="pc-step-num">1</span>
+                <span>Click <strong>Download Now</strong> below to save the installer to your device.</span>
+            </div>
+            <div class="pc-step">
+                <span class="pc-step-num">2</span>
+                <span>Run the installer. On <strong>macOS</strong>, allow the app in System Settings → Privacy &amp; Security if prompted. On <strong>Windows</strong>, click "More info → Run anyway" if SmartScreen appears.</span>
+            </div>
+            <div class="pc-step">
+                <span class="pc-step-num">3</span>
+                <span>When prompted, enter your license key shown above. All Premium features activate immediately — no internet connection needed after this step.</span>
+            </div>
+            <div class="pc-step">
+                <span class="pc-step-num">4</span>
+                <span>Your key is bound to this machine at first activation. Keep your key safe — it was also emailed to you when you subscribed. Want to cancel later? <a href="support.html" style="color:var(--accent);text-decoration:none;">Contact support →</a></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Download CTA -->
+    <a href="downloads.html" class="btn-pc-download" id="pcDownloadBtn">
+        ⬇️ &nbsp;Download Now
+    </a>
+
+    <a href="store.html" class="pc-back">← Back to Apps</a>
+
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="synthetix-cr.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+    </div>
+</footer>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    /* Dark toggle */
+    var btn = document.getElementById('darkToggle');
+    if (btn) {
+        btn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('pfs-theme',
+                document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+    }
+
+    /* Point this at your deployed worker (see backend/SETUP.md). */
+    var API_BASE = 'https://proform-licensing.nauman9.workers.dev';
+
+    /* Stripe redirects back here as
+       purchaseconfirm.html?session_id={CHECKOUT_SESSION_ID}
+       (see success_url in backend/worker.js's handleCheckoutCreate) — the
+       actual license key is fetched from the worker, never passed in the
+       URL itself, so it never ends up in browser history or a Referer header. */
+    var params    = new URLSearchParams(window.location.search);
+    var sessionId = params.get('session_id') || '';
+    var appName   = params.get('app') || 'ProForm Form Manager';
+
+    document.getElementById('pcAppName').textContent = appName;
+    document.getElementById('pc-app').textContent    = appName;
+    document.title = 'Download ' + appName + ' – ProForma Suite';
+
+    function showKey(key) {
+        document.getElementById('pc-key').textContent = key;
+    }
+    function showError(msg) {
+        document.getElementById('pc-key').textContent = msg;
+    }
+
+    if (!API_BASE) {
+        showError('Checkout backend isn’t configured yet — see backend/SETUP.md');
+    } else if (!sessionId) {
+        showError('No subscription found — did you arrive here directly instead of from checkout?');
+    } else {
+        /* The Stripe webhook that actually issues the key can land a second
+           or two after Stripe redirects the browser here, so retry briefly
+           with backoff instead of failing on the very first check. */
+        var attempt = 0, maxAttempts = 6;
+        (function poll() {
+            attempt++;
+            fetch(API_BASE + '/api/license/by-session?session_id=' + encodeURIComponent(sessionId))
+                .then(function(r) {
+                    if (r.status === 404 && attempt < maxAttempts) {
+                        setTimeout(poll, 1500);
+                        return null;
+                    }
+                    return r.json();
+                })
+                .then(function(data) {
+                    if (!data) return; // still polling
+                    if (data.token) showKey(data.token);
+                    else showError('We couldn’t find your license yet — contact support with your payment receipt and we’ll sort it out.');
+                })
+                .catch(function() {
+                    if (attempt < maxAttempts) setTimeout(poll, 1500);
+                    else showError('Something went wrong loading your license — contact support with your payment receipt.');
+                });
+        })();
+    }
+
+    /* Consent banner */
+    var banner = document.getElementById('consentBanner');
+    if (banner && localStorage.getItem('pfs-legal-consent') !== 'accepted') {
+        setTimeout(function() { banner.classList.add('visible'); }, 1200);
+        document.getElementById('consentDismiss').addEventListener('click', function() {
+            localStorage.setItem('pfs-legal-consent', 'accepted');
+            banner.classList.remove('visible');
+        });
+        document.getElementById('consentLater').addEventListener('click', function() {
+            banner.classList.remove('visible');
+        });
+    }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        /* Dark toggle */
+        var btn = document.getElementById('darkToggle');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                root.classList.toggle('dark');
+                localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+
+        /* --- Subscribe modal --- */
+        var overlay  = document.getElementById('purchaseModal');
+        var agreeBox = document.getElementById('modalAgree');
+        var proceedBtn = document.getElementById('modalProceed');
+        var cancelBtn  = document.getElementById('modalCancel');
+        var closeBtn   = document.getElementById('modalClose');
+        var modalAppName = document.getElementById('modalAppName');
+        var currentHref = '#';
+
+        function openModal(appName, href) {
+            currentHref = href;
+            modalAppName.textContent = appName;
+            agreeBox.checked = false;
+            proceedBtn.disabled = true;
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        /* Wire subscribe buttons */
+        document.querySelectorAll('.js-buy').forEach(function(el) {
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
+                openModal(this.dataset.app, this.dataset.href);
+            });
+        });
+
+        agreeBox.addEventListener('change', function() {
+            proceedBtn.disabled = !this.checked;
+        });
+        proceedBtn.addEventListener('click', function() {
+            /* Navigate to the real checkout page in the same tab — do not
+               assume payment succeeded. payment.html itself explains that a
+               subscription must start from inside the app (the license is
+               bound to that device), and creates the actual Stripe
+               subscription Checkout session for anything it can process
+               directly. */
+            closeModal();
+            window.location.href = currentHref;
+        });
+        cancelBtn.addEventListener('click', closeModal);
+        closeBtn.addEventListener('click', closeModal);
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+    });
+})();
+</script>
+</head>
+<body class="has-banner">
+
+<!-- Sitewide trial banner -->
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<section class="hero">
+    <span class="hero-eyebrow">Professional tools for professionals</span>
+    <h1>Small apps with<br><em>mega results.</em></h1>
+    <p>ProForma Suite builds focused productivity apps. Try any app free for 30 days, then subscribe from just $4.99/mo — cancel anytime, no long-term contract.</p>
+    <div class="hero-cta">
+        <a href="store.html" class="btn-primary">Browse Apps</a>
+        <a href="trialsignup.html" class="btn-trial">Start Free Trial</a>
+        <a href="downloads.html" class="btn-outline">Download Portal</a>
+    </div>
+</section>
+
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">Featured Apps</span>
+    <h2>Built for professionals who value their time.</h2>
+    <p class="section-sub">Every app in the suite solves one real problem, cleanly. Try any of them free for 30 days.</p>
+
+    <div class="app-grid">
+
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=DOCX+Optimizer'">
+            <div class="card-top">
+                <div class="app-icon"><img src="icons/docx-optimizer-icon.png" alt="DOCX Optimizer icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
+                <span class="version-badge">v2.1.0</span>
+            </div>
+            <span class="trial-badge">30-day free trial</span>
+            <h3>DOCX Optimizer</h3>
+            <p>Batch-clean, reformat, and optimize Word documents in seconds. Perfect for teams managing large document libraries.</p>
+            <div class="card-actions">
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=DOCX+Optimizer'">Free trial</button>
+                <button class="btn-card-trial js-buy" data-app="DOCX Optimizer" data-href="payment.html?app=DOCX+Optimizer&amp;price=4.99&amp;product=docx" onclick="event.stopPropagation();">Subscribe · $4.99/mo</button>
+            </div>
+        </div>
+
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=ProForm+Form+Manager'">
+            <div class="card-top">
+                <div class="app-icon"><img src="icons/proform-icon.png" alt="ProForm Form Manager icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
+                <span class="version-badge">v1.4.2</span>
+            </div>
+            <span class="trial-badge">30-day free trial</span>
+            <h3>ProForm Form Manager</h3>
+            <p>Build, fill, and export professional PDF forms without Adobe. Drag-and-drop builder with digital signature support.</p>
+            <div class="card-actions">
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=ProForm+Form+Manager'">Free trial</button>
+                <button class="btn-card-trial js-buy" data-app="ProForm Form Manager" data-href="payment.html?app=ProForm+Form+Manager&amp;price=10.99&amp;product=proform" onclick="event.stopPropagation();">Subscribe · $10.99/mo</button>
+            </div>
+        </div>
+
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=Synthetix-CR'">
+            <div class="card-top">
+                <div class="app-icon"><img src="icons/synoptiq-icon.png" alt="Synthetix-CR icon" width="36" height="36" style="display:block;object-fit:contain;"></div>
+                <span class="version-badge">Bundle</span>
+            </div>
+            <span class="trial-badge">30-day free trial</span>
+            <div class="bundle-includes">
+                <span class="bundle-chip">DOCX Optimizer</span>
+                <span class="bundle-chip">ProForm Form Manager</span>
+            </div>
+            <h3>Synthetix-CR</h3>
+            <p>The bundle plan — get DOCX Optimizer and ProForm Form Manager together for less than subscribing to each separately.</p>
+            <div class="card-actions">
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=Synthetix-CR'">Free trial</button>
+                <button class="btn-card-trial js-buy" data-app="Synthetix-CR" data-href="payment.html?app=Synthetix-CR&amp;price=14.99&amp;product=synthetixcr" onclick="event.stopPropagation();">Subscribe · $14.99/mo</button>
+            </div>
+        </div>
+
+        <div class="app-card" style="cursor:pointer;" onclick="window.location.href='trialsignup.html?app=ProRedactor'">
+            <div class="card-top">
+                <div class="app-icon" style="font-size:1.5rem;">🔏</div>
+                <span class="version-badge">New</span>
+            </div>
+            <span class="trial-badge">30-day free trial</span>
+            <h3>ProRedactor</h3>
+            <p>Automatically detects and redacts sensitive content — names, addresses, phone numbers, emails, SSNs, and financial identifiers. Runs entirely on your machine.</p>
+            <div class="card-actions">
+                <button class="btn-card-trial" onclick="event.stopPropagation();window.location.href='trialsignup.html?app=ProRedactor'">Free trial</button>
+                <button class="btn-card-trial js-buy" data-app="ProRedactor" data-href="payment.html?app=ProRedactor&amp;price=6.99&amp;product=proredactor" onclick="event.stopPropagation();">Subscribe · $6.99/mo</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <p style="text-align:center;margin-top:1rem;font-size:0.88rem;color:var(--text-3);">
+        More apps in development — <a href="store.html" style="color:var(--accent);text-decoration:none;">see what's coming →</a>
+    </p>
+</div>
+
+
+<div style="padding:2.5rem 0 1rem;text-align:center;">
+    <a href="pricing.html" class="btn-primary" style="font-size:1rem;padding:0.85rem 2.5rem;display:inline-block;">
+        See plans and pricing →
+    </a>
+</div>
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">How It Works</span>
+    <h2>Up and running in minutes.</h2>
+    <p class="section-sub">Download, open the app, and your trial starts automatically — then decide.</p>
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">1</div>
+            <h3>Start Your Free Trial</h3>
+            <p>Download any app and open it — no registration, no credit card. You get 30 days of full Premium access, immediately.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">2</div>
+            <h3>Use the Full App</h3>
+            <p>Every Premium feature is unlocked during your trial. No artificial limits, no reminders every 5 minutes.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">3</div>
+            <h3>Subscribe & Keep Going</h3>
+            <p>After your trial, subscribe monthly to keep full access — cancel anytime, no long-term contract. <a href="pricing.html">See pricing →</a></p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+    </div>
+</footer>
+
+<!-- ===== Subscribe Modal ===== -->
+<div class="modal-overlay" id="purchaseModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <h3 id="modalTitle">Before you continue</h3>
+            <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+        </div>
+
+        <div class="modal-summary">
+            <div class="modal-summary-row">
+                <span class="modal-icon">💳</span>
+                <span><strong>Monthly subscription</strong> for <span id="modalAppName">this app</span> — billed automatically each month.</span>
+            </div>
+            <div class="modal-summary-row">
+                <span class="modal-icon">🔄</span>
+                <span><strong>All future updates included</strong> — for as long as your subscription stays active.</span>
+            </div>
+            <div class="modal-summary-row">
+                <span class="modal-icon">🔒</span>
+                <span><strong>Single machine</strong> — the license activates on the one device you subscribe from. Subscriptions are started from inside the app itself.</span>
+            </div>
+            <div class="modal-summary-row">
+                <span class="modal-icon">🗓️</span>
+                <span><strong>Cancel anytime</strong> — access continues until the end of your current billing period. No partial-period refunds.</span>
+            </div>
+        </div>
+
+        <label class="modal-agree">
+            <input type="checkbox" id="modalAgree">
+            I have read and agree to the <a href="terms.html" target="_blank">Terms of Use</a>, <a href="eula.html" target="_blank">EULA</a>, and <a href="copyright.html" target="_blank">Copyright Notice</a>, including the 30-day trial, monthly billing, and single-machine subscription conditions.
+        </label>
+
+        <div class="modal-actions">
+            <button class="btn-modal-cancel" id="modalCancel">Cancel</button>
+            <button class="btn-modal-proceed" id="modalProceed" disabled>Continue →</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    var banner = document.getElementById('consentBanner');
+    if (!banner) return;
+    if (localStorage.getItem('pfs-legal-consent') === 'accepted') return;
+    setTimeout(function() { banner.classList.add('visible'); }, 1200);
+    document.getElementById('consentDismiss').addEventListener('click', function() {
+        localStorage.setItem('pfs-legal-consent', 'accepted');
+        banner.classList.remove('visible');
+    });
+    document.getElementById('consentLater').addEventListener('click', function() {
+        banner.classList.remove('visible');
+    });
+})();
+</script>
+</body>
+</html>

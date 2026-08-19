@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Portal – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+})();
+</script>
+<style>
+.download-hero {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.download-hero h1 {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    color: var(--text-1);
+    letter-spacing: -0.8px;
+    margin-bottom: 0.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+}
+.download-hero p {
+    font-size: 0.95rem;
+    color: var(--text-2);
+    line-height: 1.65;
+}
+
+/* Bundle note banner */
+.bundle-note {
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    padding: 0 2rem;
+}
+.bundle-note-inner {
+    background: var(--accent-light);
+    border: 1px solid rgba(0,113,227,0.18);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--text-2);
+    line-height: 1.6;
+}
+.bundle-note-inner strong { color: var(--text-1); }
+
+/* Key entry section */
+.key-entry-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+}
+.key-entry-card h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-1);
+    margin-bottom: 0.4rem;
+}
+.key-entry-card p {
+    font-size: 0.88rem;
+    color: var(--text-2);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+}
+.key-input-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+.key-input-row .form-input {
+    flex: 1;
+    font-family: "SF Mono", "Fira Mono", ui-monospace, monospace;
+    letter-spacing: 0.06em;
+    font-size: 0.9rem;
+}
+.btn-validate {
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow:
+        4px 4px 12px rgba(0,113,227,0.30),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    transition: background 0.15s, transform 0.15s;
+    flex-shrink: 0;
+}
+.btn-validate:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.btn-validate:active { transform: translateY(0); }
+
+/* App download cards */
+.download-grid {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 2rem 5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+@media (max-width: 820px) { .download-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .download-grid { grid-template-columns: 1fr; } }
+
+.download-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--neu-raise);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: box-shadow 0.2s, transform 0.15s;
+}
+.download-card:hover {
+    box-shadow: var(--neu-raise-hover, var(--neu-raise));
+    transform: translateY(-2px);
+}
+.download-card-icon {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    display: block;
+}
+.download-card-icon-emoji {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+.download-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-1);
+    letter-spacing: -0.2px;
+    margin: 0;
+}
+.download-card .version-badge {
+    width: fit-content;
+}
+.download-card p {
+    font-size: 0.85rem;
+    color: var(--text-2);
+    line-height: 1.6;
+    flex: 1;
+}
+.download-os-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
+}
+.os-chip {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-3);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px 10px;
+    letter-spacing: 0.02em;
+}
+.btn-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow:
+        4px 4px 12px rgba(0,113,227,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.22);
+    transition: background 0.15s, transform 0.15s;
+    margin-top: auto;
+}
+.btn-download:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.btn-download:active { transform: translateY(0); }
+.btn-download.locked {
+    background: var(--bg);
+    color: var(--text-3);
+    box-shadow: var(--neu-btn);
+    border: 1px solid var(--border);
+    cursor: default;
+    transform: none;
+}
+.btn-download.locked:hover { background: var(--bg); transform: none; }
+
+.download-note {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-3);
+    padding: 0 2rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.65;
+}
+.download-note a { color: var(--accent); text-decoration: none; }
+.download-note a:hover { text-decoration: underline; }
+</style>
+</head>
+<body class="has-banner">
+
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html" class="nav-active">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<!-- Hero -->
+<div class="download-hero">
+    <span class="section-label">Download Portal</span>
+    <h1>Download your app</h1>
+    <p>Every download below starts free — a full-featured 30-day trial, no key required. Already subscribed? Check your key below before downloading, or just paste it straight into the app once it's open.</p>
+</div>
+
+<!-- Bundle note — Synthetix-CR is a subscription plan covering the two
+     component apps below, not its own downloadable app. -->
+<div class="bundle-note">
+    <div class="bundle-note-inner">
+        <strong>Subscribed to the Synthetix-CR bundle?</strong> Download both DOCX Optimizer and ProForm Form Manager below — your bundle subscription covers both apps.
+    </div>
+</div>
+
+<!-- License key entry (informational — checks a key is valid and shows
+     which app it's for; downloads below are never gated behind this) -->
+<div style="padding: 0 2rem;">
+    <div class="key-entry-card">
+        <h2>Already have a license key?</h2>
+        <p>You don't need it to download — every app below includes its free trial. This just confirms a key is valid before you go looking for the right download. Your key was emailed to you when you subscribed and is longer than the older short-format keys used to be — paste the whole thing.</p>
+        <div class="key-input-row">
+            <input class="form-input" id="licenseKeyInput" type="text"
+                placeholder="Paste your license key here"
+                style="font-family:monospace;letter-spacing:0.02em;">
+            <button class="btn-validate" id="validateKeyBtn">Validate Key</button>
+        </div>
+        <p id="keyStatus" style="font-size:0.82rem;margin-top:0.5rem;min-height:1.2em;color:var(--text-3);"></p>
+    </div>
+</div>
+
+<!-- App downloads -->
+<div style="max-width:1080px;margin:0 auto;padding:0 2rem 1rem;">
+    <span class="section-label">Available Apps</span>
+</div>
+
+<div class="download-grid">
+
+    <!-- DOCX Optimizer -->
+    <div class="download-card">
+        <img src="icons/docx-optimizer-icon.png" alt="DOCX Optimizer" class="download-card-icon">
+        <div>
+            <h3>DOCX Optimizer</h3>
+            <span class="version-badge">v2.1.0</span>
+        </div>
+        <p>Batch-clean, reformat, and optimize Word documents in seconds.</p>
+        <div class="download-os-row">
+            <span class="os-chip">Windows 10/11</span>
+            <span class="os-chip">macOS 12+</span>
+        </div>
+        <button class="btn-download" id="dl-docx">⬇️ &nbsp;Download free trial</button>
+    </div>
+
+    <!-- ProForm Form Manager -->
+    <div class="download-card">
+        <img src="icons/proform-icon.png" alt="ProForm Form Manager" class="download-card-icon">
+        <div>
+            <h3>ProForm Form Manager</h3>
+            <span class="version-badge">v1.4.2</span>
+        </div>
+        <p>Build, fill, and export professional PDF forms without Adobe.</p>
+        <div class="download-os-row">
+            <span class="os-chip">Windows 10/11</span>
+            <span class="os-chip">macOS 12+</span>
+        </div>
+        <button class="btn-download" id="dl-proform">⬇️ &nbsp;Download free trial</button>
+    </div>
+
+    <!-- ProRedactor — pricing is live (see Pricing page), app build is not
+         hosted yet, so the download stays locked/"Coming soon" here. -->
+    <div class="download-card">
+        <div class="download-card-icon-emoji">🔏</div>
+        <div>
+            <h3>ProRedactor</h3>
+            <span class="version-badge">Coming Soon</span>
+        </div>
+        <p>Automatically detects and redacts sensitive content — entirely on your machine.</p>
+        <div class="download-os-row">
+            <span class="os-chip">Windows 10/11</span>
+            <span class="os-chip">macOS 12+</span>
+        </div>
+        <button class="btn-download locked" id="dl-proredactor" disabled>🔒 &nbsp;Coming soon</button>
+    </div>
+
+</div>
+
+<p class="download-note">
+    Downloads include a 30-day free trial of the full Premium version.
+    After 30 days your trial ends. Subscribe monthly to keep full access, cancel anytime — <a href="pricing.html">see pricing →</a>
+    Need help? Visit <a href="support.html">Support</a> or <a href="support.html#contact">contact us</a>.
+</p>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="synthetixcr.html">About</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+    </div>
+</footer>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    /* Dark toggle */
+    var btn = document.getElementById('darkToggle');
+    if (btn) {
+        btn.addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('pfs-theme',
+                document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+    }
+
+    /* Point this at your deployed worker (see backend/SETUP.md). */
+    var API_BASE = 'https://proform-licensing.nauman9.workers.dev';
+
+    /* License key input — no more formatting-as-you-type. Keys are now long
+       signed tokens (v1.<payload>.<signature>), not short hex codes, so
+       forcing uppercase/hyphen-every-4-chars would corrupt a real key
+       instead of tidying it. Paste-and-verify-as-is is the right UX now. */
+    var keyInput = document.getElementById('licenseKeyInput');
+
+    /* ProForm Form Manager ships as 5 files that must stay together in the
+       same local folder: ProForm.html itself, plus README.html/Manual.html/
+       Tutorial.html/Legal.html, which it opens via relative iframe paths
+       from its in-app Help menu (see openHelpDoc() inside ProForm.html).
+       Downloading ProForm.html alone leaves those Help links broken once
+       the user is offline on their own machine, so "Download" hands out a
+       prebuilt ZIP of the whole bundle instead of the single file. Every
+       download here already includes its own free trial, so downloads are
+       never gated behind a key.
+       Both the ZIP and the loose files it's built from are hosted at
+       /apps/ProForm/ on this same site — change this one path if you host
+       it elsewhere. Note the capitalization matches the actual deployed
+       folder name exactly; URL paths are case-sensitive. DOCX Optimizer and
+       ProRedactor aren't mapped yet — their entries above just don't have a
+       working file behind them until each app is built and hosted the same
+       way. */
+    var appFileMap = {
+        'dl-proform': '/apps/ProForm/ProForm-App.zip',
+        // Add DOCX Optimizer's file here once it's built and hosted.
+    };
+    ['dl-docx', 'dl-proform'].forEach(function(id) {
+        var btn = document.getElementById(id);
+        if (!btn || !appFileMap[id]) return;
+        btn.addEventListener('click', function() {
+            var a = document.createElement('a');
+            a.href = appFileMap[id];
+            a.download = appFileMap[id].split('/').pop();
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        });
+    });
+
+    /* Key validation — informational only (downloads aren't gated behind
+       it): confirms a key is genuinely valid and shows which app it's for,
+       via a real call to the licensing worker instead of a hardcoded
+       prefix map. No deviceId is available on this page (that's only known
+       inside the app itself), so this checks the key's signature and
+       product, not that it matches a specific device — that binding check
+       happens for real when the key is entered inside the app. */
+    document.getElementById('validateKeyBtn').addEventListener('click', function() {
+        var key    = keyInput.value.trim();
+        var status = document.getElementById('keyStatus');
+
+        if (key.length < 20) {
+            status.style.color = 'var(--danger, #FF453A)';
+            status.textContent = 'Please paste the complete license key from your subscription confirmation email.';
+            return;
+        }
+        if (!API_BASE) {
+            status.style.color = 'var(--danger, #FF453A)';
+            status.textContent = 'Licence verification isn’t configured yet — see backend/SETUP.md.';
+            return;
+        }
+
+        this.disabled = true;
+        this.textContent = 'Checking…';
+        var self = this;
+
+        fetch(API_BASE + '/api/license/verify?key=' + encodeURIComponent(key))
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                self.disabled = false;
+                self.textContent = 'Validate Key';
+                if (data.valid && data.expired) {
+                    status.style.color = 'var(--accent)';
+                    status.textContent = '✓ Valid key for ' + data.payload.p + ' — open the app so it can re-confirm your subscription is still active.';
+                } else if (data.valid) {
+                    status.style.color = 'var(--accent)';
+                    status.textContent = '✓ Valid key for ' + data.payload.p + '. Paste it into the app’s activation dialog once it’s open.';
+                } else {
+                    status.style.color = 'var(--danger, #FF453A)';
+                    status.textContent = 'That key isn’t valid — check you copied the whole thing.';
+                }
+            })
+            .catch(function() {
+                self.disabled = false;
+                self.textContent = 'Validate Key';
+                status.style.color = 'var(--danger, #FF453A)';
+                status.textContent = 'Couldn’t reach the licence server — please try again.';
+            });
+    });
+
+    /* Check if arriving from trial-confirm page */
+    var params = new URLSearchParams(window.location.search);
+    var app = params.get('app');
+    var isTrial = params.get('trial') === '1';
+    if (app && isTrial) {
+        var status = document.getElementById('keyStatus');
+        status.style.color = 'var(--accent)';
+        status.textContent = '✓ Trial registered for ' + app + ' — download it below whenever you’re ready.';
+    }
+
+    /* Consent banner */
+    var banner = document.getElementById('consentBanner');
+    if (banner && localStorage.getItem('pfs-legal-consent') !== 'accepted') {
+        setTimeout(function() { banner.classList.add('visible'); }, 1200);
+        document.getElementById('consentDismiss').addEventListener('click', function() {
+            localStorage.setItem('pfs-legal-consent', 'accepted');
+            banner.classList.remove('visible');
+        });
+        document.getElementById('consentLater').addEventListener('click', function() {
+            banner.classList.remove('visible');
+        });
+    }
+
+})();
+</script>
+
+</body>
+</html>
