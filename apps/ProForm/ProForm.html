@@ -7455,9 +7455,10 @@ const pfLicense = (() => {
   const LS_TRIAL='pf_trial_start', LS_TRIAL_CACHE='pf_trial_server_cache';
   const LS_ACT='pf_activation_token', LS_MID='pf_machine_id';
   // Public half of the worker's LICENSE_PRIVATE_KEY_JWK secret — NOT secret
-  // itself, but must be kept in lockstep with backend/SETUP.md's key. This
-  // is the starter/dev keypair from that setup — replace before real launch.
-  const LICENSE_PUBLIC_JWK={"key_ops":["verify"],"ext":true,"kty":"EC","x":"NnzAPiMBMvBXlM3ZgoQhnXiayQ6OW9rE2F0SUj2LjmI","y":"xVy5cg7O_owipPnmLdIDibw3eUFnxFBAdjvkzb_10a0","crv":"P-256"};
+  // itself, but must be kept in lockstep with the key set via
+  // `wrangler secret put LICENSE_PRIVATE_KEY_JWK`. Rotated 2026-08-18 —
+  // this is the real production keypair, not the burned starter one.
+  const LICENSE_PUBLIC_JWK={"key_ops":["verify"],"ext":true,"kty":"EC","x":"jxM0j2gnl4jBexr_TJqsL6t5nl53yNBhpOnBE-69uvI","y":"RYDJi8nVyxBKVjEq_SboWJGHx4oy3LzTbPWIHKF4-F8","crv":"P-256"};
 
   async function sha256(s){const b=new TextEncoder().encode(s);const h=await crypto.subtle.digest('SHA-256',b);return Array.from(new Uint8Array(h)).map(x=>x.toString(16).padStart(2,'0')).join('');}
   async function buildMid(){const c=localStorage.getItem(LS_MID);if(c)return c;let ch='';try{const cv=document.createElement('canvas');cv.width=280;cv.height=60;const ctx=cv.getContext('2d');ctx.fillStyle='#f60';ctx.fillRect(125,1,62,20);ctx.fillStyle='#069';ctx.fillText('ProForm',2,15);ch=cv.toDataURL();}catch{}const raw=[ch.slice(0,200),screen.width,screen.height,screen.colorDepth,navigator.language,navigator.hardwareConcurrency||0,Intl.DateTimeFormat().resolvedOptions().timeZone||'',navigator.platform||''].join('|');const id=await sha256(raw);localStorage.setItem(LS_MID,id);return id;}
