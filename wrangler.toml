@@ -1,4 +1,4 @@
-name = "proform-licensing"
+name = "proforma-suite"
 main = "backend/worker.js"
 compatibility_date = "2024-09-01"
 
