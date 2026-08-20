@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About – ProForma Suite</title>
+    <link rel="stylesheet" href="style.css">
+
+<script>
+(function() {
+    const root = document.documentElement;
+    const stored = localStorage.getItem('pfs-theme');
+    if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+    }
+    window.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('darkToggle');
+        if (btn) {
+            btn.addEventListener('click', function() {
+                root.classList.toggle('dark');
+                localStorage.setItem('pfs-theme', root.classList.contains('dark') ? 'dark' : 'light');
+            });
+        }
+    });
+})();
+</script>
+</head>
+<body class="has-banner">
+
+<!-- Sitewide trial banner -->
+<div class="trial-banner">
+    🎁 &nbsp;Try any app free for 30 days — no credit card required.
+    <a href="terms.html">See terms →</a>
+</div>
+
+<nav class="navbar">
+    <a href="index.html" class="logo">ProForma<span>Suite</span></a>
+    <div class="nav-links">
+        <a href="store.html">Apps</a>
+        <a href="about.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <button id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode"></button>
+    </div>
+</nav>
+
+<section class="hero">
+    <span class="hero-eyebrow">About ProForma Suite</span>
+    <h1>Small apps,<br><em>built to actually help.</em></h1>
+    <p>We build focused, single-purpose productivity software — the kind that does one job well instead of everything badly. No bloat, no dark patterns, no pretending your documents need to touch our servers to work.</p>
+</section>
+
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">Our Mission</span>
+    <h2>Fewer clicks. Fewer subscriptions you forget about. More work actually done.</h2>
+    <p class="section-sub">Most productivity software tries to be everything at once — a suite of half-finished features bolted together. We do the opposite: each ProForma Suite app solves exactly one real, everyday problem, and solves it well. DOCX Optimizer cleans up documents. ProForm Form Manager builds and fills forms. ProRedactor finds and removes sensitive information. Synthetix-CR bundles the two you'll use together most, at a lower combined price. That's it — no feature creep, no upsells buried in menus.</p>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">What We Believe</span>
+    <h2>Three things we won't compromise on.</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-num">🔒</div>
+            <h3>Your data stays yours</h3>
+            <p>Your documents, forms, and files are processed locally on your device. The only thing that ever reaches our servers is a device fingerprint and timestamp for license verification — never your content.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">🎯</div>
+            <h3>One job, done properly</h3>
+            <p>Every app in the suite is built around a single task. We'd rather ship a small tool that never gets in your way than a bloated one that tries to do everything.</p>
+        </div>
+        <div class="step">
+            <div class="step-num">🤝</div>
+            <h3>Honest, simple pricing</h3>
+            <p>One monthly price per app, a real 30-day free trial with no credit card required to start, and cancel anytime — no long-term contracts, no surprise renewals, no fine print designed to trap you.</p>
+        </div>
+    </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+    <span class="section-label">Get in Touch</span>
+    <h2>Questions, feedback, or just want to say hi?</h2>
+    <p class="section-sub">We read every message. Reach out any time and we'll get back to you within 24–48 hours, Monday to Friday.</p>
+    <div style="text-align:center;margin-top:1rem;">
+        <a href="support.html" class="btn-primary" style="font-size:1rem;padding:0.85rem 2.5rem;display:inline-block;">Contact Us →</a>
+    </div>
+</div>
+
+<footer class="footer">
+    <span>© 2026 ProForma Suite &nbsp;·&nbsp; <span style="color:var(--text-3);font-size:0.82rem;">support@proforma-suite.com</span></span>
+    <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="store.html">Apps</a>
+        <a href="about.html">About</a>
+        <a href="trialsignup.html">Free Trial</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="faq.html">FAQ</a>
+        <a href="support.html">Contact Us</a>
+        <a href="terms.html">Terms of Use</a>
+        <a href="eula.html">EULA</a>
+        <a href="copyright.html">Copyright</a>
+    </div>
+</footer>
+
+<!-- Legal consent banner -->
+<div class="legal-consent-banner" id="consentBanner">
+    <p class="consent-text">
+        <strong>By using this software you agree to our</strong>
+        <a href="eula.html">EULA</a>,
+        <a href="copyright.html">Copyright &amp; IP Notice</a>, and
+        <a href="terms.html">Terms of Use</a>.
+        ProForma Suite apps keep your documents and data entirely on your device — the only exception is minimal licence verification (device ID + timestamp, never your content). See Terms.
+    </p>
+    <div class="consent-actions">
+        <button class="btn-consent-later" id="consentLater">Remind Me Later</button>
+        <button class="btn-consent-dismiss" id="consentDismiss">I Understand</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    var banner = document.getElementById('consentBanner');
+    if (!banner) return;
+    if (localStorage.getItem('pfs-legal-consent') === 'accepted') return;
+    setTimeout(function() { banner.classList.add('visible'); }, 1200);
+    document.getElementById('consentDismiss').addEventListener('click', function() {
+        localStorage.setItem('pfs-legal-consent', 'accepted');
+        banner.classList.remove('visible');
+    });
+    document.getElementById('consentLater').addEventListener('click', function() {
+        banner.classList.remove('visible');
+    });
+})();
+</script>
+</body>
+</html>
