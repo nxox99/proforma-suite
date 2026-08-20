@@ -1,5 +1,5 @@
 name = "proform-licensing"
-main = "worker.js"
+main = "backend/worker.js"
 compatibility_date = "2024-09-01"
 
 # Non-secret config — safe to commit.
