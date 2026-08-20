@@ -7447,6 +7447,13 @@ strong{color:#1e1e2e}
 const pfLicense = (() => {
   const TRIAL_DAYS=30;
   const PRODUCT='proform';
+  // Fixed 2026-08-20: a device holding either a standalone `proform` token
+  // OR the `synthetixcr` bundle token (which explicitly covers DOCX
+  // Optimizer + ProForm Form Manager) is entitled to run this app. The
+  // strict PRODUCT-only check below used to reject legitimate Synthetix-CR
+  // bundle subscribers outright — see dxLicense.js (DOCX Optimizer) for the
+  // same pattern applied from the start.
+  const ACCEPTED_PRODUCTS=new Set([PRODUCT,'synthetixcr']);
   // Deployed worker URL (backend/worker.js on proform-licensing.workers.dev).
   // Update this if the worker is later moved to a custom domain
   // (e.g. api.proforma-suite.com) or redeployed under a different name.
@@ -7474,7 +7481,7 @@ const pfLicense = (() => {
     let payload;try{payload=JSON.parse(new TextDecoder().decode(b64urlDecode(payloadB64)));}catch{return{valid:false,reason:'malformed'};}
     let ok;try{const key=await importPublicKey();ok=await crypto.subtle.verify({name:'ECDSA',hash:'SHA-256'},key,b64urlDecode(sigB64),new TextEncoder().encode(`${ver}.${payloadB64}`));}catch{return{valid:false,reason:'malformed'};}
     if(!ok)return{valid:false,reason:'bad_signature'};
-    if(payload.p!==PRODUCT)return{valid:false,reason:'wrong_product'};
+    if(!ACCEPTED_PRODUCTS.has(payload.p))return{valid:false,reason:'wrong_product'};
     if(mid&&payload.mid!==mid)return{valid:false,reason:'device_mismatch'};
     return{valid:true,payload};
   }
