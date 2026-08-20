@@ -1,17 +1,56 @@
-// Exercises the new client-side pfLicense module (extracted verbatim from
-// Index.html) inside a sandboxed VM with stubbed browser globals, so we can
-// actually run the trial-caching and signature-verification logic rather
-// than just syntax-checking it.
+// Exercises the client-side pfLicense module (extracted verbatim from
+// ProForm.html) inside a sandboxed VM with stubbed browser globals, so we
+// can actually run the trial-caching and signature-verification logic
+// rather than just syntax-checking it.
+//
+// Fixed 2026-08-19 (two path bugs, unrelated to the subscription pivot):
+//   1. This file used to read '../Index.html' — the app was renamed to
+//      ProForm.html a while back, and Index.html no longer exists.
+//   2. It used to read '../keys_private_jwk.json' / '../keys_public_jwk.json'
+//      — the actual files on disk are named "starter keys private jwk.json"
+//      / "starter keys public jwk.json" (with spaces), one directory up
+//      from backend/.
+// A bigger structural change also landed since this test was written: the
+// backend (this folder) and the marketing site + app bundle now live in two
+// separate folders on disk (Cloudflare Worker/backend/ vs. the consolidated
+// site folder that also holds apps/ProForm/ProForm.html), so a relative
+// path from here can no longer reach ProForm.html at all. Point
+// PROFORM_HTML_PATH at wherever ProForm.html actually lives, e.g.:
+//   PROFORM_HTML_PATH="/path/to/GIT to CS 157/apps/ProForm/ProForm.html" node "test pflicense.mjs"
+//
+// STILL PENDING (not something this test can fake its way around): per
+// worker.js's module doc-comment and SETUP.md, ProForm.html's pfLicense
+// module has NOT yet been updated to check a token's `exp` field or to
+// call the new GET /api/license/refresh endpoint. Once that client-side
+// work is done, add a Scenario 5 here that signs a token with a past `exp`
+// (matching worker.js's signLicense/GRACE_PERIOD_DAYS shape) and confirms
+// pfLicense treats it as "needs re-check" rather than permanently valid —
+// deliberately not added yet since it would test behavior that doesn't
+// exist in the app yet.
 import vm from 'node:vm';
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { webcrypto } from 'node:crypto';
 
-const moduleSrc = fs.readFileSync(new URL('../Index.html', import.meta.url), 'utf8');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const proformHtmlPath = process.env.PROFORM_HTML_PATH
+  || path.join(__dirname, '..', '..', 'GIT to CS 157', 'apps', 'ProForm', 'ProForm.html');
+if (!fs.existsSync(proformHtmlPath)) {
+  console.error(`ProForm.html not found at:\n  ${proformHtmlPath}\nSet PROFORM_HTML_PATH to its real location and re-run.`);
+  process.exit(1);
+}
+const moduleSrc = fs.readFileSync(proformHtmlPath, 'utf8');
 // pull out the pfLicense IIFE the same way it appears in the file
 const start = moduleSrc.indexOf('const pfLicense = (() => {');
 const end = moduleSrc.indexOf('})();', start) + 5;
+if (start === -1 || end === 4) {
+  console.error(`Could not find "const pfLicense = (() => {" in ${proformHtmlPath} — has the module been renamed/restructured?`);
+  process.exit(1);
+}
 const pfLicenseSrc = moduleSrc.slice(start, end);
-console.log('Extracted', pfLicenseSrc.length, 'chars of pfLicense module\n');
+console.log('Extracted', pfLicenseSrc.length, 'chars of pfLicense module from', proformHtmlPath, '\n');
 
 function makeSandbox({ fetchImpl, apiBase } = {}) {
   const store = {};
@@ -115,8 +154,8 @@ async function scenario(title, fn) {
 
   // ── Scenario 4: license activation — valid, wrong device, tampered ──
   await scenario('License activation — sign with the real private key, verify with the embedded public key', async () => {
-    const priv = JSON.parse(fs.readFileSync(new URL('../keys_private_jwk.json', import.meta.url)));
-    const pub = JSON.parse(fs.readFileSync(new URL('../keys_public_jwk.json', import.meta.url)));
+    const priv = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'starter keys private jwk.json'), 'utf8'));
+    const pub = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'starter keys public jwk.json'), 'utf8'));
     // pfLicenseSrc as shipped embeds a specific starter public key — swap in
     // the matching pair we generated for this test so sign/verify line up.
     const pubLine = `const LICENSE_PUBLIC_JWK=${JSON.stringify(pub)};`;

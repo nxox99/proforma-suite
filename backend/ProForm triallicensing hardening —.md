@@ -1,33 +1,35 @@
-# ProForm trial/licensing hardening — 2026-08-18
+# SUPERSEDED — 2026-08-19
 
-## Context
+This file was a session log from 2026-08-18 documenting the initial build
+of the trial/licensing system, written when ProForma Suite's business
+model was still a one-time purchase (no subscriptions, `mode: 'payment'`
+in Stripe, a single `STRIPE_PRICE_ID`). On 2026-08-19 the business model
+changed to monthly subscriptions across four plans (DOCX Optimizer
+$4.99/mo, ProForm Form Manager $10.99/mo, Synthetix-CR bundle $14.99/mo,
+ProRedactor $6.99/mo), which changed:
 
-User raised a concern: the offline app's 60-day free trial (localStorage-only timestamp) could be reset by changing the system clock or clearing browser data, undermining the "try 30/60 days, then buy" business model. Discussed pivoting to an online-only subscription model vs. hardening the existing offline/downloadable model; user chose to harden the offline model and build a separate "ProForm Cloud" subscription product later. Confirmed trial length should be **30 days** (not 60 — the shipped code/docs said 60, user corrected to 30).
+- Stripe Checkout mode: `payment` → `subscription`
+- Price IDs: one (`STRIPE_PRICE_ID`) → four (`STRIPE_PRICE_ID_DOCX`,
+  `STRIPE_PRICE_ID_PROFORM`, `STRIPE_PRICE_ID_SYNTHETIXCR`,
+  `STRIPE_PRICE_ID_PROREDACTOR`)
+- Webhook events: added `customer.subscription.updated` and
+  `customer.subscription.deleted`
+- New endpoints: `GET /api/license/refresh`, `POST /api/billing/portal`
+- Signed license tokens: now carry a short `exp` (grace period) instead
+  of being valid forever, since a subscription can lapse
 
-## Critical findings during investigation (not what was originally asked, but load-bearing)
+The architectural findings in the original version of this file (the
+unprotected client-side activation-key formula, the hidden dev-console
+cheat code, the site's fake `setTimeout`-based checkout, the
+`trial-signup.html` vs `trialsignup.html` filename mismatch) are historical
+facts about what was found and fixed on 2026-08-18 — those are still true
+as history, just no longer describe the current pricing model if read at
+face value. Its content was cleared out here rather than left half-stale;
+the current, accurate reference is:
 
-1. **The premium activation key was never actually protected.** `pfLicense.activate()` checked the entered key against `sha256(machineId + 'PROFORM-LICENSE-v1')` computed entirely client-side, with the formula and suffix sitting in plaintext in the shipped HTML file. Anyone reading the source (trivial — it's a single HTML file by design) could self-compute a permanently valid key for their own device, no Stripe purchase ever required. This is a bigger hole than trial-clock tampering: it defeats paid conversion entirely and permanently.
-2. **A hidden developer-console cheat code shipped in the app.** Typing Shift+P,R,O,K,E,Y anywhere in the running app popped up a dialog showing the user their own valid activation key, computed via the same formula as #1. This was a built-in, no-dev-tools-required paywall bypass baked into every distributed copy of ProForm.html. Removed entirely — flagging here because **any already-distributed copy of the old ProForm.html still has this live** and should be considered a real, not theoretical, issue.
-3. **The marketing site (site/*.html — "ProForma Suite" storefront) was a static mockup with zero real backend wiring.** Payment was `setTimeout` + fake order ID (comment: "Simulate processing — in production replace with Stripe.js"). Trial signup only wrote to localStorage — no lead ever reached the business. License-key lookup on the downloads page used a hardcoded prefix-map "demo." Several pages also had orphaned/broken trailing JS fragments (`/* Clipboard */ });});` with no matching open — a real syntax error, present on 4 different pages) and every "Free Trial" nav link site-wide pointed at `trial-signup.html`/`trial-confirm.html` (hyphenated) while the actual files are `trialsignup.html`/`trialconfirm.html` — a site-wide 404 on every nav link to that page.
+- **"ProForma Suite licensing backend — setup.md"** (in this same folder)
+  — current setup instructions for the subscription model.
 
-## What was built
-
-**Architecture:** trial start is now anchored server-side (Upstash Redis, `SET trial:<deviceId> ... NX` — first call ever for a device wins, permanently) and re-verified against server time on every online launch. Offline launches fall back to the last confirmed status decayed by real elapsed time (never by the system clock), so a clock rollback after confirmation can't restore days, while fully offline/air-gapped use still works exactly as before for that niche (no regression, per the product's own offline-first positioning).
-
-License keys are now ECDSA P-256 signed tokens (`v1.<payload>.<signature>`), issued only by a new Cloudflare Worker after a real Stripe Checkout payment, verified fully offline in the browser via Web Crypto against an embedded **public** key (safe to ship — can verify, can't forge). Chose ECDSA P-256 over Ed25519 specifically for broad `crypto.subtle` browser support matching the app's existing minimum-browser bar.
-
-**Deliverables (all sent to the user via chat on 2026-08-18):**
-- `ProForm.html` (renamed from the uploaded `Index.html` to match every internal cross-reference) — rewritten `pfLicense` module, new activation modal (long-token-friendly textarea, "Buy ProForm" button), updated banner/FAQ copy, dev-console backdoor removed, `TRIAL_DAYS=30`.
-- `README.html`, `Manual.html`, `Legal.html`, `Tutorial.html` — trial length corrected to 30 days everywhere; privacy/trial sections rewritten to accurately disclose the new minimal network check-in (device fingerprint + timestamp for trial verification, + email at purchase) while keeping the core "your form data never leaves your device" claim intact and prominent.
-- `backend/worker.js` — single-file, dependency-free Cloudflare Worker (no npm/bundler needed) implementing `/api/trial/check`, `/api/trial/lead`, `/api/checkout/create`, `/api/stripe/webhook`, `/api/license/by-session`, `/api/license/verify`. Talks to Upstash Redis REST API, Resend, and Stripe's REST API directly (no Stripe SDK, to keep it bundler-free — webhook signature verified manually via HMAC-SHA256 over Web Crypto).
-- `backend/wrangler.toml`, `backend/SETUP.md` — deployment instructions (secrets to set, Upstash key schema, Stripe webhook config, how to generate a real keypair and wire the public half into `ProForm.html`).
-- `backend/starter_keys_public_jwk.json` / `starter_keys_private_jwk.json` — a working example keypair (already embedded in the delivered `ProForm.html` and referenced in `wrangler.toml`'s comments) for immediate end-to-end testing. **Must be rotated before real launch** — treat the private half as burned since it went through this chat.
-- `backend/test_pflicense.mjs`, `backend/test_worker_e2e.mjs` — verification scripts (sandboxed VM re-running the actual extracted client module; a full HTTP-level test of the real worker against fake Upstash/Stripe servers). Both pass; confirmed: trial survives simulated localStorage-clear/clock-rollback once server-anchored, license signatures correctly bind to device and reject tampering, Stripe webhook signature verification correctly accepts valid and rejects tampered signatures.
-- `site/*.html` — `payment.html` rewritten to redirect to real Stripe Checkout (no more raw card-number/CVC fields collected on-page — those never should have been, for PCI-scope reasons); `purchaseconfirm.html` fetches the real issued key by Stripe session id instead of trusting a URL param; `downloads.html`'s key-check calls the real verify endpoint and no longer gates downloads (every app already includes its free trial per the page's own copy, so gating was self-contradictory); `trialsignup.html` now actually POSTs leads to the worker instead of only writing localStorage. Fixed the site-wide `trial-signup.html`/`trial-confirm.html` filename mismatch and the four broken orphaned-script-fragment syntax errors along the way.
-
-## Known gaps / not done (flagged to user, not silently skipped)
-
-- `API_BASE` is left empty (`''`) in every file — the app and site behave exactly as before until the worker is actually deployed and pointed at. This is deliberate (safe default), not an oversight.
-- The homepage storefront's own generic "Buy" modal (`site/index.html`) still redirects to `receipt.html` unconditionally after opening a payment link in a new tab, regardless of whether payment actually succeeded — a real "always claims success" bug, but it covers 3 different apps' generic checkout, not just ProForm, and rewiring it was out of scope for this pass. Flagged, not fixed.
-- `downloads.html`'s installer-style copy ("Run the installer... macOS Gatekeeper... Windows SmartScreen") doesn't match ProForm's actual single-HTML-file, no-installation nature (per Manual.html §1) — left as-is since that page is shared across the whole "ProForma Suite" and other apps in it may genuinely have installers.
-- No rate limiting on the worker endpoints yet (Upstash could support a simple counter-based limiter if abuse becomes a problem).
+This stub is left in place (rather than removed) only because this
+session's tools can't delete files on your device — feel free to delete
+it yourself once you've confirmed you don't need the old content.
